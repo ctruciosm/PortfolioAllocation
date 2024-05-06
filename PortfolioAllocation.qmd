@@ -1,0 +1,296 @@
+---
+title: "Alocação de carteiras de investimentos baseadas em risco"
+author: "Prof. Carlos Trucíos </br> ctrucios@unicamp.br"
+Email: "ctrucios@unicamp.br"
+institute: "Instituto de Matemática, Estatística e Computação Científica (IMECC), </br> Universidade Estadual de Campinas (UNICAMP)."
+knitr:
+    opts_chunk: 
+      fig.align: 'center'
+execute:
+    message: false
+    warning: false
+format:
+    revealjs:
+        slide-number: true
+        show-slide-number: print
+        self-contained: false
+        chalkboard: true
+        width: 1600
+        height: 900
+        theme: [default, styles.scss]
+        incremental: true
+        code-fold: true
+        logo: "imagens/imecc.png"
+        footer: "Carlos Trucíos (IMECC/UNICAMP)  |  ENCPOS - Risk-Based Portfolio Allocation |  [ctruciosm.github.io](https://ctruciosm.github.io/)"
+        highlight-style: "a11y"
+        title-slide-attributes:
+            data-background-image: "imagens/unicamp.png"
+            data-background-size: 20%
+            data-background-position: 99% 5%
+            data-background-opacity: "1"
+toc: true
+toc-title: "Agenda"
+toc-depth: 1
+---
+
+# Introdução
+## Introdução
+
+<center>
+![](imagens/eggs.png)
+<center>
+
+
+## Introdução
+
+- Suponha que temos 2 ativos, $A$ e $B$, com retornos esperados de $3$ e $5$ e riscos associados de $2$ e $4$, respectivamente. 
+- Como alocaria seus recursos de forma a maximizar seu retorno esperado e minimizar seu risco?
+- Seja $\omega$ e $\mu$ os vetores (coluna) de pesos e retornos esperados, respectivamente e seja $\Sigma$ a matriz de covariância associada (risco). Queremos maximizar $$\mu' \omega - \lambda \omega' \Sigma \omega,$$ em que $\lambda$ é o parâmetro de aversão ao risco (quanto maior, mais advessos ao risco somos)
+
+# Markowitz
+
+## Markowitz
+
+```{r}
+#| echo: true
+mu <- c(3, 5)
+S <- diag(c(2, 4))
+rp <- c()
+risco <- c()
+for (i in 1:1000) {
+  aux <- runif(1)
+  omega <- c(aux, 1 - aux)
+  rp[i] <- sum(omega * mu)
+  risco[i] <- as.numeric(omega %*% S %*% omega)
+}
+plot(risco, rp)
+```
+
+
+## Markowitz
+
+Quando $\lambda$ é grande, o problema a ser resolvido, torna-se, aproximadamente, minimizar $$\omega' \Sigma, \omega,$$
+
+<center>
+Carteira conhecida como **carteira de variância mínima**.
+</center>
+
+. . . 
+
+- Vamos assumir que todo nosso capital será alocado, ou seja $\displaystyle \sum_{i = 1}^N\omega_i = 1$
+- Então, queremos minimizar com restrição
+
+. . . 
+
+
+
+## Markowitz
+
+Seja um portfolio com $N$ ativos com matriz de covariância $\Sigma$.  Queremos minimizar $$L(\boldsymbol{\omega}, \lambda) = \boldsymbol{\omega}' \Sigma \boldsymbol{\omega} + \lambda (\boldsymbol{1}'\boldsymbol{\omega} - 1),$$ em que $\boldsymbol{1} = [1, 1, \cdots, 1]'.$
+
+
+. . . 
+
+
+Derivando _w.r.t._  $\boldsymbol{\omega}$ e $\lambda$ e igualando a zero
+
+- $\dfrac{\partial L}{\partial \boldsymbol{\omega}} = 2 \Sigma \boldsymbol{\omega} + \lambda \boldsymbol{1} = 0$
+- $\dfrac{\partial L}{\partial \lambda} = \boldsymbol{1}' \boldsymbol{\omega} - 1 = 0$
+
+. . . 
+
+Assim, $$\Sigma \boldsymbol{\omega} = - \dfrac{\lambda \boldsymbol{1}}{2} \rightarrow \boldsymbol{\omega} = \dfrac{-\lambda}{2} \Sigma^{-1} \boldsymbol{1}$$
+
+
+## Markowitz
+
+
+$$1 = \boldsymbol{1}' \boldsymbol{\omega} =   \dfrac{-\lambda}{2} \boldsymbol{1}' \Sigma^{-1} \boldsymbol{1} \rightarrow \lambda = \dfrac{-2}{\boldsymbol{1}' \Sigma^{-1} \boldsymbol{1}}.$$
+
+Assim, 
+
+
+$$\boldsymbol{\omega} = \dfrac{\Sigma^{-1} \boldsymbol{1}}{\boldsymbol{1}' \Sigma^{-1} \boldsymbol{1}},$$ são os pesos ótimos da carteira de variância mínima.
+
+
+
+
+## Markowitz
+
+
+-  Na prática, $\Sigma$ não é conhecido, devendo ser estimado com os dados ($\hat{\Sigma}$).
+- Utilizar $\hat{\Sigma}$ em lugar de $\Sigma$ implica em erro de estimação.
+- Isto faz com que os pesos estejam alocados em poucos ativos, existe pouca diversificação e o desempenhho fora da amostra seja pobre `r emo::ji("sad")`
+
+. . . 
+
+::: {.callout-note}
+### Observações:
+
+- Na prática é muito dificil estimar $\mu$. É por isso que carteiras baseadas em rico ($\Sigma$) são preferidas.
+- É comúm impor a restrição de que $\omega_i \geq 0$ (*no-short-selling constraints* ou restrição de não venda a descoberto).
+:::
+
+
+# Hands-On I
+
+## Hands-On I
+
+Utilizando retornos mensais das ações na B3, calcularemos os pesos para a carteira de variância mínima. Utilizaremos os pacotes do R `yfR`, `RiskPortfolios`, `tidyr` e `dplyr`.
+
+```{r}
+#| echo: true
+library(yfR)
+library(dplyr)
+library(tidyr)
+# Lista de ações que fazem parte do índice Ibovespa
+acoes <- yf_index_composition("IBOV")
+acoes$ticker
+```
+
+
+
+## Hands-On I
+
+```{r}
+#| echo: true
+# Formato Yahoo Finance
+ibov_tickers <- paste0(acoes$ticker, ".SA")
+# Baixando Preços
+precos <- yf_get(tickers = ibov_tickers, 
+                 first_date = "2015-01-01",
+                 last_date  = "2024-04-30", 
+                 freq_data = "monthly")
+glimpse(precos)
+```
+
+## Hands-On
+
+```{r}
+#| echo: true
+# Estimamos a matriz de covariância
+Sigma <- precos |> 
+  select(ref_date, ticker, ret_adjusted_prices) |> 
+  pivot_wider(id_cols = ref_date, values_from = ret_adjusted_prices, names_from = ticker) |> 
+  drop_na() |> 
+  select(-ref_date) |> 
+  cov()
+```
+
+. . . 
+
+
+```{r}
+#| echo: true
+# Calculamos os pesos ótimos
+library(RiskPortfolios)
+omega <- optimalPortfolio(Sigma, control = list(type = "minvol", constraint = "lo"))
+round(omega, 4)
+```
+
+
+# Outros portfolios
+## Outros portfolios
+
+### Volatilidade inversa
+
+Proposto por [Leote De Carvalho et al. (2012)](https://www.pm-research.com/content/iijpormgmt/38/3/56), os pesos são obtidos como:
+
+
+$$\boldsymbol{\omega} = \Big( \dfrac{1/\sigma_1}{ \displaystyle \sum_{j = 1}^N 1/\sigma_j}, \cdots, \dfrac{1/\sigma_N}{ \displaystyle \sum_{j = 1}^N 1/\sigma_j} \Big)'$$
+
+. . . 
+
+
+::: {.callout-note}
+### No R
+<center>
+`optimalPortfolio(Sigma, control = list(type = 'invvol', constraint = 'lo'))`
+</center>
+:::
+
+
+## Outros portfolios
+
+### Diversificação máxima
+
+Proposto por [Choueifaty and Coignard (2008)](https://doi.org/10.3905/JPM.2008.35.1.40), o objetivo é maximizar a razão $$DR = \dfrac{\boldsymbol{\omega}'\boldsymbol{\sigma}}{\sqrt{\boldsymbol{\omega}' \Sigma \boldsymbol{\omega}}},$$ sujeito á restrição de que $\boldsymbol{1}' \boldsymbol{\omega} = 1$ e $\omega_i \geq 0$ e em que $\boldsymbol{\sigma} = \sqrt{diag(\Sigma)}$.
+
+. . . 
+
+
+::: {.callout-note}
+### No R
+<center>
+`optimalPortfolio(Sigma, control = list(type = 'maxdiv', constraint = 'lo'))`
+</center>
+:::
+
+
+## Outros portfolios
+
+### Igual contribuição ao risco
+
+A ideia é que cada um dos ativos tenham a mesma contribuição ao risco (volatilidade) da carteira, ou seja, que a proporção da contribuição ao risco (volatilidade) de cada ativo deve ser $1/N$.
+
+. . . 
+
+Os pesos são obtidos minimizando $$\displaystyle \sum_{i = 1}^N (\%RC_i - 1/N)^2,$$ sujeito á restrição de que $\boldsymbol{1}' \boldsymbol{\omega} = 1$, em que $\%RC_i = \omega_i [\Sigma \boldsymbol{\omega}]_i / \boldsymbol{\omega}' \Sigma \boldsymbol{\omega}$
+
+
+. . . 
+
+
+::: {.callout-note}
+### No R
+<center>
+`optimalPortfolio(Sigma, control = list(type = 'erc', constraint = 'lo'))`
+</center>
+:::
+
+
+
+## Outros portfolios
+
+### Máxima decorrelation
+
+Proposto por [Christoffersen et al. (2012)](https://academic.oup.com/rfs/article-abstract/25/12/3711/1594463?login=false), esta estratégia pode ser vista como um caso particular do portfolio de variância mínima mas com $\rho$ em lugar de $\Sigma$
+
+
+::: {.callout-note}
+### No R
+<center>
+`optimalPortfolio(Sigma, control = list(type = 'maxdec', constraint = 'lo'))`
+</center>
+:::
+
+
+# Hands-On II
+## Hands-On II
+
+Utilizando os dados anteriores, calcularemos os pesos ótimos utiliando as estratégias vistas anteriormente.
+
+. . . 
+
+```{r}
+#| echo: true
+omega_invol <- optimalPortfolio(Sigma, control = list(type = 'invvol', constraint = 'lo'))
+omega_erc <- optimalPortfolio(Sigma, control = list(type = 'erc', constraint = 'lo'))
+omega_maxdiv <- optimalPortfolio(Sigma, control = list(type = 'maxdiv', constraint = 'lo'))
+omega_maxdec <- optimalPortfolio(Sigma, control = list(type = 'maxdec', constraint = 'lo'))
+```
+
+
+# ML Risk-Based Portfolios
+## ML Risk-Based Portfolios
+
+
+- Recentemente, novas estratégias de alocação de carteiras baseadas em _machine learning_ tem surgido na literatura.
+- Algumas destas estratégias utilizam algoritmos de clusterização hierárquica (HRP, HCAA, HERC, DHRP).
+- Estas estratégias surgem para superar algumas das limitações da estratégia de Markowitz, bem como incluir a ideia de que "sistemas complexos, como o mercado financeiro, estão organizados de forma hierárquica"
+
+
+# Avaliando Portfolios
+## Avaliando Portfolios
+
+
