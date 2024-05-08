@@ -68,9 +68,28 @@ plot(risco, rp)
 ```
 
 
+## Markowitz (1952)
+
+```{r}
+#| echo: true
+mu <- c(3, 5)
+S <- matrix(c(2, 1.4142, 1.4142, 4), 2, 2)
+rp <- c()
+risco <- c()
+for (i in 1:1000) {
+  aux <- runif(1)
+  omega <- c(aux, 1 - aux)
+  rp[i] <- sum(omega * mu)
+  risco[i] <- as.numeric(omega %*% S %*% omega)
+}
+plot(risco, rp)
+```
+
+
+
 ## Markowitz
 
-Quando $\lambda$ é grande, o problema a ser resolvido, torna-se, aproximadamente, minimizar $$\omega' \Sigma, \omega,$$
+Quando $\lambda$ é grande, o problema a ser resolvido, torna-se, aproximadamente, minimizar $$\omega' \Sigma \omega,$$
 
 <center>
 [Carteira conhecida como **carteira de variância mínima**.]{style="color:red;"}
@@ -224,7 +243,7 @@ round(omega, 4)
 - Também chamada de estratégia ingênua ou $1/N$.
 - É a estratégia mais simples e não precisa cálculos difíceis nem resolver problemas de otimização.
 - Para um conjunto de $N$ ativos financeiros, os pesos são obtidos como $$\omega_i = 1/N, \quad \forall i= 1, \cdots, N.$$
-- Apesar da sua simplicidade, diversos autores mencionam que o desempenho fora da amostra desta estratégia é dificilmente superado por métodos mais complexos (DeMiguel et al. 2009)[https://doi.org/10.1093/acprof:oso/9780199744282.003.0034]
+- Apesar da sua simplicidade, diversos autores mencionam que o desempenho fora da amostra desta estratégia é dificilmente superado por métodos mais complexos [DeMiguel et al. 2009](https://doi.org/10.1093/acprof:oso/9780199744282.003.0034)
 
 
 

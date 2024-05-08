@@ -465,9 +465,29 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 
 </div>
 <img data-src="PortfolioAllocation_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="markowitz-1952-1" class="slide level2">
+<h2>Markowitz (1952)</h2>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>S <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="fl">1.4142</span>, <span class="fl">1.4142</span>, <span class="dv">4</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>rp <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb2-4"><a href="#cb2-4"></a>risco <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb2-6"><a href="#cb2-6"></a>  aux <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>  omega <span class="ot">&lt;-</span> <span class="fu">c</span>(aux, <span class="dv">1</span> <span class="sc">-</span> aux)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>  rp[i] <span class="ot">&lt;-</span> <span class="fu">sum</span>(omega <span class="sc">*</span> mu)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>  risco[i] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(omega <span class="sc">%*%</span> S <span class="sc">%*%</span> omega)</span>
+<span id="cb2-10"><a href="#cb2-10"></a>}</span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="fu">plot</span>(risco, rp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="PortfolioAllocation_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="markowitz-1" class="slide level2">
 <h2>Markowitz</h2>
-<p>Quando <span class="math inline">\(\lambda\)</span> é grande, o problema a ser resolvido, torna-se, aproximadamente, minimizar <span class="math display">\[\omega' \Sigma, \omega,\]</span></p>
+<p>Quando <span class="math inline">\(\lambda\)</span> é grande, o problema a ser resolvido, torna-se, aproximadamente, minimizar <span class="math display">\[\omega' \Sigma \omega,\]</span></p>
 <center>
 <span style="color:red;">Carteira conhecida como <strong>carteira de variância mínima</strong>.</span>
 </center>
@@ -512,11 +532,11 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(yfR)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Lista de ações que fazem parte do índice Ibovespa</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>acoes <span class="ot">&lt;-</span> <span class="fu">yf_index_composition</span>(<span class="st">"IBOV"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(yfR)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># Lista de ações que fazem parte do índice Ibovespa</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>acoes <span class="ot">&lt;-</span> <span class="fu">yf_index_composition</span>(<span class="st">"IBOV"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Error in dplyr::rename(., ticker = Ticker, company = Company, industry = Industry) : 
@@ -525,7 +545,7 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>acoes<span class="sc">$</span>ticker</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>acoes<span class="sc">$</span>ticker</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "ALPA4"  "ABEV3"  "AMER3"  "AZUL4"  "B3SA3"  "BBAS3"  "BBSE3"  "BBDC3" 
@@ -547,14 +567,14 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Formato Yahoo Finance</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>ibov_tickers <span class="ot">&lt;-</span> <span class="fu">paste0</span>(acoes<span class="sc">$</span>ticker, <span class="st">".SA"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co"># Baixando Preços</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a>precos <span class="ot">&lt;-</span> <span class="fu">yf_get</span>(<span class="at">tickers =</span> ibov_tickers, </span>
-<span id="cb6-5"><a href="#cb6-5"></a>                 <span class="at">first_date =</span> <span class="st">"2015-01-01"</span>,</span>
-<span id="cb6-6"><a href="#cb6-6"></a>                 <span class="at">last_date  =</span> <span class="st">"2024-04-30"</span>, </span>
-<span id="cb6-7"><a href="#cb6-7"></a>                 <span class="at">freq_data =</span> <span class="st">"monthly"</span>)</span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="fu">glimpse</span>(precos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Formato Yahoo Finance</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>ibov_tickers <span class="ot">&lt;-</span> <span class="fu">paste0</span>(acoes<span class="sc">$</span>ticker, <span class="st">".SA"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># Baixando Preços</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>precos <span class="ot">&lt;-</span> <span class="fu">yf_get</span>(<span class="at">tickers =</span> ibov_tickers, </span>
+<span id="cb7-5"><a href="#cb7-5"></a>                 <span class="at">first_date =</span> <span class="st">"2015-01-01"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6"></a>                 <span class="at">last_date  =</span> <span class="st">"2024-04-30"</span>, </span>
+<span id="cb7-7"><a href="#cb7-7"></a>                 <span class="at">freq_data =</span> <span class="st">"monthly"</span>)</span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="fu">glimpse</span>(precos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 7,613
@@ -567,9 +587,9 @@ $ price_high             &lt;dbl&gt; 17.87, 18.88, 18.97, 19.69, 20.29, 19.24, 1
 $ price_low              &lt;dbl&gt; 15.54, 17.16, 17.35, 18.42, 18.15, 18.09, 18.39…
 $ price_close            &lt;dbl&gt; 17.69, 18.31, 18.48, 18.95, 18.53, 18.99, 19.47…
 $ price_adjusted         &lt;dbl&gt; 12.85257, 13.30303, 13.49287, 13.83603, 13.5293…
-$ ret_adjusted_prices    &lt;dbl&gt; NA, 0.035047999, 0.014270207, 0.025432769, -0.0…
+$ ret_adjusted_prices    &lt;dbl&gt; NA, 0.035048152, 0.014270053, 0.025432767, -0.0…
 $ ret_closing_prices     &lt;dbl&gt; NA, 0.035047935, 0.009284599, 0.025432955, -0.0…
-$ cumret_adjusted_prices &lt;dbl&gt; 1.0000000, 1.0350480, 1.0498183, 1.0765181, 1.0…</code></pre>
+$ cumret_adjusted_prices &lt;dbl&gt; 1.000000, 1.035048, 1.049818, 1.076518, 1.05265…</code></pre>
 </div>
 </div>
 </section>
@@ -578,13 +598,13 @@ $ cumret_adjusted_prices &lt;dbl&gt; 1.0000000, 1.0350480, 1.0498183, 1.0765181,
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Estimamos a matriz de covariância</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>Sigma <span class="ot">&lt;-</span> precos <span class="sc">|&gt;</span> </span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">select</span>(ref_date, ticker, ret_adjusted_prices) <span class="sc">|&gt;</span> </span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> ref_date, <span class="at">values_from =</span> ret_adjusted_prices, <span class="at">names_from =</span> ticker) <span class="sc">|&gt;</span> </span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">select</span>(<span class="sc">-</span>ref_date) <span class="sc">|&gt;</span> </span>
-<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">cov</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Estimamos a matriz de covariância</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>Sigma <span class="ot">&lt;-</span> precos <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">select</span>(ref_date, ticker, ret_adjusted_prices) <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> ref_date, <span class="at">values_from =</span> ret_adjusted_prices, <span class="at">names_from =</span> ticker) <span class="sc">|&gt;</span> </span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">select</span>(<span class="sc">-</span>ref_date) <span class="sc">|&gt;</span> </span>
+<span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">cov</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -593,10 +613,10 @@ $ cumret_adjusted_prices &lt;dbl&gt; 1.0000000, 1.0350480, 1.0498183, 1.0765181,
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>n <span class="ot">&lt;-</span> <span class="fu">ncol</span>(Sigma)</span>
-<span id="cb9-2"><a href="#cb9-2"></a>ones <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">nrow =</span> n)</span>
-<span id="cb9-3"><a href="#cb9-3"></a>w <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="fu">t</span>(ones) <span class="sc">%*%</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> ones)) <span class="sc">*</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> ones</span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="fu">round</span>(w, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>n <span class="ot">&lt;-</span> <span class="fu">ncol</span>(Sigma)</span>
+<span id="cb10-2"><a href="#cb10-2"></a>ones <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">nrow =</span> n)</span>
+<span id="cb10-3"><a href="#cb10-3"></a>w <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="fu">t</span>(ones) <span class="sc">%*%</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> ones)) <span class="sc">*</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> ones</span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="fu">round</span>(w, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>             [,1]
@@ -676,81 +696,81 @@ YDUQ3.SA  -0.0309</code></pre>
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Calculamos os pesos ótimos</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">library</span>(RiskPortfolios)</span>
-<span id="cb11-3"><a href="#cb11-3"></a>omega <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"minvol"</span>))</span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="fu">cbind</span>(w, omega)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Calculamos os pesos ótimos</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">library</span>(RiskPortfolios)</span>
+<span id="cb12-3"><a href="#cb12-3"></a>omega <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"minvol"</span>))</span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="fu">cbind</span>(w, omega)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                omega
-ABEV3.SA   0.0786347326  0.0786347326
-ALPA4.SA  -0.0014320023 -0.0014320023
-AMER3.SA  -0.0038011728 -0.0038011728
-B3SA3.SA   0.0515600974  0.0515600974
-BBAS3.SA   0.0196830812  0.0196830812
-BBDC3.SA  -0.3320598673 -0.3320598673
-BBDC4.SA   0.3777946610  0.3777946610
-BBSE3.SA   0.0372296494  0.0372296494
-BEEF3.SA   0.0453380341  0.0453380341
-BPAN4.SA   0.0248403441  0.0248403441
-BRAP4.SA  -0.0654025574 -0.0654025574
-BRFS3.SA  -0.0708040177 -0.0708040177
-BRKM5.SA  -0.0185495794 -0.0185495794
-CCRO3.SA  -0.0179445905 -0.0179445905
-CIEL3.SA  -0.0631241017 -0.0631241017
-CMIG4.SA   0.0507828387  0.0507828387
-COGN3.SA  -0.1203369800 -0.1203369800
-CPFE3.SA   0.1208752453  0.1208752453
-CPLE6.SA  -0.2105082282 -0.2105082282
-CSAN3.SA  -0.0088513631 -0.0088513631
-CSNA3.SA  -0.0136080861 -0.0136080861
-CVCB3.SA  -0.1092115125 -0.1092115125
-CYRE3.SA   0.1186912810  0.1186912810
-DXCO3.SA   0.0764814631  0.0764814631
-ECOR3.SA   0.0201079432  0.0201079432
-EGIE3.SA   0.0691560957  0.0691560957
-ELET3.SA  -0.1359985869 -0.1359985869
-ELET6.SA   0.1787184490  0.1787184490
-EMBR3.SA   0.0098436782  0.0098436782
-ENEV3.SA   0.0627850021  0.0627850021
-ENGI11.SA  0.0539004519  0.0539004519
-EQTL3.SA   0.0191467346  0.0191467346
-EZTC3.SA  -0.0305211569 -0.0305211569
-FLRY3.SA   0.1232092961  0.1232092961
-GGBR4.SA   0.2214576376  0.2214576376
-GOAU4.SA  -0.2255981241 -0.2255981241
-GOLL4.SA  -0.0161976972 -0.0161976972
-HYPE3.SA  -0.0589504926 -0.0589504926
-ITSA4.SA  -0.1147501381 -0.1147501381
-ITUB4.SA   0.1635568149  0.1635568149
-JBSS3.SA   0.0580773864  0.0580773864
-JHSF3.SA  -0.0709128651 -0.0709128651
-KLBN11.SA  0.0643164487  0.0643164487
-LREN3.SA   0.1182139354  0.1182139354
-MGLU3.SA  -0.0203984189 -0.0203984189
-MRFG3.SA   0.0475197326  0.0475197326
-MRVE3.SA  -0.0747076014 -0.0747076014
-MULT3.SA  -0.0789088698 -0.0789088698
-PCAR3.SA  -0.0003503613 -0.0003503613
-PETR3.SA   0.0665394952  0.0665394952
-PETR4.SA   0.0102310287  0.0102310287
-PRIO3.SA  -0.0253592081 -0.0253592081
-QUAL3.SA   0.0123295134  0.0123295134
-RADL3.SA   0.1213133847  0.1213133847
-RAIL3.SA   0.0655419009  0.0655419009
-RENT3.SA  -0.0561039179 -0.0561039179
-SANB11.SA -0.1104023642 -0.1104023642
-SBSP3.SA   0.0299361227  0.0299361227
-SUZB3.SA  -0.0113132150 -0.0113132150
-TAEE11.SA  0.1023573566  0.1023573566
-TIMS3.SA  -0.0087547888 -0.0087547888
-TOTS3.SA  -0.0667198043 -0.0667198043
-UGPA3.SA   0.0627896870  0.0627896870
-USIM5.SA  -0.0728206052 -0.0728206052
-VALE3.SA   0.2378865964  0.2378865964
-VIVT3.SA   0.2324226775  0.2324226775
-WEGE3.SA   0.0919959766  0.0919959766
-YDUQ3.SA  -0.0308624991 -0.0308624991</code></pre>
+ABEV3.SA   0.0786350689  0.0786350689
+ALPA4.SA  -0.0014322726 -0.0014322726
+AMER3.SA  -0.0038017074 -0.0038017074
+B3SA3.SA   0.0515619702  0.0515619702
+BBAS3.SA   0.0196825114  0.0196825114
+BBDC3.SA  -0.3320624124 -0.3320624124
+BBDC4.SA   0.3777990914  0.3777990914
+BBSE3.SA   0.0372322502  0.0372322502
+BEEF3.SA   0.0453388052  0.0453388052
+BPAN4.SA   0.0248406715  0.0248406715
+BRAP4.SA  -0.0654024111 -0.0654024111
+BRFS3.SA  -0.0708044364 -0.0708044364
+BRKM5.SA  -0.0185489298 -0.0185489298
+CCRO3.SA  -0.0179438898 -0.0179438898
+CIEL3.SA  -0.0631240399 -0.0631240399
+CMIG4.SA   0.0507830733  0.0507830733
+COGN3.SA  -0.1203370761 -0.1203370761
+CPFE3.SA   0.1208765314  0.1208765314
+CPLE6.SA  -0.2105085170 -0.2105085170
+CSAN3.SA  -0.0088507012 -0.0088507012
+CSNA3.SA  -0.0136080786 -0.0136080786
+CVCB3.SA  -0.1092112779 -0.1092112779
+CYRE3.SA   0.1186904391  0.1186904391
+DXCO3.SA   0.0764817009  0.0764817009
+ECOR3.SA   0.0201075972  0.0201075972
+EGIE3.SA   0.0691546501  0.0691546501
+ELET3.SA  -0.1359997790 -0.1359997790
+ELET6.SA   0.1787196325  0.1787196325
+EMBR3.SA   0.0098437811  0.0098437811
+ENEV3.SA   0.0627844908  0.0627844908
+ENGI11.SA  0.0538993399  0.0538993399
+EQTL3.SA   0.0191477884  0.0191477884
+EZTC3.SA  -0.0305204037 -0.0305204037
+FLRY3.SA   0.1232080430  0.1232080430
+GGBR4.SA   0.2214566537  0.2214566537
+GOAU4.SA  -0.2255977573 -0.2255977573
+GOLL4.SA  -0.0161976597 -0.0161976597
+HYPE3.SA  -0.0589512762 -0.0589512762
+ITSA4.SA  -0.1147549390 -0.1147549390
+ITUB4.SA   0.1635579072  0.1635579072
+JBSS3.SA   0.0580783874  0.0580783874
+JHSF3.SA  -0.0709134864 -0.0709134864
+KLBN11.SA  0.0643152919  0.0643152919
+LREN3.SA   0.1182149477  0.1182149477
+MGLU3.SA  -0.0203983305 -0.0203983305
+MRFG3.SA   0.0475191690  0.0475191690
+MRVE3.SA  -0.0747072038 -0.0747072038
+MULT3.SA  -0.0789099486 -0.0789099486
+PCAR3.SA  -0.0003506331 -0.0003506331
+PETR3.SA   0.0665380413  0.0665380413
+PETR4.SA   0.0102317400  0.0102317400
+PRIO3.SA  -0.0253594817 -0.0253594817
+QUAL3.SA   0.0123290623  0.0123290623
+RADL3.SA   0.1213127360  0.1213127360
+RAIL3.SA   0.0655419071  0.0655419071
+RENT3.SA  -0.0561043642 -0.0561043642
+SANB11.SA -0.1104021669 -0.1104021669
+SBSP3.SA   0.0299357906  0.0299357906
+SUZB3.SA  -0.0113126407 -0.0113126407
+TAEE11.SA  0.1023567245  0.1023567245
+TIMS3.SA  -0.0087522090 -0.0087522090
+TOTS3.SA  -0.0667197905 -0.0667197905
+UGPA3.SA   0.0627896669  0.0627896669
+USIM5.SA  -0.0728202533 -0.0728202533
+VALE3.SA   0.2378869389  0.2378869389
+VIVT3.SA   0.2324206493  0.2324206493
+WEGE3.SA   0.0919969522  0.0919969522
+YDUQ3.SA  -0.0308619288 -0.0308619288</code></pre>
 </div>
 </div>
 </section>
@@ -759,7 +779,7 @@ YDUQ3.SA  -0.0308624991 -0.0308624991</code></pre>
 <ul>
 <li class="fragment">Na prática, <span class="math inline">\(\Sigma\)</span> não é conhecido, devendo ser estimado com os dados (<span class="math inline">\(\hat{\Sigma}\)</span>).</li>
 <li class="fragment">Utilizar <span class="math inline">\(\hat{\Sigma}\)</span> em lugar de <span class="math inline">\(\Sigma\)</span> implica em erro de estimação.</li>
-<li class="fragment">Isto faz com que os pesos estejam alocados em poucos ativos, existe pouca diversificação e o desempenhho fora da amostra seja pobre 🙍</li>
+<li class="fragment">Isto faz com que os pesos estejam alocados em poucos ativos, existe pouca diversificação e o desempenhho fora da amostra seja pobre 😭</li>
 <li class="fragment">Para lidar com este problema, diversas abordagens tem sido propostas.</li>
 </ul>
 <div class="fragment">
@@ -786,8 +806,8 @@ YDUQ3.SA  -0.0308624991 -0.0308624991</code></pre>
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>omega <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"minvol"</span>, <span class="at">constraint =</span> <span class="st">"lo"</span>))</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">round</span>(omega, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>omega <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"minvol"</span>, <span class="at">constraint =</span> <span class="st">"lo"</span>))</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">round</span>(omega, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] 0.0844 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0674 0.0298 0.0000
@@ -812,7 +832,7 @@ YDUQ3.SA  -0.0308624991 -0.0308624991</code></pre>
 <li class="fragment">Também chamada de estratégia ingênua ou <span class="math inline">\(1/N\)</span>.</li>
 <li class="fragment">É a estratégia mais simples e não precisa cálculos difíceis nem resolver problemas de otimização.</li>
 <li class="fragment">Para um conjunto de <span class="math inline">\(N\)</span> ativos financeiros, os pesos são obtidos como <span class="math display">\[\omega_i = 1/N, \quad \forall i= 1, \cdots, N.\]</span></li>
-<li class="fragment">Apesar da sua simplicidade, diversos autores mencionam que o desempenho fora da amostra desta estratégia é dificilmente superado por métodos mais complexos (DeMiguel et al.&nbsp;2009)[https://doi.org/10.1093/acprof:oso/9780199744282.003.0034]</li>
+<li class="fragment">Apesar da sua simplicidade, diversos autores mencionam que o desempenho fora da amostra desta estratégia é dificilmente superado por métodos mais complexos <a href="https://doi.org/10.1093/acprof:oso/9780199744282.003.0034">DeMiguel et al.&nbsp;2009</a></li>
 </ul>
 </section>
 <section id="outros-portfolios-2" class="slide level2">
@@ -923,10 +943,10 @@ YDUQ3.SA  -0.0308624991 -0.0308624991</code></pre>
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>omega_invol <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'invvol'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
-<span id="cb15-2"><a href="#cb15-2"></a>omega_erc <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'erc'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
-<span id="cb15-3"><a href="#cb15-3"></a>omega_maxdiv <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdiv'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
-<span id="cb15-4"><a href="#cb15-4"></a>omega_maxdec <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdec'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>omega_invol <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'invvol'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb16-2"><a href="#cb16-2"></a>omega_erc <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'erc'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb16-3"><a href="#cb16-3"></a>omega_maxdiv <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdiv'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb16-4"><a href="#cb16-4"></a>omega_maxdec <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdec'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div>
