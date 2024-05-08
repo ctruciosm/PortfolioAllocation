@@ -44,13 +44,13 @@ toc-depth: 1
 ## Introdução
 
 - Suponha que temos 2 ativos, $A$ e $B$, nos quais estamos interessados em investir. Como alocaria seus recursos neste investimento?
-- Suponha que temos 2 ativos, $A$ e $B$, com retornos esperados de $3$ e $5$ e riscos associados de $2$ e $4$, respectivamente. 
-- Como alocaria seus recursos de forma a maximizar seu retorno esperado e minimizar seu risco?
+- Suponha que temos 2 ativos, $A$ e $B$, com retornos esperados de $3$ e $5$ e variâncias iguais $2$ e $4$, respectivamente. Como alocaria seus recursos de forma a maximizar seu retorno esperado e minimizar seu risco?
+- Suponha que temos 2 ativos, $A$ e $B$, com retornos esperados de $3$ e $5$ e variâncias iguais $2$ e $4$, respectivamente e correlação igual a 0.5. Como alocaria seus recursos de forma a maximizar seu retorno esperado e minimizar seu risco?
 - Seja $\omega$ e $\mu$ os vetores (coluna) de pesos e retornos esperados, respectivamente e seja $\Sigma$ a matriz de covariância associada (risco). Queremos maximizar $$\mu' \omega - \lambda \omega' \Sigma \omega,$$ em que $\lambda$ é o parâmetro de aversão ao risco (quanto maior, mais advessos ao risco somos)
 
 # Markowitz
 
-## Markowitz
+## Markowitz (1952)
 
 ```{r}
 #| echo: true
@@ -219,9 +219,20 @@ round(omega, 4)
 # Outros portfolios
 ## Outros portfolios
 
+### Pesos iguais
+
+- Também chamada de estratégia ingênua ou $1/N$.
+- É a estratégia mais simples e não precisa cálculos difíceis nem resolver problemas de otimização.
+- Para um conjunto de $N$ ativos financeiros, os pesos são obtidos como $$\omega_i = 1/N, \quad \forall i= 1, \cdots, N.$$
+- Apesar da sua simplicidade, diversos autores mencionam que o desempenho fora da amostra desta estratégia é dificilmente superado por métodos mais complexos (DeMiguel et al. 2009)[https://doi.org/10.1093/acprof:oso/9780199744282.003.0034]
+
+
+
+## Outros portfolios
+
 ### Volatilidade inversa
 
-Proposto por [Leote De Carvalho et al. (2012)](https://www.pm-research.com/content/iijpormgmt/38/3/56), os pesos são obtidos como:
+Proposto por [Leote De Carvalho et al. (2012)](https://www.pm-research.com/content/iijpormgmt/38/3/56), esta estratégia não leva em consideração covariâncias, mas apenas variâncias. Os pesos são obtidos de forma proporcional ao inverso da volatilidade, para sermos mais explicitos, os pesos são obtidos como:
 
 
 $$\boldsymbol{\omega} = \Big( \dfrac{1/\sigma_1}{ \displaystyle \sum_{j = 1}^N 1/\sigma_j}, \cdots, \dfrac{1/\sigma_N}{ \displaystyle \sum_{j = 1}^N 1/\sigma_j} \Big)'$$
@@ -246,6 +257,11 @@ Proposto por [Choueifaty and Coignard (2008)](https://doi.org/10.3905/JPM.2008.3
 . . . 
 
 
+Note que no caso extyremos de que a carteira esteja formada po apenas um ativo, $DR = 1$, implicando uma carteira pobremente diversificada.
+
+. . . 
+
+
 ::: {.callout-note}
 ### No R
 <center>
@@ -258,11 +274,15 @@ Proposto por [Choueifaty and Coignard (2008)](https://doi.org/10.3905/JPM.2008.3
 
 ### Igual contribuição ao risco
 
-A ideia é que cada um dos ativos tenham a mesma contribuição ao risco (volatilidade) da carteira, ou seja, que a proporção da contribuição ao risco (volatilidade) de cada ativo deve ser $1/N$.
+Popularizada por [Qian (2005)](http://www.panagora.com/assets/PanAgora-Risk-Parity-Portfolios-Efficient-Portfolios-Through-True-Diversification.pdf), a ideia desta estratégia é que cada um dos ativos tenha a mesma contribuição marginal ao risco (volatilidade) da carteira, ou seja, que a proporção da contribuição ao risco  de cada ativo deve ser $1/N$.
 
 . . . 
 
-Os pesos são obtidos minimizando $$\displaystyle \sum_{i = 1}^N (\%RC_i - 1/N)^2,$$ sujeito á restrição de que $\boldsymbol{1}' \boldsymbol{\omega} = 1$, em que $\%RC_i = \omega_i [\Sigma \boldsymbol{\omega}]_i / \boldsymbol{\omega}' \Sigma \boldsymbol{\omega}$
+Ativos com pouco risco receberão pessos maiores e ativos com muito risco receberão pesos menores.
+
+. . . 
+
+Os pesos são obtidos minimizando $$\displaystyle \sum_{i = 1}^N (\%RC_i - 1/N)^2,$$ sujeito á restrição de que $\boldsymbol{1}' \boldsymbol{\omega} = 1$, em que $\%RC_i = \omega_i [\Sigma \boldsymbol{\omega}]_i / \boldsymbol{\omega}' \Sigma \boldsymbol{\omega}$ é a porcentagem de risco com que o ativo $i$ contribui para o risco total.
 
 
 . . . 
@@ -281,7 +301,7 @@ Os pesos são obtidos minimizando $$\displaystyle \sum_{i = 1}^N (\%RC_i - 1/N)^
 
 ### Máxima decorrelation
 
-Proposto por [Christoffersen et al. (2012)](https://academic.oup.com/rfs/article-abstract/25/12/3711/1594463?login=false), esta estratégia pode ser vista como um caso particular do portfolio de variância mínima mas com $\rho$ em lugar de $\Sigma$
+Proposto por [Christoffersen et al. (2012)](https://academic.oup.com/rfs/article-abstract/25/12/3711/1594463?login=false), esta estratégia pode ser vista como um caso particular do portfolio de variância mínima mas com $\rho$ (matriz de correlação) em lugar de $\Sigma$ (matriz de covariância). Assim, queremos minimizar $$\boldsymbol{\omega} \rho \boldsymbol{\omega},$$ sujeito á restrição de que $\boldsymbol{1}' \boldsymbol{\omega} = 1$
 
 
 ::: {.callout-note}
@@ -317,7 +337,22 @@ omega_maxdec <- optimalPortfolio(Sigma, control = list(type = 'maxdec', constrai
 - Estas estratégias surgem para superar algumas das limitações da estratégia de Markowitz, bem como incluir a ideia de que "sistemas complexos, como o mercado financeiro, estão organizados de forma hierárquica"
 
 
+# Hands-On III
+## Hands-On III
+
+
+
+
 # Avaliando Portfolios
 ## Avaliando Portfolios
+
+
+
+# Aplicação
+## Aplicação
+
+
+# Tópicos de pesquisa
+# Tópicos de pesquisa
 
 

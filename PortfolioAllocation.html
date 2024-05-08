@@ -7,7 +7,7 @@
 <link href="PortfolioAllocation_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="PortfolioAllocation_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="PortfolioAllocation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.2.269">
+  <meta name="generator" content="quarto-1.2.280">
 
   <meta name="author" content="Prof.&nbsp;Carlos Trucíos  ctrucios@unicamp.br">
   <title>Risk-based Portfolio Allocation Strategies</title>
@@ -413,7 +413,11 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 <li class="fragment"><a href="#/outros-portfolios" id="/toc-outros-portfolios">Outros portfolios</a></li>
 <li class="fragment"><a href="#/hands-on-ii" id="/toc-hands-on-ii">Hands-On II</a></li>
 <li class="fragment"><a href="#/ml-risk-based-portfolios" id="/toc-ml-risk-based-portfolios">ML Risk-Based Portfolios</a></li>
+<li class="fragment"><a href="#/hands-on-iii" id="/toc-hands-on-iii">Hands-On III</a></li>
 <li class="fragment"><a href="#/avaliando-portfolios" id="/toc-avaliando-portfolios">Avaliando Portfolios</a></li>
+<li class="fragment"><a href="#/aplicação" id="/toc-aplicação">Aplicação</a></li>
+<li class="fragment"><a href="#/tópicos-de-pesquisa" id="/toc-tópicos-de-pesquisa">Tópicos de pesquisa</a></li>
+<li class="fragment"><a href="#/tópicos-de-pesquisa-1" id="/toc-tópicos-de-pesquisa-1">Tópicos de pesquisa</a></li>
 </ul>
 </nav>
 </section>
@@ -432,8 +436,8 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 <h2>Introdução</h2>
 <ul>
 <li class="fragment">Suponha que temos 2 ativos, <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span>, nos quais estamos interessados em investir. Como alocaria seus recursos neste investimento?</li>
-<li class="fragment">Suponha que temos 2 ativos, <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span>, com retornos esperados de <span class="math inline">\(3\)</span> e <span class="math inline">\(5\)</span> e riscos associados de <span class="math inline">\(2\)</span> e <span class="math inline">\(4\)</span>, respectivamente.</li>
-<li class="fragment">Como alocaria seus recursos de forma a maximizar seu retorno esperado e minimizar seu risco?</li>
+<li class="fragment">Suponha que temos 2 ativos, <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span>, com retornos esperados de <span class="math inline">\(3\)</span> e <span class="math inline">\(5\)</span> e variâncias iguais <span class="math inline">\(2\)</span> e <span class="math inline">\(4\)</span>, respectivamente. Como alocaria seus recursos de forma a maximizar seu retorno esperado e minimizar seu risco?</li>
+<li class="fragment">Suponha que temos 2 ativos, <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span>, com retornos esperados de <span class="math inline">\(3\)</span> e <span class="math inline">\(5\)</span> e variâncias iguais <span class="math inline">\(2\)</span> e <span class="math inline">\(4\)</span>, respectivamente e correlação igual a 0.5. Como alocaria seus recursos de forma a maximizar seu retorno esperado e minimizar seu risco?</li>
 <li class="fragment">Seja <span class="math inline">\(\omega\)</span> e <span class="math inline">\(\mu\)</span> os vetores (coluna) de pesos e retornos esperados, respectivamente e seja <span class="math inline">\(\Sigma\)</span> a matriz de covariância associada (risco). Queremos maximizar <span class="math display">\[\mu' \omega - \lambda \omega' \Sigma \omega,\]</span> em que <span class="math inline">\(\lambda\)</span> é o parâmetro de aversão ao risco (quanto maior, mais advessos ao risco somos)</li>
 </ul>
 </section></section>
@@ -442,8 +446,8 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 <h1>Markowitz</h1>
 
 </section>
-<section id="markowitz-1" class="slide level2">
-<h2>Markowitz</h2>
+<section id="markowitz-1952" class="slide level2">
+<h2>Markowitz (1952)</h2>
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
@@ -462,7 +466,7 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 
 </div>
 <img data-src="PortfolioAllocation_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" class="r-stretch quarto-figure-center"></section>
-<section id="markowitz-2" class="slide level2">
+<section id="markowitz-1" class="slide level2">
 <h2>Markowitz</h2>
 <p>Quando <span class="math inline">\(\lambda\)</span> é grande, o problema a ser resolvido, torna-se, aproximadamente, minimizar <span class="math display">\[\omega' \Sigma, \omega,\]</span></p>
 <center>
@@ -475,7 +479,7 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 </ul>
 </div>
 </section>
-<section id="markowitz-3" class="slide level2">
+<section id="markowitz-2" class="slide level2">
 <h2>Markowitz</h2>
 <p>Seja um portfolio com <span class="math inline">\(N\)</span> ativos e matriz de covariância <span class="math inline">\(\Sigma\)</span>. Queremos minimizar <span class="math display">\[L(\boldsymbol{\omega}, \lambda) = \boldsymbol{\omega}' \Sigma \boldsymbol{\omega} + \lambda (\boldsymbol{1}'\boldsymbol{\omega} - 1),\]</span> em que <span class="math inline">\(\boldsymbol{1} = [1, 1, \cdots, 1]'.\)</span></p>
 <div class="fragment">
@@ -489,7 +493,7 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 <p>Igualando a zero, <span class="math display">\[\Sigma \boldsymbol{\omega} = - \dfrac{\lambda \boldsymbol{1}}{2} \rightarrow \boldsymbol{\omega} = \dfrac{-\lambda}{2} \Sigma^{-1} \boldsymbol{1}\]</span></p>
 </div>
 </section>
-<section id="markowitz-4" class="slide level2">
+<section id="markowitz-3" class="slide level2">
 <h2>Markowitz</h2>
 <p><span class="math display">\[1 = \boldsymbol{1}' \boldsymbol{\omega} =   \dfrac{-\lambda}{2} \boldsymbol{1}' \Sigma^{-1} \boldsymbol{1} \rightarrow \lambda = \dfrac{-2}{\boldsymbol{1}' \Sigma^{-1} \boldsymbol{1}}.\]</span></p>
 <p>Assim,</p>
@@ -564,9 +568,9 @@ $ price_high             &lt;dbl&gt; 17.87, 18.88, 18.97, 19.69, 20.29, 19.24, 1
 $ price_low              &lt;dbl&gt; 15.54, 17.16, 17.35, 18.42, 18.15, 18.09, 18.39…
 $ price_close            &lt;dbl&gt; 17.69, 18.31, 18.48, 18.95, 18.53, 18.99, 19.47…
 $ price_adjusted         &lt;dbl&gt; 12.85257, 13.30303, 13.49287, 13.83603, 13.5293…
-$ ret_adjusted_prices    &lt;dbl&gt; NA, 0.035047918, 0.014270131, 0.025432771, -0.0…
+$ ret_adjusted_prices    &lt;dbl&gt; NA, 0.035048313, 0.014269978, 0.025432918, -0.0…
 $ ret_closing_prices     &lt;dbl&gt; NA, 0.035047935, 0.009284599, 0.025432955, -0.0…
-$ cumret_adjusted_prices &lt;dbl&gt; 1.0000000, 1.0350479, 1.0498182, 1.0765180, 1.0…</code></pre>
+$ cumret_adjusted_prices &lt;dbl&gt; 1.0000000, 1.0350483, 1.0498184, 1.0765184, 1.0…</code></pre>
 </div>
 </div>
 </section>
@@ -635,7 +639,7 @@ GGBR4.SA   0.2215
 GOAU4.SA  -0.2256
 GOLL4.SA  -0.0162
 HYPE3.SA  -0.0590
-ITSA4.SA  -0.1147
+ITSA4.SA  -0.1148
 ITUB4.SA   0.1636
 JBSS3.SA   0.0581
 JHSF3.SA  -0.0709
@@ -680,74 +684,74 @@ YDUQ3.SA  -0.0309</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                omega
-ABEV3.SA   0.0786345518  0.0786345518
-ALPA4.SA  -0.0014327571 -0.0014327571
-AMER3.SA  -0.0038012039 -0.0038012039
-B3SA3.SA   0.0515608782  0.0515608782
-BBAS3.SA   0.0196808872  0.0196808872
-BBDC3.SA  -0.3320597874 -0.3320597874
-BBDC4.SA   0.3777918323  0.3777918323
-BBSE3.SA   0.0372303556  0.0372303556
-BEEF3.SA   0.0453391082  0.0453391082
-BPAN4.SA   0.0248400751  0.0248400751
-BRAP4.SA  -0.0654027185 -0.0654027185
-BRFS3.SA  -0.0708038880 -0.0708038880
-BRKM5.SA  -0.0185494807 -0.0185494807
-CCRO3.SA  -0.0179431923 -0.0179431923
-CIEL3.SA  -0.0631237533 -0.0631237533
-CMIG4.SA   0.0507822989  0.0507822989
-COGN3.SA  -0.1203375663 -0.1203375663
-CPFE3.SA   0.1208758676  0.1208758676
-CPLE6.SA  -0.2105080588 -0.2105080588
-CSAN3.SA  -0.0088506161 -0.0088506161
-CSNA3.SA  -0.0136079664 -0.0136079664
-CVCB3.SA  -0.1092109843 -0.1092109843
-CYRE3.SA   0.1186891483  0.1186891483
-DXCO3.SA   0.0764824344  0.0764824344
-ECOR3.SA   0.0201080999  0.0201080999
-EGIE3.SA   0.0691552816  0.0691552816
-ELET3.SA  -0.1359985696 -0.1359985696
-ELET6.SA   0.1787182581  0.1787182581
-EMBR3.SA   0.0098443544  0.0098443544
-ENEV3.SA   0.0627851450  0.0627851450
-ENGI11.SA  0.0538993078  0.0538993078
-EQTL3.SA   0.0191469512  0.0191469512
-EZTC3.SA  -0.0305204847 -0.0305204847
-FLRY3.SA   0.1232087786  0.1232087786
-GGBR4.SA   0.2214547406  0.2214547406
-GOAU4.SA  -0.2255962483 -0.2255962483
-GOLL4.SA  -0.0161979073 -0.0161979073
-HYPE3.SA  -0.0589507535 -0.0589507535
-ITSA4.SA  -0.1147479966 -0.1147479966
-ITUB4.SA   0.1635544792  0.1635544792
-JBSS3.SA   0.0580780955  0.0580780955
-JHSF3.SA  -0.0709132530 -0.0709132530
-KLBN11.SA  0.0643159459  0.0643159459
-LREN3.SA   0.1182160448  0.1182160448
-MGLU3.SA  -0.0203985724 -0.0203985724
-MRFG3.SA   0.0475184566  0.0475184566
-MRVE3.SA  -0.0747055889 -0.0747055889
-MULT3.SA  -0.0789072645 -0.0789072645
-PCAR3.SA  -0.0003502875 -0.0003502875
-PETR3.SA   0.0665341316  0.0665341316
-PETR4.SA   0.0102371365  0.0102371365
-PRIO3.SA  -0.0253592965 -0.0253592965
-QUAL3.SA   0.0123291199  0.0123291199
-RADL3.SA   0.1213118093  0.1213118093
-RAIL3.SA   0.0655408146  0.0655408146
-RENT3.SA  -0.0561039769 -0.0561039769
-SANB11.SA -0.1104001159 -0.1104001159
-SBSP3.SA   0.0299359908  0.0299359908
-SUZB3.SA  -0.0113129777 -0.0113129777
-TAEE11.SA  0.1023552995  0.1023552995
-TIMS3.SA  -0.0087540420 -0.0087540420
-TOTS3.SA  -0.0667198522 -0.0667198522
-UGPA3.SA   0.0627892983  0.0627892983
-USIM5.SA  -0.0728204387 -0.0728204387
-VALE3.SA   0.2378872573  0.2378872573
-VIVT3.SA   0.2324224838  0.2324224838
-WEGE3.SA   0.0919971668  0.0919971668
-YDUQ3.SA  -0.0308622859 -0.0308622859</code></pre>
+ABEV3.SA   0.0786354132  0.0786354132
+ALPA4.SA  -0.0014316102 -0.0014316102
+AMER3.SA  -0.0038009659 -0.0038009659
+B3SA3.SA   0.0515603840  0.0515603840
+BBAS3.SA   0.0196834763  0.0196834763
+BBDC3.SA  -0.3320594491 -0.3320594491
+BBDC4.SA   0.3777941932  0.3777941932
+BBSE3.SA   0.0372306172  0.0372306172
+BEEF3.SA   0.0453386950  0.0453386950
+BPAN4.SA   0.0248403197  0.0248403197
+BRAP4.SA  -0.0653994283 -0.0653994283
+BRFS3.SA  -0.0708041933 -0.0708041933
+BRKM5.SA  -0.0185493008 -0.0185493008
+CCRO3.SA  -0.0179438208 -0.0179438208
+CIEL3.SA  -0.0631241868 -0.0631241868
+CMIG4.SA   0.0507829820  0.0507829820
+COGN3.SA  -0.1203365278 -0.1203365278
+CPFE3.SA   0.1208754896  0.1208754896
+CPLE6.SA  -0.2105083725 -0.2105083725
+CSAN3.SA  -0.0088508777 -0.0088508777
+CSNA3.SA  -0.0136084043 -0.0136084043
+CVCB3.SA  -0.1092113634 -0.1092113634
+CYRE3.SA   0.1186916542  0.1186916542
+DXCO3.SA   0.0764816745  0.0764816745
+ECOR3.SA   0.0201084062  0.0201084062
+EGIE3.SA   0.0691562552  0.0691562552
+ELET3.SA  -0.1359994670 -0.1359994670
+ELET6.SA   0.1787192610  0.1787192610
+EMBR3.SA   0.0098441280  0.0098441280
+ENEV3.SA   0.0627843476  0.0627843476
+ENGI11.SA  0.0539006203  0.0539006203
+EQTL3.SA   0.0191465819  0.0191465819
+EZTC3.SA  -0.0305213578 -0.0305213578
+FLRY3.SA   0.1232086842  0.1232086842
+GGBR4.SA   0.2214579410  0.2214579410
+GOAU4.SA  -0.2255982874 -0.2255982874
+GOLL4.SA  -0.0161979207 -0.0161979207
+HYPE3.SA  -0.0589508149 -0.0589508149
+ITSA4.SA  -0.1147565227 -0.1147565227
+ITUB4.SA   0.1635618761  0.1635618761
+JBSS3.SA   0.0580780959  0.0580780959
+JHSF3.SA  -0.0709135549 -0.0709135549
+KLBN11.SA  0.0643153196  0.0643153196
+LREN3.SA   0.1182147873  0.1182147873
+MGLU3.SA  -0.0203985103 -0.0203985103
+MRFG3.SA   0.0475191510  0.0475191510
+MRVE3.SA  -0.0747068935 -0.0747068935
+MULT3.SA  -0.0789097128 -0.0789097128
+PCAR3.SA  -0.0003505338 -0.0003505338
+PETR3.SA   0.0665373269  0.0665373269
+PETR4.SA   0.0102330697  0.0102330697
+PRIO3.SA  -0.0253591721 -0.0253591721
+QUAL3.SA   0.0123292154  0.0123292154
+RADL3.SA   0.1213131384  0.1213131384
+RAIL3.SA   0.0655410812  0.0655410812
+RENT3.SA  -0.0561048245 -0.0561048245
+SANB11.SA -0.1104035330 -0.1104035330
+SBSP3.SA   0.0299354756  0.0299354756
+SUZB3.SA  -0.0113126692 -0.0113126692
+TAEE11.SA  0.1023567989  0.1023567989
+TIMS3.SA  -0.0087553500 -0.0087553500
+TOTS3.SA  -0.0667199603 -0.0667199603
+UGPA3.SA   0.0627893378  0.0627893378
+USIM5.SA  -0.0728204758 -0.0728204758
+VALE3.SA   0.2378842028  0.2378842028
+VIVT3.SA   0.2324235009  0.2324235009
+WEGE3.SA   0.0919969306  0.0919969306
+YDUQ3.SA  -0.0308623709 -0.0308623709</code></pre>
 </div>
 </div>
 </section>
@@ -756,7 +760,7 @@ YDUQ3.SA  -0.0308622859 -0.0308622859</code></pre>
 <ul>
 <li class="fragment">Na prática, <span class="math inline">\(\Sigma\)</span> não é conhecido, devendo ser estimado com os dados (<span class="math inline">\(\hat{\Sigma}\)</span>).</li>
 <li class="fragment">Utilizar <span class="math inline">\(\hat{\Sigma}\)</span> em lugar de <span class="math inline">\(\Sigma\)</span> implica em erro de estimação.</li>
-<li class="fragment">Isto faz com que os pesos estejam alocados em poucos ativos, existe pouca diversificação e o desempenhho fora da amostra seja pobre 😢</li>
+<li class="fragment">Isto faz com que os pesos estejam alocados em poucos ativos, existe pouca diversificação e o desempenhho fora da amostra seja pobre 😿</li>
 <li class="fragment">Para lidar com este problema, diversas abordagens tem sido propostas.</li>
 </ul>
 <div class="fragment">
@@ -804,8 +808,18 @@ YDUQ3.SA  -0.0308622859 -0.0308622859</code></pre>
 </section>
 <section id="outros-portfolios-1" class="slide level2">
 <h2>Outros portfolios</h2>
+<h3 id="pesos-iguais">Pesos iguais</h3>
+<ul>
+<li class="fragment">Também chamada de estratégia ingênua ou <span class="math inline">\(1/N\)</span>.</li>
+<li class="fragment">É a estratégia mais simples e não precisa cálculos difíceis nem resolver problemas de otimização.</li>
+<li class="fragment">Para um conjunto de <span class="math inline">\(N\)</span> ativos financeiros, os pesos são obtidos como <span class="math display">\[\omega_i = 1/N, \quad \forall i= 1, \cdots, N.\]</span></li>
+<li class="fragment">Apesar da sua simplicidade, diversos autores mencionam que o desempenho fora da amostra desta estratégia é dificilmente superado por métodos mais complexos (DeMiguel et al.&nbsp;2009)[https://doi.org/10.1093/acprof:oso/9780199744282.003.0034]</li>
+</ul>
+</section>
+<section id="outros-portfolios-2" class="slide level2">
+<h2>Outros portfolios</h2>
 <h3 id="volatilidade-inversa">Volatilidade inversa</h3>
-<p>Proposto por <a href="https://www.pm-research.com/content/iijpormgmt/38/3/56">Leote De Carvalho et al.&nbsp;(2012)</a>, os pesos são obtidos como:</p>
+<p>Proposto por <a href="https://www.pm-research.com/content/iijpormgmt/38/3/56">Leote De Carvalho et al.&nbsp;(2012)</a>, esta estratégia não leva em consideração covariâncias, mas apenas variâncias. Os pesos são obtidos de forma proporcional ao inverso da volatilidade, para sermos mais explicitos, os pesos são obtidos como:</p>
 <p><span class="math display">\[\boldsymbol{\omega} = \Big( \dfrac{1/\sigma_1}{ \displaystyle \sum_{j = 1}^N 1/\sigma_j}, \cdots, \dfrac{1/\sigma_N}{ \displaystyle \sum_{j = 1}^N 1/\sigma_j} \Big)'\]</span></p>
 <div class="fragment">
 <div class="callout callout-note callout-captioned callout-style-default">
@@ -825,10 +839,13 @@ YDUQ3.SA  -0.0308622859 -0.0308622859</code></pre>
 </div>
 </div>
 </section>
-<section id="outros-portfolios-2" class="slide level2">
+<section id="outros-portfolios-3" class="slide level2">
 <h2>Outros portfolios</h2>
 <h3 id="diversificação-máxima">Diversificação máxima</h3>
 <p>Proposto por <a href="https://doi.org/10.3905/JPM.2008.35.1.40">Choueifaty and Coignard (2008)</a>, o objetivo é maximizar a razão <span class="math display">\[DR = \dfrac{\boldsymbol{\omega}'\boldsymbol{\sigma}}{\sqrt{\boldsymbol{\omega}' \Sigma \boldsymbol{\omega}}},\]</span> sujeito á restrição de que <span class="math inline">\(\boldsymbol{1}' \boldsymbol{\omega} = 1\)</span> e <span class="math inline">\(\omega_i \geq 0\)</span> e em que <span class="math inline">\(\boldsymbol{\sigma} = \sqrt{diag(\Sigma)}\)</span>.</p>
+<div class="fragment">
+<p>Note que no caso extyremos de que a carteira esteja formada po apenas um ativo, <span class="math inline">\(DR = 1\)</span>, implicando uma carteira pobremente diversificada.</p>
+</div>
 <div class="fragment">
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
@@ -847,12 +864,15 @@ YDUQ3.SA  -0.0308622859 -0.0308622859</code></pre>
 </div>
 </div>
 </section>
-<section id="outros-portfolios-3" class="slide level2">
+<section id="outros-portfolios-4" class="slide level2">
 <h2>Outros portfolios</h2>
 <h3 id="igual-contribuição-ao-risco">Igual contribuição ao risco</h3>
-<p>A ideia é que cada um dos ativos tenham a mesma contribuição ao risco (volatilidade) da carteira, ou seja, que a proporção da contribuição ao risco (volatilidade) de cada ativo deve ser <span class="math inline">\(1/N\)</span>.</p>
+<p>Popularizada por <a href="http://www.panagora.com/assets/PanAgora-Risk-Parity-Portfolios-Efficient-Portfolios-Through-True-Diversification.pdf">Qian (2005)</a>, a ideia desta estratégia é que cada um dos ativos tenha a mesma contribuição marginal ao risco (volatilidade) da carteira, ou seja, que a proporção da contribuição ao risco de cada ativo deve ser <span class="math inline">\(1/N\)</span>.</p>
 <div class="fragment">
-<p>Os pesos são obtidos minimizando <span class="math display">\[\displaystyle \sum_{i = 1}^N (\%RC_i - 1/N)^2,\]</span> sujeito á restrição de que <span class="math inline">\(\boldsymbol{1}' \boldsymbol{\omega} = 1\)</span>, em que <span class="math inline">\(\%RC_i = \omega_i [\Sigma \boldsymbol{\omega}]_i / \boldsymbol{\omega}' \Sigma \boldsymbol{\omega}\)</span></p>
+<p>Ativos com pouco risco receberão pessos maiores e ativos com muito risco receberão pesos menores.</p>
+</div>
+<div class="fragment">
+<p>Os pesos são obtidos minimizando <span class="math display">\[\displaystyle \sum_{i = 1}^N (\%RC_i - 1/N)^2,\]</span> sujeito á restrição de que <span class="math inline">\(\boldsymbol{1}' \boldsymbol{\omega} = 1\)</span>, em que <span class="math inline">\(\%RC_i = \omega_i [\Sigma \boldsymbol{\omega}]_i / \boldsymbol{\omega}' \Sigma \boldsymbol{\omega}\)</span> é a porcentagem de risco com que o ativo <span class="math inline">\(i\)</span> contribui para o risco total.</p>
 </div>
 <div class="fragment">
 <div class="callout callout-note callout-captioned callout-style-default">
@@ -872,10 +892,10 @@ YDUQ3.SA  -0.0308622859 -0.0308622859</code></pre>
 </div>
 </div>
 </section>
-<section id="outros-portfolios-4" class="slide level2">
+<section id="outros-portfolios-5" class="slide level2">
 <h2>Outros portfolios</h2>
 <h3 id="máxima-decorrelation">Máxima decorrelation</h3>
-<p>Proposto por <a href="https://academic.oup.com/rfs/article-abstract/25/12/3711/1594463?login=false">Christoffersen et al.&nbsp;(2012)</a>, esta estratégia pode ser vista como um caso particular do portfolio de variância mínima mas com <span class="math inline">\(\rho\)</span> em lugar de <span class="math inline">\(\Sigma\)</span></p>
+<p>Proposto por <a href="https://academic.oup.com/rfs/article-abstract/25/12/3711/1594463?login=false">Christoffersen et al.&nbsp;(2012)</a>, esta estratégia pode ser vista como um caso particular do portfolio de variância mínima mas com <span class="math inline">\(\rho\)</span> (matriz de correlação) em lugar de <span class="math inline">\(\Sigma\)</span> (matriz de covariância). Assim, queremos minimizar <span class="math display">\[\boldsymbol{\omega} \rho \boldsymbol{\omega},\]</span> sujeito á restrição de que <span class="math inline">\(\boldsymbol{1}' \boldsymbol{\omega} = 1\)</span></p>
 <div class="callout callout-note callout-captioned callout-style-default">
 <div class="callout-body">
 <div class="callout-caption">
@@ -926,17 +946,41 @@ YDUQ3.SA  -0.0308622859 -0.0308622859</code></pre>
 </ul>
 </section></section>
 <section>
+<section id="hands-on-iii" class="title-slide slide level1 center">
+<h1>Hands-On III</h1>
+
+</section>
+<section id="hands-on-iii-1" class="slide level2">
+<h2>Hands-On III</h2>
+</section></section>
+<section>
 <section id="avaliando-portfolios" class="title-slide slide level1 center">
 <h1>Avaliando Portfolios</h1>
 
 </section>
 <section id="avaliando-portfolios-1" class="slide level2">
 <h2>Avaliando Portfolios</h2>
+</section></section>
+<section>
+<section id="aplicação" class="title-slide slide level1 center">
+<h1>Aplicação</h1>
+
+</section>
+<section id="aplicação-1" class="slide level2">
+<h2>Aplicação</h2>
+</section></section>
+<section id="tópicos-de-pesquisa" class="title-slide slide level1 center">
+<h1>Tópicos de pesquisa</h1>
+
+</section>
+
+<section id="tópicos-de-pesquisa-1" class="title-slide slide level1 center">
+<h1>Tópicos de pesquisa</h1>
 
 <img src="imagens/imecc.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p>Carlos Trucíos (IMECC/UNICAMP) | ENCPOS - Risk-Based Portfolio Allocation | <a href="https://ctruciosm.github.io/">ctruciosm.github.io</a></p>
 </div>
-</section></section>
+</section>
     </div>
   </div>
 
