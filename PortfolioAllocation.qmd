@@ -353,6 +353,8 @@ omega_maxdec <- optimalPortfolio(Sigma, control = list(type = 'maxdec', constrai
 
 
 # Tópicos de pesquisa
-# Tópicos de pesquisa
+## Tópicos de pesquisa
+
+
 
 
