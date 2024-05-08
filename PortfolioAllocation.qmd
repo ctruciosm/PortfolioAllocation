@@ -251,7 +251,7 @@ round(omega, 4)
 
 ### Volatilidade inversa
 
-Proposto por [Leote De Carvalho et al. (2012)](https://www.pm-research.com/content/iijpormgmt/38/3/56), esta estratégia não leva em consideração covariâncias, mas apenas variâncias. Os pesos são obtidos de forma proporcional ao inverso da volatilidade, para sermos mais explicitos, os pesos são obtidos como:
+Proposto por [Leote De Carvalho et al. (2012)](https://www.pm-research.com/content/iijpormgmt/38/3/56), esta estratégia não leva em consideração covariâncias, mas apenas variâncias. Os pesos são obtidos como:
 
 
 $$\boldsymbol{\omega} = \Big( \dfrac{1/\sigma_1}{ \displaystyle \sum_{j = 1}^N 1/\sigma_j}, \cdots, \dfrac{1/\sigma_N}{ \displaystyle \sum_{j = 1}^N 1/\sigma_j} \Big)'$$
@@ -293,11 +293,7 @@ Note que no caso extyremos de que a carteira esteja formada po apenas um ativo, 
 
 ### Igual contribuição ao risco
 
-Popularizada por [Qian (2005)](http://www.panagora.com/assets/PanAgora-Risk-Parity-Portfolios-Efficient-Portfolios-Through-True-Diversification.pdf), a ideia desta estratégia é que cada um dos ativos tenha a mesma contribuição marginal ao risco (volatilidade) da carteira, ou seja, que a proporção da contribuição ao risco  de cada ativo deve ser $1/N$.
-
-. . . 
-
-Ativos com pouco risco receberão pessos maiores e ativos com muito risco receberão pesos menores.
+Popularizada por [Qian (2005)](http://www.panagora.com/assets/PanAgora-Risk-Parity-Portfolios-Efficient-Portfolios-Through-True-Diversification.pdf), a ideia desta estratégia é que cada um dos ativos tenha a mesma contribuição marginal ao risco (volatilidade) da carteira, ou seja, que a proporção da contribuição ao risco  de cada ativo deve ser $1/N$. Ativos com pouco risco receberão pessos maiores e ativos com muito risco receberão pesos menores.
 
 . . . 
 
@@ -354,6 +350,103 @@ omega_maxdec <- optimalPortfolio(Sigma, control = list(type = 'maxdec', constrai
 - Recentemente, novas estratégias de alocação de carteiras baseadas em _machine learning_ tem surgido na literatura.
 - Algumas destas estratégias utilizam algoritmos de clusterização hierárquica (HRP, HCAA, HERC, DHRP).
 - Estas estratégias surgem para superar algumas das limitações da estratégia de Markowitz, bem como incluir a ideia de que "sistemas complexos, como o mercado financeiro, estão organizados de forma hierárquica"
+
+
+## ML Risk-Based Portfolios
+
+### Hierarchical Risk Parity (HRP)
+
+- Proposta por [Lopez de Prado (2016)](https://www.pm-research.com/content/iijpormgmt/42/4/59)
+- Surge como uma alternativa para evitar os problemas observados da optimização de Markowitz.
+- A ideia básica do algoritmo é transformar a matriz de covariância em matriz de distâncias, aplicar um método de agrupamento hierárquico, fazer bissecções e calcular os pesos através da estratégia de volatilidade inversa.
+
+
+## ML Risk-Based Portfolios
+
+### Hierarchical Risk Parity (HRP)
+
+
+- A matriz de distância utilizada no método de agrupamento hierárquico é denotada por $\tilde{D}$ cujos elementos ${\tilde{d}_{ij}}$ são obtidos como $$\tilde{d}_{ij} = \sqrt{\displaystyle \sum_{k = 1}^N (d_{ki} - d_{kj})^2},$$ em que $N$ é o número de ativos e $d_{ij} = \sqrt{0.5 \times (1 - \rho_{ij})}$ com $\rho_{ij}$ sendo a correlaçõ entre os ativos $i$ e $j$.
+
+
+## ML Risk-Based Portfolios
+
+### Hierarchical Risk Parity (HRP)
+
+```{r}
+library(HierPortfolios)
+covar <- cov(mldp_returns)
+w = HRP_Portfolio(covar, graph = TRUE)
+```
+
+
+## ML Risk-Based Portfolios
+
+### Hierarchical Risk Parity (HRP)
+
+
+
+- Dentro de cada grupo, o vetor de pesos prévios do grupo $k$ ($k = 1, 2$) é obtido através do método de volatilidade inversa, $$\boldsymbol{\omega}_p^{(k)} = \dfrac{1}{Trace(Diag(\Sigma^{(k)})^{-1})} \times Diag(\Sigma^{(k)})^{-1},$$ em que $\Sigma^{(k)}$ é a matriz de covariância dos ativos no grupo $k$. 
+- Com os pesos obtidos, calculamos a variância de cada grupo como $V^{(k)} = \boldsymbol{\omega}_p^{(k)} \Sigma^{(k)}\boldsymbol{\omega}_p^{(k) \prime},$ e, finalmente $\alpha = 1 - \frac{V^{(1)}}{V^{(1)} + V^{(2)}}$ que é um fator de ponderação que atualizará o peso de cada ativo.
+- Os pesos finais são atualizados para $\boldsymbol{\omega}^{(1)} = \alpha \boldsymbol{\omega}^{(1)}$ e $\boldsymbol{\omega}^{(2)} = (1 - \alpha) \boldsymbol{\omega}^{(2)}$. 
+- O processo se repete até que cada grupo tenha apenas um ativo.
+
+
+
+## ML Risk-Based Portfolios
+
+### Hierarchical Risk Parity (HRP)
+
+
+<center>
+![](imagens/hrp_step_by_step.png)
+</center>
+
+<aside>
+No começo, cada ativo tem peso igual a 1.
+</aside>
+
+
+
+## ML Risk-Based Portfolios
+
+### Hierarchical Risk Parity (HRP)
+
+- Uma das críticas do HRP é que ele não utiliza a clusterização mas apenas a ordem.
+- Algumas modificações do algoritmo surguiram na literatura:
+    *   Hierarchical Clustering-Based Asset Allocation (HCAA) [(Raffinot, 2017)](https://www.pm-research.com/content/iijpormgmt/44/2/89)
+    *   Hierarchical Equal Risk Contribution (HERC) [(Raffinot, 2018)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3237540)
+    *   A Constrained Hierarchical Risk Parity Algorithm with Cluster-based Capital Allocation (DHRP) [(Pfitzingera and Katzke, 2019)](https://www.fmx.nfkatzke.com/Projects/HRP.pdf)
+
+
+## ML Risk-Based Portfolios
+
+### A Constrained Hierarchical Risk Parity Algorithm with Cluster-based Capital Allocation (DHRP)
+
+- Visando incorporar uma maior parte da informação extraida a partir da clusterização, bem como incluir algumas práticas usuais do mercado financeiro, Pfitzinger et al.(2019) propõe três modificações à proposta de Lopez de Prado (2016).
+- A primeira modificação consiste em utilizar um algoritmo divisivo em vez de algoritmo aglomerativo como sugerido por Lopez de Prado (2016).
+- Permite a inclusão de restrições nos pesos e, 
+- Através de um parâmetro $\tau$, é possível aproveitar toda a estrutura hierarquica obtida na clusterização ($\tau = 1$), parte dela ($\tau \in (0, 1)$) ou apenas a ordenação ($\tau = 0$).
+
+
+
+
+## ML Risk-Based Portfolios
+
+### Hierarchical Clustering-Based Asset Allocation (HCAA) 
+
+
+
+
+## ML Risk-Based Portfolios
+
+### Hierarchical Equal Risk Contribution (HERC)
+
+
+
+
+
+
 
 
 # Hands-On III
