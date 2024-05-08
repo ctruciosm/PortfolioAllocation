@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.2.269">
 
   <meta name="author" content="Prof.&nbsp;Carlos Trucíos  ctrucios@unicamp.br">
-  <title>Alocação de carteiras de investimentos baseadas em risco</title>
+  <title>Risk-based Portfolio Allocation Strategies</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -390,7 +390,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-image="imagens/unicamp.png" data-background-opacity="1" data-background-position="99% 5%" data-background-size="20%" class="quarto-title-block center">
-  <h1 class="title">Alocação de carteiras de investimentos baseadas em risco</h1>
+  <h1 class="title">Risk-based Portfolio Allocation Strategies</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -431,6 +431,7 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 <section id="introdução-2" class="slide level2">
 <h2>Introdução</h2>
 <ul>
+<li class="fragment">Suponha que temos 2 ativos, <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span>, nos quais estamos interessados em investir. Como alocaria seus recursos neste investimento?</li>
 <li class="fragment">Suponha que temos 2 ativos, <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span>, com retornos esperados de <span class="math inline">\(3\)</span> e <span class="math inline">\(5\)</span> e riscos associados de <span class="math inline">\(2\)</span> e <span class="math inline">\(4\)</span>, respectivamente.</li>
 <li class="fragment">Como alocaria seus recursos de forma a maximizar seu retorno esperado e minimizar seu risco?</li>
 <li class="fragment">Seja <span class="math inline">\(\omega\)</span> e <span class="math inline">\(\mu\)</span> os vetores (coluna) de pesos e retornos esperados, respectivamente e seja <span class="math inline">\(\Sigma\)</span> a matriz de covariância associada (risco). Queremos maximizar <span class="math display">\[\mu' \omega - \lambda \omega' \Sigma \omega,\]</span> em que <span class="math inline">\(\lambda\)</span> é o parâmetro de aversão ao risco (quanto maior, mais advessos ao risco somos)</li>
@@ -465,7 +466,7 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 <h2>Markowitz</h2>
 <p>Quando <span class="math inline">\(\lambda\)</span> é grande, o problema a ser resolvido, torna-se, aproximadamente, minimizar <span class="math display">\[\omega' \Sigma, \omega,\]</span></p>
 <center>
-Carteira conhecida como <strong>carteira de variância mínima</strong>.
+<span style="color:red;">Carteira conhecida como <strong>carteira de variância mínima</strong>.</span>
 </center>
 <div class="fragment">
 <ul>
@@ -476,16 +477,16 @@ Carteira conhecida como <strong>carteira de variância mínima</strong>.
 </section>
 <section id="markowitz-3" class="slide level2">
 <h2>Markowitz</h2>
-<p>Seja um portfolio com <span class="math inline">\(N\)</span> ativos com matriz de covariância <span class="math inline">\(\Sigma\)</span>. Queremos minimizar <span class="math display">\[L(\boldsymbol{\omega}, \lambda) = \boldsymbol{\omega}' \Sigma \boldsymbol{\omega} + \lambda (\boldsymbol{1}'\boldsymbol{\omega} - 1),\]</span> em que <span class="math inline">\(\boldsymbol{1} = [1, 1, \cdots, 1]'.\)</span></p>
+<p>Seja um portfolio com <span class="math inline">\(N\)</span> ativos e matriz de covariância <span class="math inline">\(\Sigma\)</span>. Queremos minimizar <span class="math display">\[L(\boldsymbol{\omega}, \lambda) = \boldsymbol{\omega}' \Sigma \boldsymbol{\omega} + \lambda (\boldsymbol{1}'\boldsymbol{\omega} - 1),\]</span> em que <span class="math inline">\(\boldsymbol{1} = [1, 1, \cdots, 1]'.\)</span></p>
 <div class="fragment">
-<p>Derivando <em>w.r.t.</em> <span class="math inline">\(\boldsymbol{\omega}\)</span> e <span class="math inline">\(\lambda\)</span> e igualando a zero</p>
+<p><a href="https://ctruciosm.github.io/slides/Aula_02.pdf">Derivando</a> <em>w.r.t.</em> <span class="math inline">\(\boldsymbol{\omega}\)</span> e <span class="math inline">\(\lambda\)</span></p>
 <ul>
-<li class="fragment"><span class="math inline">\(\dfrac{\partial L}{\partial \boldsymbol{\omega}} = 2 \Sigma \boldsymbol{\omega} + \lambda \boldsymbol{1} = 0\)</span></li>
-<li class="fragment"><span class="math inline">\(\dfrac{\partial L}{\partial \lambda} = \boldsymbol{1}' \boldsymbol{\omega} - 1 = 0\)</span></li>
+<li class="fragment"><span class="math inline">\(\dfrac{\partial L}{\partial \boldsymbol{\omega}} = 2 \Sigma \boldsymbol{\omega} + \lambda \boldsymbol{1}\)</span></li>
+<li class="fragment"><span class="math inline">\(\dfrac{\partial L}{\partial \lambda} = \boldsymbol{1}' \boldsymbol{\omega} - 1\)</span></li>
 </ul>
 </div>
 <div class="fragment">
-<p>Assim, <span class="math display">\[\Sigma \boldsymbol{\omega} = - \dfrac{\lambda \boldsymbol{1}}{2} \rightarrow \boldsymbol{\omega} = \dfrac{-\lambda}{2} \Sigma^{-1} \boldsymbol{1}\]</span></p>
+<p>Igualando a zero, <span class="math display">\[\Sigma \boldsymbol{\omega} = - \dfrac{\lambda \boldsymbol{1}}{2} \rightarrow \boldsymbol{\omega} = \dfrac{-\lambda}{2} \Sigma^{-1} \boldsymbol{1}\]</span></p>
 </div>
 </section>
 <section id="markowitz-4" class="slide level2">
@@ -493,31 +494,8 @@ Carteira conhecida como <strong>carteira de variância mínima</strong>.
 <p><span class="math display">\[1 = \boldsymbol{1}' \boldsymbol{\omega} =   \dfrac{-\lambda}{2} \boldsymbol{1}' \Sigma^{-1} \boldsymbol{1} \rightarrow \lambda = \dfrac{-2}{\boldsymbol{1}' \Sigma^{-1} \boldsymbol{1}}.\]</span></p>
 <p>Assim,</p>
 <p><span class="math display">\[\boldsymbol{\omega} = \dfrac{\Sigma^{-1} \boldsymbol{1}}{\boldsymbol{1}' \Sigma^{-1} \boldsymbol{1}},\]</span> são os pesos ótimos da carteira de variância mínima.</p>
-</section>
-<section id="markowitz-5" class="slide level2">
-<h2>Markowitz</h2>
-<ul>
-<li class="fragment">Na prática, <span class="math inline">\(\Sigma\)</span> não é conhecido, devendo ser estimado com os dados (<span class="math inline">\(\hat{\Sigma}\)</span>).</li>
-<li class="fragment">Utilizar <span class="math inline">\(\hat{\Sigma}\)</span> em lugar de <span class="math inline">\(\Sigma\)</span> implica em erro de estimação.</li>
-<li class="fragment">Isto faz com que os pesos estejam alocados em poucos ativos, existe pouca diversificação e o desempenhho fora da amostra seja pobre 😞</li>
-</ul>
 <div class="fragment">
-<div class="callout callout-note callout-captioned callout-style-default">
-<div class="callout-body">
-<div class="callout-caption">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Observações:</strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li class="fragment">Na prática é muito dificil estimar <span class="math inline">\(\mu\)</span>. É por isso que carteiras baseadas em rico (<span class="math inline">\(\Sigma\)</span>) são preferidas.</li>
-<li class="fragment">É comúm impor a restrição de que <span class="math inline">\(\omega_i \geq 0\)</span> (<em>no-short-selling constraints</em> ou restrição de não venda a descoberto).</li>
-</ul>
-</div>
-</div>
-</div>
+<p>Na prática, <span class="math inline">\(\Sigma\)</span> não é conhecido, devendo ser estimado com os dados (<span class="math inline">\(\hat{\Sigma}\)</span>).</p>
 </div>
 </section></section>
 <section>
@@ -586,9 +564,9 @@ $ price_high             &lt;dbl&gt; 17.87, 18.88, 18.97, 19.69, 20.29, 19.24, 1
 $ price_low              &lt;dbl&gt; 15.54, 17.16, 17.35, 18.42, 18.15, 18.09, 18.39…
 $ price_close            &lt;dbl&gt; 17.69, 18.31, 18.48, 18.95, 18.53, 18.99, 19.47…
 $ price_adjusted         &lt;dbl&gt; 12.85257, 13.30303, 13.49287, 13.83603, 13.5293…
-$ ret_adjusted_prices    &lt;dbl&gt; NA, 0.035048152, 0.014269903, 0.025432845, -0.0…
+$ ret_adjusted_prices    &lt;dbl&gt; NA, 0.035048232, 0.014270053, 0.025432767, -0.0…
 $ ret_closing_prices     &lt;dbl&gt; NA, 0.035047935, 0.009284599, 0.025432955, -0.0…
-$ cumret_adjusted_prices &lt;dbl&gt; 1.0000000, 1.0350482, 1.0498182, 1.0765181, 1.0…</code></pre>
+$ cumret_adjusted_prices &lt;dbl&gt; 1.000000, 1.035048, 1.049818, 1.076518, 1.05265…</code></pre>
 </div>
 </div>
 </section>
@@ -606,24 +584,215 @@ $ cumret_adjusted_prices &lt;dbl&gt; 1.0000000, 1.0350482, 1.0498182, 1.0765181,
 <span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">cov</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+</section>
+<section id="hands-on-1" class="slide level2">
+<h2>Hands-On</h2>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>n <span class="ot">&lt;-</span> <span class="fu">ncol</span>(Sigma)</span>
+<span id="cb9-2"><a href="#cb9-2"></a>ones <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">nrow =</span> n)</span>
+<span id="cb9-3"><a href="#cb9-3"></a>w <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="fu">t</span>(ones) <span class="sc">%*%</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> ones)) <span class="sc">*</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> ones</span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="fu">round</span>(w, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>             [,1]
+ABEV3.SA   0.0786
+ALPA4.SA  -0.0014
+AMER3.SA  -0.0038
+B3SA3.SA   0.0516
+BBAS3.SA   0.0197
+BBDC3.SA  -0.3321
+BBDC4.SA   0.3778
+BBSE3.SA   0.0372
+BEEF3.SA   0.0453
+BPAN4.SA   0.0248
+BRAP4.SA  -0.0654
+BRFS3.SA  -0.0708
+BRKM5.SA  -0.0185
+CCRO3.SA  -0.0179
+CIEL3.SA  -0.0631
+CMIG4.SA   0.0508
+COGN3.SA  -0.1203
+CPFE3.SA   0.1209
+CPLE6.SA  -0.2105
+CSAN3.SA  -0.0089
+CSNA3.SA  -0.0136
+CVCB3.SA  -0.1092
+CYRE3.SA   0.1187
+DXCO3.SA   0.0765
+ECOR3.SA   0.0201
+EGIE3.SA   0.0692
+ELET3.SA  -0.1360
+ELET6.SA   0.1787
+EMBR3.SA   0.0098
+ENEV3.SA   0.0628
+ENGI11.SA  0.0539
+EQTL3.SA   0.0191
+EZTC3.SA  -0.0305
+FLRY3.SA   0.1232
+GGBR4.SA   0.2215
+GOAU4.SA  -0.2256
+GOLL4.SA  -0.0162
+HYPE3.SA  -0.0590
+ITSA4.SA  -0.1147
+ITUB4.SA   0.1635
+JBSS3.SA   0.0581
+JHSF3.SA  -0.0709
+KLBN11.SA  0.0643
+LREN3.SA   0.1182
+MGLU3.SA  -0.0204
+MRFG3.SA   0.0475
+MRVE3.SA  -0.0747
+MULT3.SA  -0.0789
+PCAR3.SA  -0.0004
+PETR3.SA   0.0665
+PETR4.SA   0.0102
+PRIO3.SA  -0.0254
+QUAL3.SA   0.0123
+RADL3.SA   0.1213
+RAIL3.SA   0.0655
+RENT3.SA  -0.0561
+SANB11.SA -0.1104
+SBSP3.SA   0.0299
+SUZB3.SA  -0.0113
+TAEE11.SA  0.1024
+TIMS3.SA  -0.0088
+TOTS3.SA  -0.0667
+UGPA3.SA   0.0628
+USIM5.SA  -0.0728
+VALE3.SA   0.2379
+VIVT3.SA   0.2324
+WEGE3.SA   0.0920
+YDUQ3.SA  -0.0309</code></pre>
+</div>
+</div>
 <div class="fragment">
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Calculamos os pesos ótimos</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">library</span>(RiskPortfolios)</span>
-<span id="cb9-3"><a href="#cb9-3"></a>omega <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"minvol"</span>, <span class="at">constraint =</span> <span class="st">"lo"</span>))</span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="fu">round</span>(omega, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Calculamos os pesos ótimos</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">library</span>(RiskPortfolios)</span>
+<span id="cb11-3"><a href="#cb11-3"></a>omega <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"minvol"</span>))</span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="fu">cbind</span>(w, omega)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 0.0843 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0675 0.0299 0.0000
-[11] 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
-[21] 0.0000 0.0000 0.0000 0.0000 0.0000 0.0275 0.0000 0.0000 0.0285 0.0000
-[31] 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
-[41] 0.0377 0.0000 0.1383 0.0000 0.0000 0.0000 0.0000 0.0000 0.0026 0.0000
-[51] 0.0000 0.0000 0.0000 0.0717 0.0000 0.0000 0.0000 0.0000 0.0546 0.0530
-[61] 0.0000 0.0000 0.0000 0.0000 0.0546 0.2907 0.0591 0.0000</code></pre>
+<pre><code>                                omega
+ABEV3.SA   0.0786327859  0.0786327859
+ALPA4.SA  -0.0014319771 -0.0014319771
+AMER3.SA  -0.0038020263 -0.0038020263
+B3SA3.SA   0.0515623585  0.0515623585
+BBAS3.SA   0.0196825109  0.0196825109
+BBDC3.SA  -0.3320672037 -0.3320672037
+BBDC4.SA   0.3778009213  0.3778009213
+BBSE3.SA   0.0372299501  0.0372299501
+BEEF3.SA   0.0453387114  0.0453387114
+BPAN4.SA   0.0248406280  0.0248406280
+BRAP4.SA  -0.0654038762 -0.0654038762
+BRFS3.SA  -0.0708042486 -0.0708042486
+BRKM5.SA  -0.0185484679 -0.0185484679
+CCRO3.SA  -0.0179437142 -0.0179437142
+CIEL3.SA  -0.0631232561 -0.0631232561
+CMIG4.SA   0.0507825815  0.0507825815
+COGN3.SA  -0.1203369611 -0.1203369611
+CPFE3.SA   0.1208765964  0.1208765964
+CPLE6.SA  -0.2105083142 -0.2105083142
+CSAN3.SA  -0.0088503041 -0.0088503041
+CSNA3.SA  -0.0136090525 -0.0136090525
+CVCB3.SA  -0.1092114119 -0.1092114119
+CYRE3.SA   0.1186905031  0.1186905031
+DXCO3.SA   0.0764817633  0.0764817633
+ECOR3.SA   0.0201077288  0.0201077288
+EGIE3.SA   0.0691526616  0.0691526616
+ELET3.SA  -0.1359984166 -0.1359984166
+ELET6.SA   0.1787173645  0.1787173645
+EMBR3.SA   0.0098432439  0.0098432439
+ENEV3.SA   0.0627858026  0.0627858026
+ENGI11.SA  0.0539000481  0.0539000481
+EQTL3.SA   0.0191460500  0.0191460500
+EZTC3.SA  -0.0305209143 -0.0305209143
+FLRY3.SA   0.1232100138  0.1232100138
+GGBR4.SA   0.2214580739  0.2214580739
+GOAU4.SA  -0.2255995054 -0.2255995054
+GOLL4.SA  -0.0161976970 -0.0161976970
+HYPE3.SA  -0.0589514631 -0.0589514631
+ITSA4.SA  -0.1147391697 -0.1147391697
+ITUB4.SA   0.1635456071  0.1635456071
+JBSS3.SA   0.0580786184  0.0580786184
+JHSF3.SA  -0.0709133102 -0.0709133102
+KLBN11.SA  0.0643152824  0.0643152824
+LREN3.SA   0.1182156808  0.1182156808
+MGLU3.SA  -0.0203985085 -0.0203985085
+MRFG3.SA   0.0475188181  0.0475188181
+MRVE3.SA  -0.0747069689 -0.0747069689
+MULT3.SA  -0.0789075403 -0.0789075403
+PCAR3.SA  -0.0003507404 -0.0003507404
+PETR3.SA   0.0665380030  0.0665380030
+PETR4.SA   0.0102321114  0.0102321114
+PRIO3.SA  -0.0253591761 -0.0253591761
+QUAL3.SA   0.0123286677  0.0123286677
+RADL3.SA   0.1213124767  0.1213124767
+RAIL3.SA   0.0655420857  0.0655420857
+RENT3.SA  -0.0561041574 -0.0561041574
+SANB11.SA -0.1104009832 -0.1104009832
+SBSP3.SA   0.0299366433  0.0299366433
+SUZB3.SA  -0.0113126937 -0.0113126937
+TAEE11.SA  0.1023579365  0.1023579365
+TIMS3.SA  -0.0087535949 -0.0087535949
+TOTS3.SA  -0.0667204728 -0.0667204728
+UGPA3.SA   0.0627897152  0.0627897152
+USIM5.SA  -0.0728193955 -0.0728193955
+VALE3.SA   0.2378889342  0.2378889342
+VIVT3.SA   0.2324211725  0.2324211725
+WEGE3.SA   0.0919962329  0.0919962329
+YDUQ3.SA  -0.0308627614 -0.0308627614</code></pre>
 </div>
+</div>
+</div>
+</section>
+<section id="hands-on-i-3" class="slide level2">
+<h2>Hands-On I</h2>
+<ul>
+<li class="fragment">Na prática, <span class="math inline">\(\Sigma\)</span> não é conhecido, devendo ser estimado com os dados (<span class="math inline">\(\hat{\Sigma}\)</span>).</li>
+<li class="fragment">Utilizar <span class="math inline">\(\hat{\Sigma}\)</span> em lugar de <span class="math inline">\(\Sigma\)</span> implica em erro de estimação.</li>
+<li class="fragment">Isto faz com que os pesos estejam alocados em poucos ativos, existe pouca diversificação e o desempenhho fora da amostra seja pobre 😢</li>
+<li class="fragment">Para lidar com este problema, diversas abordagens tem sido propostas.</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Observações:</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li class="fragment">Na prática é muito dificil estimar <span class="math inline">\(\mu\)</span>. É por isso que carteiras baseadas em rico (<span class="math inline">\(\Sigma\)</span>) são preferidas.</li>
+<li class="fragment">É comúm impor a restrição de que <span class="math inline">\(\omega_i \geq 0\)</span> (<em>no-short-selling constraints</em> ou restrição de não venda a descoberto).</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="hands-on-i-4" class="slide level2">
+<h2>Hands-On I</h2>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>omega <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"minvol"</span>, <span class="at">constraint =</span> <span class="st">"lo"</span>))</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">round</span>(omega, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.0844 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0674 0.0298 0.0000
+[11] 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
+[21] 0.0000 0.0000 0.0000 0.0000 0.0000 0.0271 0.0000 0.0000 0.0284 0.0000
+[31] 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
+[41] 0.0377 0.0000 0.1388 0.0000 0.0000 0.0000 0.0000 0.0000 0.0026 0.0000
+[51] 0.0000 0.0000 0.0000 0.0717 0.0000 0.0000 0.0000 0.0000 0.0543 0.0531
+[61] 0.0000 0.0000 0.0000 0.0000 0.0547 0.2907 0.0592 0.0000</code></pre>
 </div>
 </div>
 </section></section>
@@ -734,10 +903,10 @@ $ cumret_adjusted_prices &lt;dbl&gt; 1.0000000, 1.0350482, 1.0498182, 1.0765181,
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>omega_invol <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'invvol'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
-<span id="cb11-2"><a href="#cb11-2"></a>omega_erc <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'erc'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
-<span id="cb11-3"><a href="#cb11-3"></a>omega_maxdiv <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdiv'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
-<span id="cb11-4"><a href="#cb11-4"></a>omega_maxdec <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdec'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>omega_invol <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'invvol'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb15-2"><a href="#cb15-2"></a>omega_erc <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'erc'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb15-3"><a href="#cb15-3"></a>omega_maxdiv <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdiv'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb15-4"><a href="#cb15-4"></a>omega_maxdec <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdec'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div>

@@ -1,5 +1,5 @@
 ---
-title: "Alocação de carteiras de investimentos baseadas em risco"
+title: "Risk-based Portfolio Allocation Strategies"
 author: "Prof. Carlos Trucíos </br> ctrucios@unicamp.br"
 Email: "ctrucios@unicamp.br"
 institute: "Instituto de Matemática, Estatística e Computação Científica (IMECC), </br> Universidade Estadual de Campinas (UNICAMP)."
@@ -43,6 +43,7 @@ toc-depth: 1
 
 ## Introdução
 
+- Suponha que temos 2 ativos, $A$ e $B$, nos quais estamos interessados em investir. Como alocaria seus recursos neste investimento?
 - Suponha que temos 2 ativos, $A$ e $B$, com retornos esperados de $3$ e $5$ e riscos associados de $2$ e $4$, respectivamente. 
 - Como alocaria seus recursos de forma a maximizar seu retorno esperado e minimizar seu risco?
 - Seja $\omega$ e $\mu$ os vetores (coluna) de pesos e retornos esperados, respectivamente e seja $\Sigma$ a matriz de covariância associada (risco). Queremos maximizar $$\mu' \omega - \lambda \omega' \Sigma \omega,$$ em que $\lambda$ é o parâmetro de aversão ao risco (quanto maior, mais advessos ao risco somos)
@@ -72,7 +73,7 @@ plot(risco, rp)
 Quando $\lambda$ é grande, o problema a ser resolvido, torna-se, aproximadamente, minimizar $$\omega' \Sigma, \omega,$$
 
 <center>
-Carteira conhecida como **carteira de variância mínima**.
+[Carteira conhecida como **carteira de variância mínima**.]{style="color:red;"}
 </center>
 
 . . . 
@@ -86,20 +87,20 @@ Carteira conhecida como **carteira de variância mínima**.
 
 ## Markowitz
 
-Seja um portfolio com $N$ ativos com matriz de covariância $\Sigma$.  Queremos minimizar $$L(\boldsymbol{\omega}, \lambda) = \boldsymbol{\omega}' \Sigma \boldsymbol{\omega} + \lambda (\boldsymbol{1}'\boldsymbol{\omega} - 1),$$ em que $\boldsymbol{1} = [1, 1, \cdots, 1]'.$
+Seja um portfolio com $N$ ativos e matriz de covariância $\Sigma$.  Queremos minimizar $$L(\boldsymbol{\omega}, \lambda) = \boldsymbol{\omega}' \Sigma \boldsymbol{\omega} + \lambda (\boldsymbol{1}'\boldsymbol{\omega} - 1),$$ em que $\boldsymbol{1} = [1, 1, \cdots, 1]'.$
 
 
 . . . 
 
 
-Derivando _w.r.t._  $\boldsymbol{\omega}$ e $\lambda$ e igualando a zero
+[Derivando](https://ctruciosm.github.io/slides/Aula_02.pdf) _w.r.t._  $\boldsymbol{\omega}$ e $\lambda$
 
-- $\dfrac{\partial L}{\partial \boldsymbol{\omega}} = 2 \Sigma \boldsymbol{\omega} + \lambda \boldsymbol{1} = 0$
-- $\dfrac{\partial L}{\partial \lambda} = \boldsymbol{1}' \boldsymbol{\omega} - 1 = 0$
+- $\dfrac{\partial L}{\partial \boldsymbol{\omega}} = 2 \Sigma \boldsymbol{\omega} + \lambda \boldsymbol{1}$
+- $\dfrac{\partial L}{\partial \lambda} = \boldsymbol{1}' \boldsymbol{\omega} - 1$
 
 . . . 
 
-Assim, $$\Sigma \boldsymbol{\omega} = - \dfrac{\lambda \boldsymbol{1}}{2} \rightarrow \boldsymbol{\omega} = \dfrac{-\lambda}{2} \Sigma^{-1} \boldsymbol{1}$$
+Igualando a zero, $$\Sigma \boldsymbol{\omega} = - \dfrac{\lambda \boldsymbol{1}}{2} \rightarrow \boldsymbol{\omega} = \dfrac{-\lambda}{2} \Sigma^{-1} \boldsymbol{1}$$
 
 
 ## Markowitz
@@ -112,24 +113,10 @@ Assim,
 
 $$\boldsymbol{\omega} = \dfrac{\Sigma^{-1} \boldsymbol{1}}{\boldsymbol{1}' \Sigma^{-1} \boldsymbol{1}},$$ são os pesos ótimos da carteira de variância mínima.
 
-
-
-
-## Markowitz
-
-
--  Na prática, $\Sigma$ não é conhecido, devendo ser estimado com os dados ($\hat{\Sigma}$).
-- Utilizar $\hat{\Sigma}$ em lugar de $\Sigma$ implica em erro de estimação.
-- Isto faz com que os pesos estejam alocados em poucos ativos, existe pouca diversificação e o desempenhho fora da amostra seja pobre `r emo::ji("sad")`
-
 . . . 
 
-::: {.callout-note}
-### Observações:
 
-- Na prática é muito dificil estimar $\mu$. É por isso que carteiras baseadas em rico ($\Sigma$) são preferidas.
-- É comúm impor a restrição de que $\omega_i \geq 0$ (*no-short-selling constraints* ou restrição de não venda a descoberto).
-:::
+Na prática, $\Sigma$ não é conhecido, devendo ser estimado com os dados ($\hat{\Sigma}$).
 
 
 # Hands-On I
@@ -177,6 +164,21 @@ Sigma <- precos |>
   cov()
 ```
 
+
+## Hands-On
+
+
+```{r}
+#| echo: true
+n <- ncol(Sigma)
+ones <- matrix(1, ncol = 1, nrow = n)
+w <- as.numeric(1/(t(ones) %*% solve(Sigma) %*% ones)) * solve(Sigma) %*% ones
+round(w, 4)
+```
+
+
+
+
 . . . 
 
 
@@ -184,10 +186,35 @@ Sigma <- precos |>
 #| echo: true
 # Calculamos os pesos ótimos
 library(RiskPortfolios)
+omega <- optimalPortfolio(Sigma, control = list(type = "minvol"))
+cbind(w, omega)
+```
+
+
+## Hands-On I
+
+
+-  Na prática, $\Sigma$ não é conhecido, devendo ser estimado com os dados ($\hat{\Sigma}$).
+- Utilizar $\hat{\Sigma}$ em lugar de $\Sigma$ implica em erro de estimação.
+- Isto faz com que os pesos estejam alocados em poucos ativos, existe pouca diversificação e o desempenhho fora da amostra seja pobre `r emo::ji("sad")`
+- Para lidar com este problema, diversas abordagens tem sido propostas.
+
+. . . 
+
+::: {.callout-note}
+### Observações:
+
+- Na prática é muito dificil estimar $\mu$. É por isso que carteiras baseadas em rico ($\Sigma$) são preferidas.
+- É comúm impor a restrição de que $\omega_i \geq 0$ (*no-short-selling constraints* ou restrição de não venda a descoberto).
+:::
+
+
+## Hands-On I
+```{r}
+#| echo: true
 omega <- optimalPortfolio(Sigma, control = list(type = "minvol", constraint = "lo"))
 round(omega, 4)
 ```
-
 
 # Outros portfolios
 ## Outros portfolios
