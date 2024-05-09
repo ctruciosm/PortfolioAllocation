@@ -532,34 +532,13 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(yfR)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">library</span>(tidyr)</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#library(yfR)</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#library(dplyr)</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#library(tidyr)</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a><span class="co"># Lista de ações que fazem parte do índice Ibovespa</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>acoes <span class="ot">&lt;-</span> <span class="fu">yf_index_composition</span>(<span class="st">"IBOV"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#acoes &lt;- yf_index_composition("IBOV")</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#acoes$ticker</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Error in dplyr::rename(., ticker = Ticker, company = Company, industry = Industry) : 
-  Can't rename columns that don't exist.
-✖ Column `Ticker` doesn't exist.</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>acoes<span class="sc">$</span>ticker</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "ALPA4"  "ABEV3"  "AMER3"  "AZUL4"  "B3SA3"  "BBAS3"  "BBSE3"  "BBDC3" 
- [9] "BBDC4"  "BIDI11" "BPAN4"  "BRAP4"  "BRML3"  "BRKM5"  "BRFS3"  "BPAC11"
-[17] "CRFB3"  "CCRO3"  "CVCB3"  "CMIG4"  "CIEL3"  "COGN3"  "CPLE6"  "CSAN3" 
-[25] "CPFE3"  "CSNA3"  "CYRE3"  "DXCO3"  "ECOR3"  "ENBR3"  "ELET3"  "ELET6" 
-[33] "EMBR3"  "ENGI11" "ENEV3"  "EGIE3"  "EQTL3"  "EZTC3"  "GGBR4"  "GOLL4" 
-[41] "PCAR3"  "SOMA3"  "FLRY3"  "HAPV3"  "HYPE3"  "IGTI11" "IRBR3"  "ITUB4" 
-[49] "ITSA4"  "JBSS3"  "JHSF3"  "KLBN11" "RENT3"  "LWSA3"  "LREN3"  "MGLU3" 
-[57] "MRFG3"  "CASH3"  "GOAU4"  "BEEF3"  "MRVE3"  "MULT3"  "NTCO3"  "PETR3" 
-[65] "PETR4"  "VBBR3"  "PRIO3"  "PETZ3"  "QUAL3"  "RADL3"  "RDOR3"  "RAIL3" 
-[73] "SBSP3"  "SANB11" "ASAI3"  "SULA11" "SUZB3"  "TAEE11" "VIVT3"  "TIMS3" 
-[81] "TOTS3"  "UGPA3"  "LCAM3"  "USIM5"  "VALE3"  "VIIA3"  "YDUQ3"  "WEGE3" </code></pre>
-</div>
 </div>
 </section>
 <section id="hands-on-i-2" class="slide level2">
@@ -567,30 +546,15 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Formato Yahoo Finance</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>ibov_tickers <span class="ot">&lt;-</span> <span class="fu">paste0</span>(acoes<span class="sc">$</span>ticker, <span class="st">".SA"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="co"># Baixando Preços</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>precos <span class="ot">&lt;-</span> <span class="fu">yf_get</span>(<span class="at">tickers =</span> ibov_tickers, </span>
-<span id="cb7-5"><a href="#cb7-5"></a>                 <span class="at">first_date =</span> <span class="st">"2015-01-01"</span>,</span>
-<span id="cb7-6"><a href="#cb7-6"></a>                 <span class="at">last_date  =</span> <span class="st">"2024-04-30"</span>, </span>
-<span id="cb7-7"><a href="#cb7-7"></a>                 <span class="at">freq_data =</span> <span class="st">"monthly"</span>)</span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="fu">glimpse</span>(precos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Formato Yahoo Finance</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#ibov_tickers &lt;- paste0(acoes$ticker, ".SA")</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># Baixando Preços</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#precos &lt;- yf_get(tickers = ibov_tickers, </span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#                 first_date = "2015-01-01",</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#                 last_date  = "2024-04-30", </span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#                 freq_data = "monthly")</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#glimpse(precos)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 7,613
-Columns: 11
-$ ticker                 &lt;chr&gt; "ABEV3.SA", "ABEV3.SA", "ABEV3.SA", "ABEV3.SA",…
-$ ref_date               &lt;date&gt; 2015-01-02, 2015-02-02, 2015-03-02, 2015-04-01…
-$ volume                 &lt;dbl&gt; 262525100, 193123300, 252616400, 218542400, 205…
-$ price_open             &lt;dbl&gt; 17.44, 18.31, 18.40, 18.75, 18.35, 19.00, 19.02…
-$ price_high             &lt;dbl&gt; 17.87, 18.88, 18.97, 19.69, 20.29, 19.24, 19.89…
-$ price_low              &lt;dbl&gt; 15.54, 17.16, 17.35, 18.42, 18.15, 18.09, 18.39…
-$ price_close            &lt;dbl&gt; 17.69, 18.31, 18.48, 18.95, 18.53, 18.99, 19.47…
-$ price_adjusted         &lt;dbl&gt; 12.85257, 13.30303, 13.49287, 13.83603, 13.5293…
-$ ret_adjusted_prices    &lt;dbl&gt; NA, 0.035048074, 0.014269979, 0.025433142, -0.0…
-$ ret_closing_prices     &lt;dbl&gt; NA, 0.035047935, 0.009284599, 0.025432955, -0.0…
-$ cumret_adjusted_prices &lt;dbl&gt; 1.000000, 1.035048, 1.049818, 1.076518, 1.05265…</code></pre>
-</div>
 </div>
 </section>
 <section id="hands-on" class="slide level2">
@@ -598,13 +562,15 @@ $ cumret_adjusted_prices &lt;dbl&gt; 1.000000, 1.035048, 1.049818, 1.076518, 1.0
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Estimamos a matriz de covariância</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>Sigma <span class="ot">&lt;-</span> precos <span class="sc">|&gt;</span> </span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">select</span>(ref_date, ticker, ret_adjusted_prices) <span class="sc">|&gt;</span> </span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> ref_date, <span class="at">values_from =</span> ret_adjusted_prices, <span class="at">names_from =</span> ticker) <span class="sc">|&gt;</span> </span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">select</span>(<span class="sc">-</span>ref_date) <span class="sc">|&gt;</span> </span>
-<span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">cov</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(HierPortfolios)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co"># Estimamos a matriz de covariância</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#Sigma &lt;- precos |&gt; </span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#  select(ref_date, ticker, ret_adjusted_prices) |&gt; </span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#  pivot_wider(id_cols = ref_date, values_from = ret_adjusted_prices, names_from = ticker) |&gt; </span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#  drop_na() |&gt; </span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#  select(-ref_date) |&gt; </span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#  cov()</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">cov</span>(mldp_returns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -613,81 +579,23 @@ $ cumret_adjusted_prices &lt;dbl&gt; 1.000000, 1.035048, 1.049818, 1.076518, 1.0
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>n <span class="ot">&lt;-</span> <span class="fu">ncol</span>(Sigma)</span>
-<span id="cb10-2"><a href="#cb10-2"></a>ones <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">nrow =</span> n)</span>
-<span id="cb10-3"><a href="#cb10-3"></a>w <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="fu">t</span>(ones) <span class="sc">%*%</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> ones)) <span class="sc">*</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> ones</span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="fu">round</span>(w, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>n <span class="ot">&lt;-</span> <span class="fu">ncol</span>(Sigma)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>ones <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">nrow =</span> n)</span>
+<span id="cb6-3"><a href="#cb6-3"></a>w <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="fu">t</span>(ones) <span class="sc">%*%</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> ones)) <span class="sc">*</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> ones</span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="fu">round</span>(w, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>             [,1]
-ABEV3.SA   0.0786
-ALPA4.SA  -0.0014
-AMER3.SA  -0.0038
-B3SA3.SA   0.0516
-BBAS3.SA   0.0197
-BBDC3.SA  -0.3321
-BBDC4.SA   0.3778
-BBSE3.SA   0.0372
-BEEF3.SA   0.0453
-BPAN4.SA   0.0248
-BRAP4.SA  -0.0654
-BRFS3.SA  -0.0708
-BRKM5.SA  -0.0185
-CCRO3.SA  -0.0179
-CIEL3.SA  -0.0631
-CMIG4.SA   0.0508
-COGN3.SA  -0.1203
-CPFE3.SA   0.1209
-CPLE6.SA  -0.2105
-CSAN3.SA  -0.0089
-CSNA3.SA  -0.0136
-CVCB3.SA  -0.1092
-CYRE3.SA   0.1187
-DXCO3.SA   0.0765
-ECOR3.SA   0.0201
-EGIE3.SA   0.0692
-ELET3.SA  -0.1360
-ELET6.SA   0.1787
-EMBR3.SA   0.0098
-ENEV3.SA   0.0628
-ENGI11.SA  0.0539
-EQTL3.SA   0.0191
-EZTC3.SA  -0.0305
-FLRY3.SA   0.1232
-GGBR4.SA   0.2215
-GOAU4.SA  -0.2256
-GOLL4.SA  -0.0162
-HYPE3.SA  -0.0590
-ITSA4.SA  -0.1148
-ITUB4.SA   0.1636
-JBSS3.SA   0.0581
-JHSF3.SA  -0.0709
-KLBN11.SA  0.0643
-LREN3.SA   0.1182
-MGLU3.SA  -0.0204
-MRFG3.SA   0.0475
-MRVE3.SA  -0.0747
-MULT3.SA  -0.0789
-PCAR3.SA  -0.0004
-PETR3.SA   0.0665
-PETR4.SA   0.0102
-PRIO3.SA  -0.0254
-QUAL3.SA   0.0123
-RADL3.SA   0.1213
-RAIL3.SA   0.0655
-RENT3.SA  -0.0561
-SANB11.SA -0.1104
-SBSP3.SA   0.0299
-SUZB3.SA  -0.0113
-TAEE11.SA  0.1024
-TIMS3.SA  -0.0088
-TOTS3.SA  -0.0667
-UGPA3.SA   0.0628
-USIM5.SA  -0.0728
-VALE3.SA   0.2379
-VIVT3.SA   0.2324
-WEGE3.SA   0.0920
-YDUQ3.SA  -0.0309</code></pre>
+<pre><code>           [,1]
+ASSET1   0.1450
+ASSET2   0.2530
+ASSET3   0.2270
+ASSET4   0.1988
+ASSET5   0.1868
+ASSET6  -0.0297
+ASSET7   0.0578
+ASSET8   0.0150
+ASSET9  -0.0505
+ASSET10 -0.0033</code></pre>
 </div>
 </div>
 </section>
@@ -696,81 +604,23 @@ YDUQ3.SA  -0.0309</code></pre>
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Calculamos os pesos ótimos</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">library</span>(RiskPortfolios)</span>
-<span id="cb12-3"><a href="#cb12-3"></a>omega <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"minvol"</span>))</span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="fu">cbind</span>(w, omega)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Calculamos os pesos ótimos</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">library</span>(RiskPortfolios)</span>
+<span id="cb8-3"><a href="#cb8-3"></a>omega <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"minvol"</span>))</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">cbind</span>(w, omega)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>                                omega
-ABEV3.SA   0.0786352472  0.0786352472
-ALPA4.SA  -0.0014315444 -0.0014315444
-AMER3.SA  -0.0038012662 -0.0038012662
-B3SA3.SA   0.0515615214  0.0515615214
-BBAS3.SA   0.0196831817  0.0196831817
-BBDC3.SA  -0.3320638852 -0.3320638852
-BBDC4.SA   0.3777994059  0.3777994059
-BBSE3.SA   0.0372320918  0.0372320918
-BEEF3.SA   0.0453387091  0.0453387091
-BPAN4.SA   0.0248405361  0.0248405361
-BRAP4.SA  -0.0653999800 -0.0653999800
-BRFS3.SA  -0.0708042572 -0.0708042572
-BRKM5.SA  -0.0185484297 -0.0185484297
-CCRO3.SA  -0.0179434540 -0.0179434540
-CIEL3.SA  -0.0631239081 -0.0631239081
-CMIG4.SA   0.0507828654  0.0507828654
-COGN3.SA  -0.1203372597 -0.1203372597
-CPFE3.SA   0.1208758491  0.1208758491
-CPLE6.SA  -0.2105091078 -0.2105091078
-CSAN3.SA  -0.0088511389 -0.0088511389
-CSNA3.SA  -0.0136083140 -0.0136083140
-CVCB3.SA  -0.1092107370 -0.1092107370
-CYRE3.SA   0.1186907247  0.1186907247
-DXCO3.SA   0.0764809360  0.0764809360
-ECOR3.SA   0.0201079762  0.0201079762
-EGIE3.SA   0.0691557675  0.0691557675
-ELET3.SA  -0.1359981430 -0.1359981430
-ELET6.SA   0.1787179014  0.1787179014
-EMBR3.SA   0.0098438806  0.0098438806
-ENEV3.SA   0.0627855297  0.0627855297
-ENGI11.SA  0.0538997782  0.0538997782
-EQTL3.SA   0.0191476304  0.0191476304
-EZTC3.SA  -0.0305200418 -0.0305200418
-FLRY3.SA   0.1232085152  0.1232085152
-GGBR4.SA   0.2214579600  0.2214579600
-GOAU4.SA  -0.2255979316 -0.2255979316
-GOLL4.SA  -0.0161979665 -0.0161979665
-HYPE3.SA  -0.0589511126 -0.0589511126
-ITSA4.SA  -0.1147581888 -0.1147581888
-ITUB4.SA   0.1635609416  0.1635609416
-JBSS3.SA   0.0580781625  0.0580781625
-JHSF3.SA  -0.0709133475 -0.0709133475
-KLBN11.SA  0.0643146429  0.0643146429
-LREN3.SA   0.1182142430  0.1182142430
-MGLU3.SA  -0.0203984270 -0.0203984270
-MRFG3.SA   0.0475188967  0.0475188967
-MRVE3.SA  -0.0747070864 -0.0747070864
-MULT3.SA  -0.0789096236 -0.0789096236
-PCAR3.SA  -0.0003506758 -0.0003506758
-PETR3.SA   0.0665371352  0.0665371352
-PETR4.SA   0.0102332460  0.0102332460
-PRIO3.SA  -0.0253598192 -0.0253598192
-QUAL3.SA   0.0123288722  0.0123288722
-RADL3.SA   0.1213125797  0.1213125797
-RAIL3.SA   0.0655408159  0.0655408159
-RENT3.SA  -0.0561047816 -0.0561047816
-SANB11.SA -0.1104031797 -0.1104031797
-SBSP3.SA   0.0299354989  0.0299354989
-SUZB3.SA  -0.0113125802 -0.0113125802
-TAEE11.SA  0.1023577772  0.1023577772
-TIMS3.SA  -0.0087532557 -0.0087532557
-TOTS3.SA  -0.0667196162 -0.0667196162
-UGPA3.SA   0.0627897008  0.0627897008
-USIM5.SA  -0.0728207391 -0.0728207391
-VALE3.SA   0.2378846110  0.2378846110
-VIVT3.SA   0.2324217727  0.2324217727
-WEGE3.SA   0.0919970551  0.0919970551
-YDUQ3.SA  -0.0308621602 -0.0308621602</code></pre>
+<pre><code>                          omega
+ASSET1   0.14497249  0.14497249
+ASSET2   0.25304038  0.25304038
+ASSET3   0.22699176  0.22699176
+ASSET4   0.19881419  0.19881419
+ASSET5   0.18675677  0.18675677
+ASSET6  -0.02965077 -0.02965077
+ASSET7   0.05782148  0.05782148
+ASSET8   0.01501568  0.01501568
+ASSET9  -0.05046142 -0.05046142
+ASSET10 -0.00330055 -0.00330055</code></pre>
 </div>
 </div>
 </section>
@@ -806,17 +656,11 @@ YDUQ3.SA  -0.0308621602 -0.0308621602</code></pre>
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>omega <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"minvol"</span>, <span class="at">constraint =</span> <span class="st">"lo"</span>))</span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">round</span>(omega, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>omega <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"minvol"</span>, <span class="at">constraint =</span> <span class="st">"lo"</span>))</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">round</span>(omega, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 0.0844 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0674 0.0298 0.0000
-[11] 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
-[21] 0.0000 0.0000 0.0000 0.0000 0.0000 0.0271 0.0000 0.0000 0.0284 0.0000
-[31] 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
-[41] 0.0377 0.0000 0.1388 0.0000 0.0000 0.0000 0.0000 0.0000 0.0026 0.0000
-[51] 0.0000 0.0000 0.0000 0.0717 0.0000 0.0000 0.0000 0.0000 0.0543 0.0531
-[61] 0.0000 0.0000 0.0000 0.0000 0.0547 0.2907 0.0592 0.0000</code></pre>
+<pre><code> [1] 0.1444 0.1993 0.1973 0.1987 0.1868 0.0000 0.0586 0.0149 0.0000 0.0000</code></pre>
 </div>
 </div>
 </section></section>
@@ -863,7 +707,7 @@ YDUQ3.SA  -0.0308621602 -0.0308621602</code></pre>
 <h3 id="diversificação-máxima">Diversificação máxima</h3>
 <p>Proposto por <a href="https://doi.org/10.3905/JPM.2008.35.1.40">Choueifaty and Coignard (2008)</a>, o objetivo é maximizar a razão <span class="math display">\[DR = \dfrac{\boldsymbol{\omega}'\boldsymbol{\sigma}}{\sqrt{\boldsymbol{\omega}' \Sigma \boldsymbol{\omega}}},\]</span> sujeito á restrição de que <span class="math inline">\(\boldsymbol{1}' \boldsymbol{\omega} = 1\)</span> e <span class="math inline">\(\omega_i \geq 0\)</span> e em que <span class="math inline">\(\boldsymbol{\sigma} = \sqrt{diag(\Sigma)}\)</span>.</p>
 <div class="fragment">
-<p>Note que no caso extyremos de que a carteira esteja formada po apenas um ativo, <span class="math inline">\(DR = 1\)</span>, implicando uma carteira pobremente diversificada.</p>
+<p>Note que no caso extremos de que a carteira esteja formada po apenas um ativo, <span class="math inline">\(DR = 1\)</span>, implicando uma carteira pobremente diversificada.</p>
 </div>
 <div class="fragment">
 <div class="callout callout-note callout-captioned callout-style-default">
@@ -940,10 +784,10 @@ YDUQ3.SA  -0.0308621602 -0.0308621602</code></pre>
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>omega_invol <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'invvol'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
-<span id="cb16-2"><a href="#cb16-2"></a>omega_erc <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'erc'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
-<span id="cb16-3"><a href="#cb16-3"></a>omega_maxdiv <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdiv'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
-<span id="cb16-4"><a href="#cb16-4"></a>omega_maxdec <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdec'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>omega_invol <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'invvol'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb12-2"><a href="#cb12-2"></a>omega_erc <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'erc'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb12-3"><a href="#cb12-3"></a>omega_maxdiv <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdiv'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb12-4"><a href="#cb12-4"></a>omega_maxdec <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdec'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </div>
@@ -1005,6 +849,29 @@ No começo, cada ativo tem peso igual a 1.
 <section id="ml-risk-based-portfolios-7" class="slide level2">
 <h2>ML Risk-Based Portfolios</h2>
 <h3 id="hierarchical-risk-parity-hrp-5">Hierarchical Risk Parity (HRP)</h3>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>No R</strong></p>
+</div>
+<div class="callout-content">
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">library</span>(HierPortfolios)</span>
+<span id="cb13-2"><a href="#cb13-2"></a>omega_hrp <span class="ot">&lt;-</span> <span class="fu">HRP_Portfolio</span>(Sigma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ml-risk-based-portfolios-8" class="slide level2">
+<h2>ML Risk-Based Portfolios</h2>
+<h3 id="hierarchical-risk-parity-hrp-6">Hierarchical Risk Parity (HRP)</h3>
 <ul>
 <li class="fragment">Uma das críticas do HRP é que ele não utiliza a clusterização mas apenas a ordem.</li>
 <li class="fragment">Algumas modificações do algoritmo surguiram na literatura:
@@ -1015,7 +882,7 @@ No começo, cada ativo tem peso igual a 1.
 </ul></li>
 </ul>
 </section>
-<section id="ml-risk-based-portfolios-8" class="slide level2">
+<section id="ml-risk-based-portfolios-9" class="slide level2">
 <h2>ML Risk-Based Portfolios</h2>
 <h3 id="a-constrained-hierarchical-risk-parity-algorithm-with-cluster-based-capital-allocation-dhrp">A Constrained Hierarchical Risk Parity Algorithm with Cluster-based Capital Allocation (DHRP)</h3>
 <ul>
@@ -1024,14 +891,137 @@ No começo, cada ativo tem peso igual a 1.
 <li class="fragment">Permite a inclusão de restrições nos pesos e,</li>
 <li class="fragment">Através de um parâmetro <span class="math inline">\(\tau\)</span>, é possível aproveitar toda a estrutura hierarquica obtida na clusterização (<span class="math inline">\(\tau = 1\)</span>), parte dela (<span class="math inline">\(\tau \in (0, 1)\)</span>) ou apenas a ordenação (<span class="math inline">\(\tau = 0\)</span>).</li>
 </ul>
-</section>
-<section id="ml-risk-based-portfolios-9" class="slide level2">
-<h2>ML Risk-Based Portfolios</h2>
-<h3 id="hierarchical-clustering-based-asset-allocation-hcaa">Hierarchical Clustering-Based Asset Allocation (HCAA)</h3>
+<div class="fragment">
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>No R</strong></p>
+</div>
+<div class="callout-content">
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>omega_dhrp <span class="ot">&lt;-</span> <span class="fu">DHRP_Portfolio</span>(Sigma, <span class="at">tau =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="ml-risk-based-portfolios-10" class="slide level2">
 <h2>ML Risk-Based Portfolios</h2>
+<h3 id="hierarchical-clustering-based-asset-allocation-hcaa">Hierarchical Clustering-Based Asset Allocation (HCAA)</h3>
+<ul>
+<li class="fragment">HRP e DHRP não levam em consideração o número de clusters a serem formados.</li>
+<li class="fragment">HCAA leva isto em consideração e, após selecionar o número de grupos a serem formados, os pesos são calculados entre os grupos e dentro dos grupos.</li>
+<li class="fragment">A ideia é distribuir o capital total a ser investido de forma igual entre os clusters hierarquicamente (assim ativos correlacionados que formarão um cluster recebem o mesmo peso total do que um ativo não correlacionado, obtendo diversificação).</li>
+<li class="fragment">Dentro de cada cluster, os pesos são calculados através da estratégia de pesos iguais.</li>
+</ul>
+</section>
+<section id="ml-risk-based-portfolios-11" class="slide level2">
+<h2>ML Risk-Based Portfolios</h2>
+<h3 id="hierarchical-clustering-based-asset-allocation-hcaa-1">Hierarchical Clustering-Based Asset Allocation (HCAA)</h3>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imagens/hacc.png"></p>
+<p></p><figcaption>Exemplo: 3 clusters</figcaption><p></p>
+</figure>
+</div>
+</center>
+</section>
+<section id="ml-risk-based-portfolios-12" class="slide level2">
+<h2>ML Risk-Based Portfolios</h2>
+<h3 id="hierarchical-clustering-based-asset-allocation-hcaa-2">Hierarchical Clustering-Based Asset Allocation (HCAA)</h3>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>No R</strong></p>
+</div>
+<div class="callout-content">
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>omega_hacc <span class="ot">&lt;-</span> <span class="fu">HCAA_Portfolio</span>(Sigma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of clusters: 5"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ml-risk-based-portfolios-13" class="slide level2">
+<h2>ML Risk-Based Portfolios</h2>
 <h3 id="hierarchical-equal-risk-contribution-herc">Hierarchical Equal Risk Contribution (HERC)</h3>
+<ul>
+<li class="fragment">HRP faz as bissecções considerando apenas a ordem do dendrograma e não o dendrograma <em>per se</em>.</li>
+<li class="fragment">Parecido com HACC mas em lugar de calcular os pesos de forma que o total a ser investido seja dividio de forma igual entre cluster, calcula os pesos de forma que a contribuição ao risco seja a mesma dentro de cada cluter.</li>
+<li class="fragment">Dentro de cada cluster, utiliza-se o método de volatilidade inversa.</li>
+</ul>
+</section>
+<section id="ml-risk-based-portfolios-14" class="slide level2">
+<h2>ML Risk-Based Portfolios</h2>
+<h3 id="hierarchical-equal-risk-contribution-herc-1">Hierarchical Equal Risk Contribution (HERC)</h3>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>No R</strong></p>
+</div>
+<div class="callout-content">
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>omega_herc <span class="ot">&lt;-</span> <span class="fu">HERC_Portfolio</span>(Sigma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ml-risk-based-portfolios-15" class="slide level2">
+<h2>ML Risk-Based Portfolios</h2>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(omega, omega_invol, omega_maxdec, omega_maxdiv, omega_erc, omega_hrp, omega_dhrp, omega_hacc, omega_herc), <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         omega omega_invol omega_maxdec omega_maxdiv omega_erc weights weights
+ASSET1  0.1444      0.1018       0.0489       0.0498    0.1030  0.0700  0.1092
+ASSET2  0.1993      0.1014       0.0367       0.0372    0.0839  0.0759  0.0528
+ASSET3  0.1973      0.1018       0.1201       0.1224    0.1021  0.1084  0.1040
+ASSET4  0.1987      0.1012       0.1967       0.1993    0.1435  0.1903  0.1940
+ASSET5  0.1868      0.1015       0.0772       0.0785    0.1031  0.0972  0.0991
+ASSET6  0.0000      0.0987       0.0754       0.0744    0.0983  0.1019  0.0978
+ASSET7  0.0586      0.0990       0.1545       0.1531    0.1019  0.0662  0.1032
+ASSET8  0.0149      0.0982       0.1248       0.1227    0.1004  0.0910  0.0927
+ASSET9  0.0000      0.0982       0.0534       0.0525    0.0813  0.0712  0.0977
+ASSET10 0.0000      0.0981       0.1123       0.1102    0.0822  0.1279  0.0494
+        weights weights
+ASSET1   0.1250  0.0778
+ASSET2   0.1667  0.2778
+ASSET3   0.0625  0.0173
+ASSET4   0.0625  0.0084
+ASSET5   0.0312  0.0043
+ASSET6   0.0625  0.0162
+ASSET7   0.1250  0.0736
+ASSET8   0.0312  0.0040
+ASSET9   0.1667  0.2607
+ASSET10  0.1667  0.2599</code></pre>
+</div>
+</div>
 </section></section>
 <section>
 <section id="hands-on-iii" class="title-slide slide level1 center">

@@ -146,12 +146,12 @@ Utilizando retornos mensais das ações na B3, calcularemos os pesos para a cart
 
 ```{r}
 #| echo: true
-library(yfR)
-library(dplyr)
-library(tidyr)
+#library(yfR)
+#library(dplyr)
+#library(tidyr)
 # Lista de ações que fazem parte do índice Ibovespa
-acoes <- yf_index_composition("IBOV")
-acoes$ticker
+#acoes <- yf_index_composition("IBOV")
+#acoes$ticker
 ```
 
 
@@ -161,26 +161,28 @@ acoes$ticker
 ```{r}
 #| echo: true
 # Formato Yahoo Finance
-ibov_tickers <- paste0(acoes$ticker, ".SA")
+#ibov_tickers <- paste0(acoes$ticker, ".SA")
 # Baixando Preços
-precos <- yf_get(tickers = ibov_tickers, 
-                 first_date = "2015-01-01",
-                 last_date  = "2024-04-30", 
-                 freq_data = "monthly")
-glimpse(precos)
+#precos <- yf_get(tickers = ibov_tickers, 
+#                 first_date = "2015-01-01",
+#                 last_date  = "2024-04-30", 
+#                 freq_data = "monthly")
+#glimpse(precos)
 ```
 
 ## Hands-On
 
 ```{r}
 #| echo: true
+library(HierPortfolios)
 # Estimamos a matriz de covariância
-Sigma <- precos |> 
-  select(ref_date, ticker, ret_adjusted_prices) |> 
-  pivot_wider(id_cols = ref_date, values_from = ret_adjusted_prices, names_from = ticker) |> 
-  drop_na() |> 
-  select(-ref_date) |> 
-  cov()
+#Sigma <- precos |> 
+#  select(ref_date, ticker, ret_adjusted_prices) |> 
+#  pivot_wider(id_cols = ref_date, values_from = ret_adjusted_prices, names_from = ticker) |> 
+#  drop_na() |> 
+#  select(-ref_date) |> 
+#  cov()
+Sigma <- cov(mldp_returns)
 ```
 
 
@@ -276,7 +278,7 @@ Proposto por [Choueifaty and Coignard (2008)](https://doi.org/10.3905/JPM.2008.3
 . . . 
 
 
-Note que no caso extyremos de que a carteira esteja formada po apenas um ativo, $DR = 1$, implicando uma carteira pobremente diversificada.
+Note que no caso extremos de que a carteira esteja formada po apenas um ativo, $DR = 1$, implicando uma carteira pobremente diversificada.
 
 . . . 
 
@@ -412,6 +414,20 @@ No começo, cada ativo tem peso igual a 1.
 
 ### Hierarchical Risk Parity (HRP)
 
+::: {.callout-note}
+### No R
+```{r}
+#| echo: true
+library(HierPortfolios)
+omega_hrp <- HRP_Portfolio(Sigma)
+```
+:::
+
+
+## ML Risk-Based Portfolios
+
+### Hierarchical Risk Parity (HRP)
+
 - Uma das críticas do HRP é que ele não utiliza a clusterização mas apenas a ordem.
 - Algumas modificações do algoritmo surguiram na literatura:
     *   Hierarchical Clustering-Based Asset Allocation (HCAA) [(Raffinot, 2017)](https://www.pm-research.com/content/iijpormgmt/44/2/89)
@@ -428,12 +444,62 @@ No começo, cada ativo tem peso igual a 1.
 - Permite a inclusão de restrições nos pesos e, 
 - Através de um parâmetro $\tau$, é possível aproveitar toda a estrutura hierarquica obtida na clusterização ($\tau = 1$), parte dela ($\tau \in (0, 1)$) ou apenas a ordenação ($\tau = 0$).
 
+. . . 
+
+::: {.callout-note}
+### No R
+```{r}
+#| echo: true
+omega_dhrp <- DHRP_Portfolio(Sigma, tau = 1)
+```
+:::
+
 
 
 
 ## ML Risk-Based Portfolios
 
 ### Hierarchical Clustering-Based Asset Allocation (HCAA) 
+
+- HRP e DHRP não levam em consideração o número de clusters a serem formados.
+- HCAA leva isto em consideração e, após selecionar o número de grupos a serem formados, os pesos são calculados entre os grupos e dentro dos grupos.
+- A ideia é distribuir o capital total a ser investido de forma igual entre os clusters hierarquicamente (assim ativos correlacionados que formarão um cluster recebem o mesmo peso total do que um ativo não correlacionado, obtendo diversificação).
+- Dentro de cada cluster, os pesos são calculados através da estratégia de pesos iguais.
+
+
+
+## ML Risk-Based Portfolios
+
+### Hierarchical Clustering-Based Asset Allocation (HCAA) 
+
+<center>
+![Exemplo: 3 clusters](imagens/hacc.png)
+</center>
+
+
+## ML Risk-Based Portfolios
+
+### Hierarchical Clustering-Based Asset Allocation (HCAA) 
+
+
+::: {.callout-note}
+### No R
+```{r}
+#| echo: true
+omega_hacc <- HCAA_Portfolio(Sigma)
+```
+:::
+
+
+## ML Risk-Based Portfolios
+
+### Hierarchical Equal Risk Contribution (HERC)
+
+- HRP faz as bissecções considerando apenas a ordem do dendrograma e não o dendrograma _per se_.
+- Parecido com HACC mas em lugar de calcular os pesos de forma que o total a ser investido seja dividio de forma igual entre cluster, calcula os pesos de forma que a contribuição ao risco seja a mesma dentro de cada cluter.
+- Dentro de cada cluster, utiliza-se o método de volatilidade inversa.
+
+
 
 
 
@@ -443,8 +509,21 @@ No começo, cada ativo tem peso igual a 1.
 ### Hierarchical Equal Risk Contribution (HERC)
 
 
+::: {.callout-note}
+### No R
+```{r}
+#| echo: true
+omega_herc <- HERC_Portfolio(Sigma)
+```
+:::
 
 
+## ML Risk-Based Portfolios
+
+```{r}
+#| echo: true
+round(cbind(omega, omega_invol, omega_maxdec, omega_maxdiv, omega_erc, omega_hrp, omega_dhrp, omega_hacc, omega_herc), 4)
+```
 
 
 
