@@ -413,7 +413,6 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 <li class="fragment"><a href="#/outros-portfolios" id="/toc-outros-portfolios">Outros portfolios</a></li>
 <li class="fragment"><a href="#/hands-on-ii" id="/toc-hands-on-ii">Hands-On II</a></li>
 <li class="fragment"><a href="#/ml-risk-based-portfolios" id="/toc-ml-risk-based-portfolios">ML Risk-Based Portfolios</a></li>
-<li class="fragment"><a href="#/hands-on-iii" id="/toc-hands-on-iii">Hands-On III</a></li>
 <li class="fragment"><a href="#/avaliando-portfolios" id="/toc-avaliando-portfolios">Avaliando Portfolios</a></li>
 <li class="fragment"><a href="#/aplicação" id="/toc-aplicação">Aplicação</a></li>
 <li class="fragment"><a href="#/tópicos-de-pesquisa" id="/toc-tópicos-de-pesquisa">Tópicos de pesquisa</a></li>
@@ -629,7 +628,7 @@ ASSET10 -0.00330055 -0.00330055</code></pre>
 <ul>
 <li class="fragment">Na prática, <span class="math inline">\(\Sigma\)</span> não é conhecido, devendo ser estimado com os dados (<span class="math inline">\(\hat{\Sigma}\)</span>).</li>
 <li class="fragment">Utilizar <span class="math inline">\(\hat{\Sigma}\)</span> em lugar de <span class="math inline">\(\Sigma\)</span> implica em erro de estimação.</li>
-<li class="fragment">Isto faz com que os pesos estejam alocados em poucos ativos, existe pouca diversificação e o desempenhho fora da amostra seja pobre 😿</li>
+<li class="fragment">Isto faz com que os pesos estejam alocados em poucos ativos, existe pouca diversificação e o desempenhho fora da amostra seja pobre 🙍</li>
 <li class="fragment">Para lidar com este problema, diversas abordagens tem sido propostas.</li>
 </ul>
 <div class="fragment">
@@ -995,49 +994,59 @@ No começo, cada ativo tem peso igual a 1.
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(omega, omega_invol, omega_maxdec, omega_maxdiv, omega_erc, omega_hrp, omega_dhrp, omega_hacc, omega_herc), <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">round</span>(<span class="fu">cbind</span>(omega, omega_invol, omega_maxdec, omega_maxdiv, omega_erc, omega_hrp, omega_dhrp, omega_hacc, omega_herc), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>         omega omega_invol omega_maxdec omega_maxdiv omega_erc weights weights
-ASSET1  0.1444      0.1018       0.0489       0.0498    0.1030  0.0700  0.1092
-ASSET2  0.1993      0.1014       0.0367       0.0372    0.0839  0.0759  0.0528
-ASSET3  0.1973      0.1018       0.1201       0.1224    0.1021  0.1084  0.1040
-ASSET4  0.1987      0.1012       0.1967       0.1993    0.1435  0.1903  0.1940
-ASSET5  0.1868      0.1015       0.0772       0.0785    0.1031  0.0972  0.0991
-ASSET6  0.0000      0.0987       0.0754       0.0744    0.0983  0.1019  0.0978
-ASSET7  0.0586      0.0990       0.1545       0.1531    0.1019  0.0662  0.1032
-ASSET8  0.0149      0.0982       0.1248       0.1227    0.1004  0.0910  0.0927
-ASSET9  0.0000      0.0982       0.0534       0.0525    0.0813  0.0712  0.0977
-ASSET10 0.0000      0.0981       0.1123       0.1102    0.0822  0.1279  0.0494
+<pre><code>        omega omega_invol omega_maxdec omega_maxdiv omega_erc weights weights
+ASSET1  0.144       0.102        0.049        0.050     0.103   0.070   0.109
+ASSET2  0.199       0.101        0.037        0.037     0.084   0.076   0.053
+ASSET3  0.197       0.102        0.120        0.122     0.102   0.108   0.104
+ASSET4  0.199       0.101        0.197        0.199     0.144   0.190   0.194
+ASSET5  0.187       0.102        0.077        0.078     0.103   0.097   0.099
+ASSET6  0.000       0.099        0.075        0.074     0.098   0.102   0.098
+ASSET7  0.059       0.099        0.155        0.153     0.102   0.066   0.103
+ASSET8  0.015       0.098        0.125        0.123     0.100   0.091   0.093
+ASSET9  0.000       0.098        0.053        0.052     0.081   0.071   0.098
+ASSET10 0.000       0.098        0.112        0.110     0.082   0.128   0.049
         weights weights
-ASSET1   0.1250  0.0778
-ASSET2   0.1667  0.2778
-ASSET3   0.0625  0.0173
-ASSET4   0.0625  0.0084
-ASSET5   0.0312  0.0043
-ASSET6   0.0625  0.0162
-ASSET7   0.1250  0.0736
-ASSET8   0.0312  0.0040
-ASSET9   0.1667  0.2607
-ASSET10  0.1667  0.2599</code></pre>
+ASSET1    0.125   0.078
+ASSET2    0.167   0.278
+ASSET3    0.062   0.017
+ASSET4    0.062   0.008
+ASSET5    0.031   0.004
+ASSET6    0.062   0.016
+ASSET7    0.125   0.074
+ASSET8    0.031   0.004
+ASSET9    0.167   0.261
+ASSET10   0.167   0.260</code></pre>
 </div>
 </div>
-</section></section>
-<section>
-<section id="hands-on-iii" class="title-slide slide level1 center">
-<h1>Hands-On III</h1>
-
-</section>
-<section id="hands-on-iii-1" class="slide level2">
-<h2>Hands-On III</h2>
 </section></section>
 <section>
 <section id="avaliando-portfolios" class="title-slide slide level1 center">
 <h1>Avaliando Portfolios</h1>
 
 </section>
-<section id="avaliando-portfolios-1" class="slide level2">
-<h2>Avaliando Portfolios</h2>
+<section id="medidas-de-desempenho" class="slide level2">
+<h2>Medidas de desempenho</h2>
+<p>Seja <span class="math inline">\(p\)</span> o tamanho do período fora da amostra</p>
+<ul>
+<li class="fragment">Average (AV): <span class="math display">\[AV = 12\frac{\sum_{i = 1}^{p}R_{i}}{p},\]</span> em que <span class="math inline">\(R_{i}\)</span> são os retornos fora da amostra. AV calcula a média anualizado o qual é multiplicado por 12. <strong>Quanto maior, melhor o desempenho da carteira</strong>.</li>
+<li class="fragment">Standard Deviation (SD): <span class="math display">\[SD = \sqrt{12}\hat{\sigma}_{p},\]</span> em que <span class="math inline">\(\hat{\sigma}_{p}\)</span> é o desvio-padrão anualizado dos retornos fora da amostra. <strong>Quanto menor, menor o risco e tem um desempenho melhor da carteira</strong>.</li>
+</ul>
+</section>
+<section id="medidas-de-desempenho-1" class="slide level2">
+<h2>Medidas de desempenho</h2>
+<ul>
+<li class="fragment">Sharpe Ratio (SR): <span class="math display">\[SR = \frac{\bar{R}_{p} - \bar{R}_{f}}{\bar{\sigma}_{p-f}},\]</span> em que <span class="math inline">\(R_{f}\)</span> é a taxa livre de risco, <span class="math inline">\(\bar{R}_{p}\)</span> é a média dos retornos fora da amostra e <span class="math inline">\(\bar{\sigma}_{p-f}\)</span> é desvio-padrão estimado do excesso de retorno. <strong>Quanto maior, melhor o desempenho da carteira</strong>.</li>
+<li class="fragment">Adjusted Sharpe Ratio (ASR): <span class="math display">\[SR = SR(1 + (\frac{\mu_{3}}{6})SR - (\frac{\mu_{4}-3}{24})SR^2),\]</span> em que <span class="math inline">\(\mu_{3}\)</span> é a assimetria, <span class="math inline">\(\mu_{4}\)</span> é a cúrtose e <span class="math inline">\(SR\)</span> é o Sharpe Ratio acima apresentado. Está métrica ajusta o Sharpe ratio incluindo o terceiro e segundo momento amostral. Quanto maior este valor, melhor o desempenho da carteira.</li>
+</ul>
+</section>
+<section id="medidas-de-desempenho-2" class="slide level2">
+<h2>Medidas de desempenho</h2>
+<ul>
+<li class="fragment">Sortino ratio (SO): <span class="math display">\[SO = \frac{\bar{R}_{p}}{\sqrt{\frac{\sum_{i=1}^{K}min(0,R_{p,i} - MAR)^2}{K}}},\]</span> em que <span class="math inline">\(K\)</span> é o tamanho do periodo fora da amostra e MAR é retorno mínimo aceitado, os quais é igual a taxa livre de risco mensal. Quanto maior, melhor o desempenho de portfólio.</li>
+</ul>
 </section></section>
 <section>
 <section id="aplicação" class="title-slide slide level1 center">
@@ -1046,6 +1055,250 @@ ASSET10  0.1667  0.2599</code></pre>
 </section>
 <section id="aplicação-1" class="slide level2">
 <h2>Aplicação</h2>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">library</span>(yfR)</span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="fu">library</span>(RiskPortfolios)</span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="fu">library</span>(HierPortfolios)</span>
+<span id="cb20-6"><a href="#cb20-6"></a></span>
+<span id="cb20-7"><a href="#cb20-7"></a></span>
+<span id="cb20-8"><a href="#cb20-8"></a>acoes <span class="ot">&lt;-</span> <span class="fu">yf_index_composition</span>(<span class="st">"IBOV"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in dplyr::rename(., ticker = Ticker, company = Company, industry = Industry) : 
+  Can't rename columns that don't exist.
+✖ Column `Ticker` doesn't exist.</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>ibov_tickers <span class="ot">&lt;-</span> <span class="fu">paste0</span>(acoes<span class="sc">$</span>ticker, <span class="st">".SA"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2"></a></span>
+<span id="cb22-3"><a href="#cb22-3"></a>retornos <span class="ot">&lt;-</span> <span class="fu">yf_get</span>(<span class="at">tickers =</span> ibov_tickers, </span>
+<span id="cb22-4"><a href="#cb22-4"></a>                 <span class="at">first_date =</span> <span class="st">"2010-01-01"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5"></a>                 <span class="at">last_date  =</span> <span class="st">"2024-04-30"</span>, </span>
+<span id="cb22-6"><a href="#cb22-6"></a>                 <span class="at">freq_data =</span> <span class="st">"monthly"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb22-7"><a href="#cb22-7"></a>  <span class="fu">select</span>(ref_date, ticker, ret_adjusted_prices) <span class="sc">|&gt;</span> </span>
+<span id="cb22-8"><a href="#cb22-8"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> ref_date, <span class="at">values_from =</span> ret_adjusted_prices, <span class="at">names_from =</span> ticker) <span class="sc">|&gt;</span> </span>
+<span id="cb22-9"><a href="#cb22-9"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb22-10"><a href="#cb22-10"></a>retornos[, <span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> retornos[, <span class="sc">-</span><span class="dv">1</span>]<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb22-11"><a href="#cb22-11"></a><span class="fu">glimpse</span>(retornos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 145
+Columns: 65
+$ ref_date  &lt;date&gt; 2012-04-02, 2012-05-02, 2012-06-01, 2012-07-02, 2012-08-01,…
+$ ABEV3.SA  &lt;dbl&gt; 7.11413536, -7.15025981, 1.25515207, 1.80494846, -0.82426827…
+$ ALPA4.SA  &lt;dbl&gt; 7.979696, -17.395711, 5.097994, -9.104450, 8.119689, 8.69564…
+$ AMER3.SA  &lt;dbl&gt; -2.0482054, -25.4612648, -3.4653286, 14.1880255, 17.5149783,…
+$ B3SA3.SA  &lt;dbl&gt; -4.6263416, -9.8466541, 7.3299018, 12.1951045, -6.0575006, 1…
+$ BBAS3.SA  &lt;dbl&gt; -9.1329542, -14.6986401, 0.5778854, 11.6231165, 7.4748320, 9…
+$ BBDC3.SA  &lt;dbl&gt; -5.1420701, -3.6453761, 0.9578953, 5.6352278, 3.4586713, -1.…
+$ BBDC4.SA  &lt;dbl&gt; -3.8982821, -3.3071401, 1.8106114, 5.6063119, 4.0133681, -0.…
+$ BEEF3.SA  &lt;dbl&gt; 22.2065210, -10.4166829, 9.5607273, 8.6084947, 15.3094436, 5…
+$ BPAN4.SA  &lt;dbl&gt; -9.9560708, -24.3902619, 9.6774185, -22.5489996, 22.7848025,…
+$ BRAP4.SA  &lt;dbl&gt; 4.0094222, -9.5702268, 4.3726281, -6.7091665, -14.3833348, 6…
+$ BRFS3.SA  &lt;dbl&gt; -3.1944511, -9.9282588, -2.8186653, -3.4550857, 11.1452010, …
+$ BRKM5.SA  &lt;dbl&gt; -3.1329491, -16.0447637, 18.9333408, -7.3991200, 3.3091122, …
+$ CCRO3.SA  &lt;dbl&gt; 0.5159951, 6.0811188, 4.0127455, 4.7152461, 6.6666516, -2.35…
+$ CIEL3.SA  &lt;dbl&gt; 10.9064437, -4.7203203, 8.4037202, 1.1171455, 0.8369454, -14…
+$ CMIG4.SA  &lt;dbl&gt; 11.1228195, -6.8819115, 6.6341866, 4.3962323, -11.7662097, -…
+$ COGN3.SA  &lt;dbl&gt; 0.0000000, 0.0000000, -32.3076666, -9.0909483, 10.0000475, 0…
+$ CPFE3.SA  &lt;dbl&gt; 0.01621949, -7.39211097, 2.91732949, -6.92913910, -5.8695358…
+$ CPLE6.SA  &lt;dbl&gt; 14.7739365, -15.0549051, 7.7523077, -4.7963754, -14.2109814,…
+$ CSAN3.SA  &lt;dbl&gt; -2.5324028, -9.4864061, 3.4379358, 0.6776209, 10.8042579, 9.…
+$ CSNA3.SA  &lt;dbl&gt; -0.2124926, -20.5504735, -12.3941358, -7.4692493, -5.6030416…
+$ CYRE3.SA  &lt;dbl&gt; -2.8671599, -1.8181870, -2.1163920, 0.0000000, 11.5540712, 5…
+$ DXCO3.SA  &lt;dbl&gt; -2.693329, -13.749987, 10.041382, 13.360953, 1.924681, 9.113…
+$ ECOR3.SA  &lt;dbl&gt; -0.3135034, 1.5094415, 0.1858803, 2.5974036, 0.9644411, 5.37…
+$ EGIE3.SA  &lt;dbl&gt; 1.6138686, 1.8264525, 11.0612832, -1.6150743, -4.8794115, -5…
+$ ELET3.SA  &lt;dbl&gt; -4.9008248, -11.3167812, 7.3850822, -0.7017325, -7.9858801, …
+$ ELET6.SA  &lt;dbl&gt; -3.3741192, -11.1205982, 4.3850266, 2.7151545, -7.9800385, -…
+$ EMBR3.SA  &lt;dbl&gt; 12.2950681, -12.7128960, -6.3486897, -1.6466977, 6.5448739, …
+$ ENEV3.SA  &lt;dbl&gt; 8.2206292, -14.6748028, -11.1111097, 7.4675349, 14.1993972, …
+$ ENGI11.SA &lt;dbl&gt; -0.4651014, 0.0000000, 0.4672747, -4.6511306, 4.3128874, 6.2…
+$ EQTL3.SA  &lt;dbl&gt; 2.7007223, 4.4776447, 2.0408146, 1.0666356, 2.5725743, 15.11…
+$ EZTC3.SA  &lt;dbl&gt; -4.1085997, -4.9880987, 3.0999824, 5.6256296, 12.7180969, 2.…
+$ FLRY3.SA  &lt;dbl&gt; 1.9086880, -1.7101273, 5.6338400, -16.0392302, 3.5926279, 9.…
+$ GGBR4.SA  &lt;dbl&gt; 2.6346111, -11.1102207, 11.6015015, 5.1977169, -3.1043541, 7…
+$ GOAU4.SA  &lt;dbl&gt; 3.37932033, -13.87172870, 10.97742202, 5.32975648, -4.602856…
+$ GOLL4.SA  &lt;dbl&gt; -16.7350287, -20.7881773, 10.9452736, 7.0627803, 1.5706806, …
+$ HYPE3.SA  &lt;dbl&gt; -4.8249135, -9.8119436, 7.6156145, 8.6773115, 1.9379751, 13.…
+$ ITSA4.SA  &lt;dbl&gt; -11.2804287, -2.7593832, -3.3541852, 13.0588451, -2.7055377,…
+$ ITUB4.SA  &lt;dbl&gt; -14.077008, -2.284538, -3.397625, 14.836448, -1.478275, -3.5…
+$ JBSS3.SA  &lt;dbl&gt; 0.0000000, -27.3333373, 10.6422283, -11.1111238, 8.9552319, …
+$ JHSF3.SA  &lt;dbl&gt; -0.1669249, 0.1672040, 0.1669483, 2.4999807, 28.1301341, -3.…
+$ LREN3.SA  &lt;dbl&gt; 0.0976046, -5.0922224, -2.8252743, 8.7311602, 9.2215014, 1.6…
+$ MGLU3.SA  &lt;dbl&gt; -4.8496105, -17.9069692, 0.7503221, 9.0425805, 10.2439095, 8…
+$ MRFG3.SA  &lt;dbl&gt; -8.7826055, -13.2507245, 2.6373759, 1.1777235, 21.2698654, 2…
+$ MRVE3.SA  &lt;dbl&gt; -14.3629580, -18.4640262, 7.3903250, 19.8924433, 4.3049353, …
+$ MULT3.SA  &lt;dbl&gt; 5.50995227, 7.09808904, 2.63048315, 5.41088460, -0.01931626,…
+$ PCAR3.SA  &lt;dbl&gt; 3.906735, 0.000000, 1.017362, 0.000000, 1.017360, 0.000000, …
+$ PETR3.SA  &lt;dbl&gt; -7.8601041, -10.6916681, -4.5454089, 6.0846514, 6.2344094, 9…
+$ PETR4.SA  &lt;dbl&gt; -8.8222574, -9.2159368, -4.6000972, 6.8492884, 6.4615546, 7.…
+$ PRIO3.SA  &lt;dbl&gt; -13.326791, -38.412409, -7.259255, -20.447292, -6.626510, -4…
+$ QUAL3.SA  &lt;dbl&gt; 6.0703086, 3.6144289, 2.0930279, 3.9294151, 9.3150543, -0.75…
+$ RADL3.SA  &lt;dbl&gt; 15.7183459, -9.2015634, 8.8839129, 15.5555817, -7.6922905, 8…
+$ RENT3.SA  &lt;dbl&gt; -3.1249770, -1.2873936, -5.1562768, 9.7708545, 7.9445826, -0…
+$ SANB11.SA &lt;dbl&gt; -7.4999934, 4.8906032, -4.6829314, 0.7143531, -0.0645286, -3…
+$ SBSP3.SA  &lt;dbl&gt; 7.4361172, -5.1175452, 8.4354059, 13.6104043, -1.5775086, -3…
+$ SUZB3.SA  &lt;dbl&gt; 0.0000000, 0.0000000, 0.0000000, 0.0000000, 0.0000000, 0.000…
+$ TAEE11.SA &lt;dbl&gt; 13.9087880, -16.0177191, 20.9091202, 6.7668883, 3.5211743, 0…
+$ TIMS3.SA  &lt;dbl&gt; -1.8491084, -14.0211420, 14.4615073, -23.4767154, -6.4402652…
+$ TOTS3.SA  &lt;dbl&gt; 10.2373794, -1.7496662, 6.0273812, -2.3255614, 4.3650942, 6.…
+$ UGPA3.SA  &lt;dbl&gt; 8.2499962, -4.1801566, 8.9418976, 6.8584188, -8.5116745, 4.3…
+$ USIM5.SA  &lt;dbl&gt; -9.075776, -22.161172, -25.647046, 16.772151, 10.433592, 24.…
+$ VALE3.SA  &lt;dbl&gt; 1.7998549, -11.7605625, 6.7571292, -7.4258587, -9.0713513, 8…
+$ VIVT3.SA  &lt;dbl&gt; -2.915147, -9.940559, 3.777888, -2.434216, -11.440768, 2.005…
+$ WEGE3.SA  &lt;dbl&gt; 1.7171490, 3.2770824, -5.9780805, -4.4973523, 8.5898632, 17.…
+$ YDUQ3.SA  &lt;dbl&gt; 22.01689354, 6.30252682, -3.95256162, 3.82716077, 24.8513499…</code></pre>
+</div>
+</div>
+</section>
+<section id="aplicação-2" class="slide level2">
+<h2>Aplicação</h2>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>n_obs <span class="ot">&lt;-</span> <span class="fu">nrow</span>(retornos)</span>
+<span id="cb24-2"><a href="#cb24-2"></a>ins <span class="ot">&lt;-</span> <span class="dv">90</span>  </span>
+<span id="cb24-3"><a href="#cb24-3"></a>oos <span class="ot">&lt;-</span> n_obs <span class="sc">-</span> ins</span>
+<span id="cb24-4"><a href="#cb24-4"></a>Rp <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">ncol =</span> <span class="dv">10</span>, <span class="at">nrow =</span> oos)</span>
+<span id="cb24-5"><a href="#cb24-5"></a></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>oos) {</span>
+<span id="cb24-7"><a href="#cb24-7"></a>  r <span class="ot">&lt;-</span> retornos[i<span class="sc">:</span>(i <span class="sc">+</span> ins  <span class="sc">-</span> <span class="dv">1</span>), <span class="sc">-</span><span class="dv">1</span>]  </span>
+<span id="cb24-8"><a href="#cb24-8"></a>  Sigma <span class="ot">&lt;-</span> <span class="fu">cov</span>(r)</span>
+<span id="cb24-9"><a href="#cb24-9"></a>  w_mv <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'minvol'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb24-10"><a href="#cb24-10"></a>  w_iv <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'invvol'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb24-11"><a href="#cb24-11"></a>  w_erc <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'erc'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb24-12"><a href="#cb24-12"></a>  w_md <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdiv'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb24-13"><a href="#cb24-13"></a>  w_mdec <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdec'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb24-14"><a href="#cb24-14"></a>  w_hrp <span class="ot">&lt;-</span> <span class="fu">HRP_Portfolio</span>(Sigma)<span class="sc">$</span>w</span>
+<span id="cb24-15"><a href="#cb24-15"></a>  w_dhrp <span class="ot">&lt;-</span> <span class="fu">DHRP_Portfolio</span>(Sigma)<span class="sc">$</span>w</span>
+<span id="cb24-16"><a href="#cb24-16"></a>  w_hcaa <span class="ot">&lt;-</span> <span class="fu">HCAA_Portfolio</span>(Sigma)<span class="sc">$</span>w</span>
+<span id="cb24-17"><a href="#cb24-17"></a>  w_herc <span class="ot">&lt;-</span> <span class="fu">HERC_Portfolio</span>(Sigma)<span class="sc">$</span>w</span>
+<span id="cb24-18"><a href="#cb24-18"></a>  Rp[i, ] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">mean</span>(<span class="fu">as.numeric</span>(retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>])),</span>
+<span id="cb24-19"><a href="#cb24-19"></a>               <span class="fu">sum</span>(w_mv <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb24-20"><a href="#cb24-20"></a>               <span class="fu">sum</span>(w_iv <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb24-21"><a href="#cb24-21"></a>               <span class="fu">sum</span>(w_erc <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb24-22"><a href="#cb24-22"></a>               <span class="fu">sum</span>(w_md <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb24-23"><a href="#cb24-23"></a>               <span class="fu">sum</span>(w_mdec <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb24-24"><a href="#cb24-24"></a>               <span class="fu">sum</span>(w_hrp <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb24-25"><a href="#cb24-25"></a>               <span class="fu">sum</span>(w_dhrp <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb24-26"><a href="#cb24-26"></a>               <span class="fu">sum</span>(w_hcaa <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb24-27"><a href="#cb24-27"></a>               <span class="fu">sum</span>(w_herc <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]))</span>
+<span id="cb24-28"><a href="#cb24-28"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of clusters: 6"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 7"
+[1] "Number of clusters: 7"
+[1] "Number of clusters: 7"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 7"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 2"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 6"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">colnames</span>(Rp) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"EW"</span>, <span class="st">"Min Var"</span>, <span class="st">"Inv Vol"</span>, <span class="st">"ERC"</span>, <span class="st">"Max Div"</span>, <span class="st">"Max Dec"</span>, <span class="st">"HRP"</span>, <span class="st">"DHRP"</span>, <span class="st">"HCAA"</span>, <span class="st">"HERC"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="aplicação-3" class="slide level2">
+<h2>Aplicação</h2>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>medidas <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="co"># Annualized Average</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>  AV <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb27-4"><a href="#cb27-4"></a>  <span class="co"># Annualized SD</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a>  SD <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)</span>
+<span id="cb27-6"><a href="#cb27-6"></a>  <span class="co"># Information (or Sharpe) Ratio</span></span>
+<span id="cb27-7"><a href="#cb27-7"></a>  SR <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)<span class="sc">/</span><span class="fu">sd</span>(x)</span>
+<span id="cb27-8"><a href="#cb27-8"></a>  <span class="co"># Adjusted Sharpe Ratio</span></span>
+<span id="cb27-9"><a href="#cb27-9"></a>  ASR <span class="ot">&lt;-</span> SR<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">+</span> (moments<span class="sc">::</span><span class="fu">skewness</span>(x)<span class="sc">/</span><span class="dv">6</span>)<span class="sc">*</span>SR <span class="sc">-</span> ((moments<span class="sc">::</span><span class="fu">kurtosis</span>(x) <span class="sc">-</span> <span class="dv">3</span>)<span class="sc">/</span><span class="dv">24</span>)<span class="sc">*</span>SR<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb27-10"><a href="#cb27-10"></a>  <span class="co"># Sortino Ratio</span></span>
+<span id="cb27-11"><a href="#cb27-11"></a>  SO <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">mean</span>(<span class="fu">ifelse</span>(x <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="dv">0</span>, x<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb27-12"><a href="#cb27-12"></a>  output <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span><span class="sc">*</span>AV, <span class="fu">sqrt</span>(<span class="dv">12</span>)<span class="sc">*</span>SD, <span class="fu">sqrt</span>(<span class="dv">12</span>)<span class="sc">*</span>SR, <span class="fu">sqrt</span>(<span class="dv">12</span>)<span class="sc">*</span>ASR, <span class="fu">sqrt</span>(<span class="dv">12</span>)<span class="sc">*</span>SO)</span>
+<span id="cb27-13"><a href="#cb27-13"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb27-14"><a href="#cb27-14"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="aplicação-4" class="slide level2">
+<h2>Aplicação</h2>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>oos_table <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">apply</span>(Rp, <span class="dv">2</span>, medidas))</span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="fu">colnames</span>(oos_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"AV"</span>,<span class="st">"SD"</span>, <span class="st">"SR"</span>, <span class="st">"ASR"</span>, <span class="st">"SO"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3"></a>oos_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>              AV       SD        SR       ASR        SO
+EW      10.60624 27.97355 0.3791523 0.3712893 0.5429380
+Min Var 13.02561 21.38207 0.6091839 0.5938155 0.7919228
+Inv Vol 10.09279 25.91329 0.3894833 0.3810191 0.5559619
+ERC     11.09936 24.83001 0.4470140 0.4372605 0.6230263
+Max Div 11.96937 25.70252 0.4656885 0.4564098 0.6272147
+Max Dec 12.74200 29.91898 0.4258836 0.4237482 0.5557735
+HRP     10.02127 23.06435 0.4344916 0.4232169 0.6167115
+DHRP    11.03072 22.62630 0.4875175 0.4729434 0.6811797
+HCAA    16.43590 28.13026 0.5842782 0.5649882 0.7923079
+HERC    26.25454 50.14611 0.5235609 0.5114153 0.7039243</code></pre>
+</div>
+</div>
 </section></section>
 <section>
 <section id="tópicos-de-pesquisa" class="title-slide slide level1 center">

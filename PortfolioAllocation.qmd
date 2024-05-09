@@ -522,25 +522,127 @@ omega_herc <- HERC_Portfolio(Sigma)
 
 ```{r}
 #| echo: true
-round(cbind(omega, omega_invol, omega_maxdec, omega_maxdiv, omega_erc, omega_hrp, omega_dhrp, omega_hacc, omega_herc), 4)
+round(cbind(omega, omega_invol, omega_maxdec, omega_maxdiv, omega_erc, omega_hrp, omega_dhrp, omega_hacc, omega_herc), 3)
 ```
 
 
 
 
-# Hands-On III
-## Hands-On III
-
-
-
 
 # Avaliando Portfolios
-## Avaliando Portfolios
+## Medidas de desempenho
 
+Seja  $p$ o tamanho do período fora da amostra
+
+- Average (AV): $$AV = 12\frac{\sum_{i = 1}^{p}R_{i}}{p},$$ em que $R_{i}$ são os retornos fora da amostra. AV calcula a média anualizado o qual é multiplicado por 12. **Quanto maior, melhor o desempenho da carteira**.
+- Standard Deviation (SD): $$SD = \sqrt{12}\hat{\sigma}_{p},$$ em que $\hat{\sigma}_{p}$ é o desvio-padrão anualizado dos retornos fora da amostra. **Quanto menor, menor o risco e tem um desempenho melhor da carteira**.
+
+
+## Medidas de desempenho
+
+- Sharpe Ratio (SR): $$SR = \frac{\bar{R}_{p} - \bar{R}_{f}}{\bar{\sigma}_{p-f}},$$ em que $R_{f}$ é a taxa livre de risco, $\bar{R}_{p}$ é a média dos retornos fora da amostra e $\bar{\sigma}_{p-f}$ é desvio-padrão estimado do excesso de retorno. **Quanto maior, melhor o desempenho da carteira**.
+- Adjusted Sharpe Ratio (ASR): $$SR = SR(1 + (\frac{\mu_{3}}{6})SR - (\frac{\mu_{4}-3}{24})SR^2),$$ em que $\mu_{3}$ é a assimetria, $\mu_{4}$ é a cúrtose e $SR$ é o Sharpe Ratio acima apresentado. Está métrica ajusta o Sharpe ratio incluindo o terceiro e segundo momento amostral. Quanto maior este valor, melhor o desempenho da carteira.
+
+
+## Medidas de desempenho
+
+- Sortino ratio (SO): $$SO = \frac{\bar{R}_{p}}{\sqrt{\frac{\sum_{i=1}^{K}min(0,R_{p,i} - MAR)^2}{K}}},$$ em que $K$ é o tamanho do periodo fora da amostra e MAR é retorno mínimo aceitado, os quais é igual a taxa livre de risco mensal. Quanto maior, melhor o desempenho de portfólio.
 
 
 # Aplicação
 ## Aplicação
+
+```{r}
+#| echo: true
+library(yfR)
+library(dplyr)
+library(tidyr)
+library(RiskPortfolios)
+library(HierPortfolios)
+
+
+acoes <- yf_index_composition("IBOV")
+ibov_tickers <- paste0(acoes$ticker, ".SA")
+
+retornos <- yf_get(tickers = ibov_tickers, 
+                 first_date = "2010-01-01",
+                 last_date  = "2024-04-30", 
+                 freq_data = "monthly") |> 
+  select(ref_date, ticker, ret_adjusted_prices) |> 
+  pivot_wider(id_cols = ref_date, values_from = ret_adjusted_prices, names_from = ticker) |> 
+  drop_na()
+retornos[, -1] <- retornos[, -1]*100
+glimpse(retornos)
+```
+
+
+## Aplicação
+
+```{r}
+#| echo: true
+n_obs <- nrow(retornos)
+ins <- 90  
+oos <- n_obs - ins
+Rp <- matrix(NA, ncol = 10, nrow = oos)
+
+for (i in 1:oos) {
+  r <- retornos[i:(i + ins  - 1), -1]  
+  Sigma <- cov(r)
+  w_mv <- optimalPortfolio(Sigma, control = list(type = 'minvol', constraint = 'lo'))
+  w_iv <- optimalPortfolio(Sigma, control = list(type = 'invvol', constraint = 'lo'))
+  w_erc <- optimalPortfolio(Sigma, control = list(type = 'erc', constraint = 'lo'))
+  w_md <- optimalPortfolio(Sigma, control = list(type = 'maxdiv', constraint = 'lo'))
+  w_mdec <- optimalPortfolio(Sigma, control = list(type = 'maxdec', constraint = 'lo'))
+  w_hrp <- HRP_Portfolio(Sigma)$w
+  w_dhrp <- DHRP_Portfolio(Sigma)$w
+  w_hcaa <- HCAA_Portfolio(Sigma)$w
+  w_herc <- HERC_Portfolio(Sigma)$w
+  Rp[i, ] <- c(mean(as.numeric(retornos[i + ins, -1])),
+               sum(w_mv * retornos[i + ins, -1]),
+               sum(w_iv * retornos[i + ins, -1]),
+               sum(w_erc * retornos[i + ins, -1]),
+               sum(w_md * retornos[i + ins, -1]),
+               sum(w_mdec * retornos[i + ins, -1]),
+               sum(w_hrp * retornos[i + ins, -1]),
+               sum(w_dhrp * retornos[i + ins, -1]),
+               sum(w_hcaa * retornos[i + ins, -1]),
+               sum(w_herc * retornos[i + ins, -1]))
+}
+colnames(Rp) <- c("EW", "Min Var", "Inv Vol", "ERC", "Max Div", "Max Dec", "HRP", "DHRP", "HCAA", "HERC")
+```
+
+
+## Aplicação
+
+```{r}
+#| echo: true
+medidas <- function(x) {
+  # Annualized Average
+  AV <- mean(x)
+  # Annualized SD
+  SD <- sd(x)
+  # Information (or Sharpe) Ratio
+  SR <- mean(x)/sd(x)
+  # Adjusted Sharpe Ratio
+  ASR <- SR*(1 + (moments::skewness(x)/6)*SR - ((moments::kurtosis(x) - 3)/24)*SR^2)
+  # Sortino Ratio
+  SO <- mean(x)/sqrt(mean(ifelse(x < 0, 0, x^2)))
+  output <- c(12*AV, sqrt(12)*SD, sqrt(12)*SR, sqrt(12)*ASR, sqrt(12)*SO)
+  return(output)
+}
+
+```
+
+## Aplicação
+```{r}
+#| echo: true
+oos_table <- t(apply(Rp, 2, medidas))
+colnames(oos_table) <- c("AV","SD", "SR", "ASR", "SO")
+oos_table
+```
+
+
+
 
 
 # Tópicos de pesquisa
