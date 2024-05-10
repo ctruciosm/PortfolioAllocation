@@ -649,5 +649,25 @@ oos_table
 ## Tópicos de pesquisa
 
 
+- Custos de transação / Otimização
+- Outros estimadores da matriz de covariância
+- Variância (covariância) condicional 
+- Dados em alta dimensão
+- Dados em alta frequência
+- Metodologias híbridas
 
+. . . 
+
+
+<center>
+[Vocês conhecem o [CAREFS](https://www.ime.unicamp.br/carefs/)?]{style="color:red;"}
+</center>
+
+
+## Seminários CAREFS
+
+
+<center>
+![Seminário CAREFS](imagens/seminario_luisfelipe.png){width="430" height="430"}
+</center>
 
