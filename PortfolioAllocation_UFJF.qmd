@@ -1,0 +1,736 @@
+---
+title: "Risk-based Portfolio Allocation Strategies"
+author: "Prof. Carlos Trucíos </br> ctrucios@unicamp.br"
+Email: "ctrucios@unicamp.br"
+institute: "Instituto de Matemática, Estatística e Computação Científica (IMECC), </br> Universidade Estadual de Campinas (UNICAMP)."
+knitr:
+    opts_chunk: 
+      fig.align: 'center'
+execute:
+    message: false
+    warning: false
+format:
+    revealjs:
+        slide-number: true
+        show-slide-number: print
+        self-contained: false
+        chalkboard: true
+        width: 1600
+        height: 900
+        theme: [default, styles.scss]
+        incremental: true
+        code-fold: true
+        logo: "imagens/imecc.png" 
+        footer: "Carlos Trucíos (IMECC/UNICAMP)  |   Semana da Estatística UFJF 2024  |   Risk-Based Portfolio Allocation  |   [ctruciosm.github.io](https://ctruciosm.github.io/)"
+        highlight-style: "a11y"
+        title-slide-attributes:
+            data-background-image: "imagens/unicamp.png"
+            data-background-size: 20%
+            data-background-position: 99% 5%
+            data-background-opacity: "1"
+toc: true
+toc-title: "Agenda"
+toc-depth: 1
+---
+
+# Introdução
+## Introdução
+
+<center>
+![](imagens/eggs.png)
+<center>
+
+
+## Introdução
+
+- Suponha que temos 2 ativos, $A$ e $B$, nos quais estamos interessados em investir. Como alocaria seus recursos neste investimento?
+- Suponha que temos 2 ativos, $A$ e $B$, com retornos esperados de $3$ e $5$ e variâncias iguais $2$ e $4$, respectivamente. Como alocaria seus recursos de forma a maximizar seu retorno esperado e minimizar seu risco?
+- Suponha que temos 2 ativos, $A$ e $B$, com retornos esperados de $3$ e $5$ e variâncias iguais $2$ e $4$, respectivamente e correlação igual a 0.5. Como alocaria seus recursos de forma a maximizar seu retorno esperado e minimizar seu risco?
+- Seja $\omega$ e $\mu$ os vetores (coluna) de pesos e retornos esperados, respectivamente e seja $\Sigma$ a matriz de covariância associada (risco). Queremos maximizar $$\mu' \omega - \lambda \omega' \Sigma \omega,$$ em que $\lambda$ é o parâmetro de aversão ao risco (quanto maior, mais advessos ao risco somos)
+
+# Markowitz
+
+## Markowitz (1952)
+
+```{r}
+#| warning: false
+#| message: false
+#| out-width: 75%
+#| fig-align: center
+library(fPortfolio)
+library(lpSolve)
+ 
+Data = SMALLCAP.RET 
+Data = Data[, c("BKE","FCEL","GG","OII","SEB")]
+ 
+covData <- covEstimator(Data) 
+ 
+shortSpec <- portfolioSpec()
+setSolver(shortSpec) <- "solveRshortExact"
+shortFrontier <- portfolioFrontier(Data,spec=shortSpec, constraints="Short")
+ 
+##Plot the Efficient Frontier
+Frontier <- shortFrontier  
+frontierPlot(Frontier, frontier="both", risk="Sigma", type="l", ylim = c(-0.005, 0.075))
+monteCarloPoints(Frontier, mcSteps = 5000, risk = "Sigma", col = "grey", pch = 20)
+minvariancePoints(Frontier,pch=19,col="red")
+
+```
+
+
+
+
+
+
+## Markowitz
+
+Quando $\lambda$ é grande, o problema a ser resolvido, torna-se, aproximadamente, minimizar $$\omega' \Sigma \omega,$$
+
+<center>
+[Carteira conhecida como **carteira de variância mínima**.]{style="color:red;"}
+</center>
+
+. . . 
+
+- Vamos assumir que todo nosso capital será alocado, ou seja $\displaystyle \sum_{i = 1}^N\omega_i = 1$
+- Então, queremos minimizar com restrição
+
+. . . 
+
+
+
+## Markowitz
+
+Seja um portfolio com $N$ ativos e matriz de covariância $\Sigma$.  Queremos minimizar $$L(\boldsymbol{\omega}, \lambda) = \boldsymbol{\omega}' \Sigma \boldsymbol{\omega} + \lambda (\boldsymbol{1}'\boldsymbol{\omega} - 1),$$ em que $\boldsymbol{1} = [1, 1, \cdots, 1]'.$
+
+
+. . . 
+
+
+[Derivando](https://ctruciosm.github.io/slides/Aula_02.pdf) _w.r.t._  $\boldsymbol{\omega}$ e $\lambda$
+
+- $\dfrac{\partial L}{\partial \boldsymbol{\omega}} = 2 \Sigma \boldsymbol{\omega} + \lambda \boldsymbol{1}$
+- $\dfrac{\partial L}{\partial \lambda} = \boldsymbol{1}' \boldsymbol{\omega} - 1$
+
+. . . 
+
+Igualando a zero, $$\Sigma \boldsymbol{\omega} = - \dfrac{\lambda \boldsymbol{1}}{2} \rightarrow \boldsymbol{\omega} = \dfrac{-\lambda}{2} \Sigma^{-1} \boldsymbol{1}$$
+
+
+## Markowitz
+
+
+Igualando a zero $\dfrac{\partial L}{\partial \lambda} = \boldsymbol{1}' \boldsymbol{\omega} - 1$, temos:
+
+. . . 
+
+
+$$1 = \boldsymbol{1}' \boldsymbol{\omega} =   \dfrac{-\lambda}{2} \boldsymbol{1}' \Sigma^{-1} \boldsymbol{1} \rightarrow \lambda = \dfrac{-2}{\boldsymbol{1}' \Sigma^{-1} \boldsymbol{1}}.$$
+
+Assim, 
+
+
+$$\boldsymbol{\omega} = \dfrac{-\lambda}{2} \Sigma^{-1} \boldsymbol{1} = \dfrac{\Sigma^{-1} \boldsymbol{1}}{\boldsymbol{1}' \Sigma^{-1} \boldsymbol{1}},$$ são os pesos ótimos da carteira de variância mínima.
+
+. . . 
+
+
+<center>
+[Na prática, $\Sigma$ não é conhecido, devendo ser estimado com os dados ($\hat{\Sigma}$).]{style="color:red;"}
+</center>
+
+# Hands-On I
+
+## Hands-On I
+
+Utilizando retornos mensais das ações na B3, calcularemos os pesos para a carteira de variância mínima. Utilizaremos os pacotes do R `yfR`, `RiskPortfolios`, `tidyr` e `dplyr`.
+
+```{r}
+#| echo: true
+#library(yfR)
+#library(dplyr)
+#library(tidyr)
+# Lista de ações que fazem parte do índice Ibovespa
+#acoes <- yf_index_composition("IBOV")
+#acoes$ticker
+```
+
+
+
+## Hands-On I
+
+```{r}
+#| echo: true
+# Formato Yahoo Finance
+#ibov_tickers <- paste0(acoes$ticker, ".SA")
+# Baixando Preços
+#precos <- yf_get(tickers = ibov_tickers, 
+#                 first_date = "2015-01-01",
+#                 last_date  = "2024-04-30", 
+#                 freq_data = "monthly")
+#glimpse(precos)
+```
+
+## Hands-On
+
+```{r}
+#| echo: true
+library(HierPortfolios)
+# Estimamos a matriz de covariância
+#Sigma <- precos |> 
+#  select(ref_date, ticker, ret_adjusted_prices) |> 
+#  pivot_wider(id_cols = ref_date, values_from = ret_adjusted_prices, names_from = ticker) |> 
+#  drop_na() |> 
+#  select(-ref_date) |> 
+#  cov()
+Sigma <- cov(mldp_returns)
+```
+
+
+## Hands-On
+
+
+```{r}
+#| echo: true
+n <- ncol(Sigma)
+ones <- matrix(1, ncol = 1, nrow = n)
+w <- as.numeric(1/(t(ones) %*% solve(Sigma) %*% ones)) * solve(Sigma) %*% ones
+round(w, 4)
+```
+
+. . . 
+
+
+
+$$\boldsymbol{\omega} = \dfrac{\Sigma^{-1} \boldsymbol{1}}{\boldsymbol{1}' \Sigma^{-1} \boldsymbol{1}},$$
+
+
+## Hands-On
+
+
+```{r}
+#| echo: true
+# Calculamos os pesos ótimos
+library(RiskPortfolios)
+omega <- optimalPortfolio(Sigma, control = list(type = "minvol"))
+cbind(w, omega)
+```
+
+
+## Hands-On I
+
+
+-  Na prática, $\Sigma$ não é conhecido, devendo ser estimado com os dados ($\hat{\Sigma}$).
+- Utilizar $\hat{\Sigma}$ em lugar de $\Sigma$ implica em erro de estimação.
+- Isto faz com que os pesos estejam alocados em poucos ativos, exista pouca diversificação e o desempenhho fora da amostra seja pobre `r emo::ji("sad")`
+- Para lidar com este problema, diversas abordagens tem sido propostas.
+
+. . . 
+
+::: {.callout-note}
+### Observações:
+
+- Na prática é muito dificil estimar $\mu$. É por isso que carteiras baseadas em rico ($\Sigma$) são preferidas.
+- É comúm impor a restrição de que $\omega_i \geq 0$ (*no-short-selling constraints* ou restrição de não venda a descoberto).
+:::
+
+
+## Hands-On I
+```{r}
+#| echo: true
+omega <- optimalPortfolio(Sigma, control = list(type = "minvol", constraint = "lo"))
+round(omega, 4)
+```
+
+# Outros portfolios
+## Outros portfolios
+
+### Pesos iguais
+
+- Também chamada de estratégia ingênua ou $1/N$.
+- É a estratégia mais simples e não precisa cálculos difíceis nem resolver problemas de otimização.
+- Para um conjunto de $N$ ativos financeiros, os pesos são obtidos como $$\omega_i = 1/N, \quad \forall i= 1, \cdots, N.$$
+- Apesar da sua simplicidade, diversos autores mencionam que o desempenho fora da amostra desta estratégia é dificilmente superado por métodos mais complexos ([DeMiguel et al. 2009](https://doi.org/10.1093/acprof:oso/9780199744282.003.0034))
+
+
+
+## Outros portfolios
+
+**Volatilidade inversa**
+
+Proposto por [Leote De Carvalho et al. (2012)](https://www.pm-research.com/content/iijpormgmt/38/3/56), esta estratégia não leva em consideração covariâncias, mas apenas variâncias. Os pesos são obtidos como:
+
+
+$$\boldsymbol{\omega} = \Big( \dfrac{1/\sigma_1}{ \displaystyle \sum_{j = 1}^N 1/\sigma_j}, \cdots, \dfrac{1/\sigma_N}{ \displaystyle \sum_{j = 1}^N 1/\sigma_j} \Big)'$$
+
+. . . 
+
+
+::: {.callout-note}
+### No R
+<center>
+`optimalPortfolio(Sigma, control = list(type = 'invvol', constraint = 'lo'))`
+</center>
+:::
+
+
+## Outros portfolios
+
+**Diversificação máxima**
+
+Proposto por [Choueifaty and Coignard (2008)](https://doi.org/10.3905/JPM.2008.35.1.40), o objetivo é maximizar a razão $$DR = \dfrac{\boldsymbol{\omega}'\boldsymbol{\sigma}}{\sqrt{\boldsymbol{\omega}' \Sigma \boldsymbol{\omega}}},$$ sujeito á restrição de que $\boldsymbol{1}' \boldsymbol{\omega} = 1$ e $\omega_i \geq 0$ e em que $\boldsymbol{\sigma} = \sqrt{diag(\Sigma)}$.
+
+. . . 
+
+
+Note que no caso extremos de que a carteira esteja formada po apenas um ativo, $DR = 1$, implicando uma carteira pobremente diversificada.
+
+. . . 
+
+
+::: {.callout-note}
+### No R
+<center>
+`optimalPortfolio(Sigma, control = list(type = 'maxdiv', constraint = 'lo'))`
+</center>
+:::
+
+
+## Outros portfolios
+
+**Igual contribuição ao risco**
+
+Popularizada por [Qian (2005)](http://www.panagora.com/assets/PanAgora-Risk-Parity-Portfolios-Efficient-Portfolios-Through-True-Diversification.pdf), a ideia desta estratégia é que cada um dos ativos tenha a mesma contribuição marginal ao risco (volatilidade) da carteira, ou seja, que a proporção da contribuição ao risco  de cada ativo deve ser $1/N$. Ativos com pouco risco receberão pessos maiores e ativos com muito risco receberão pesos menores.
+
+. . . 
+
+Os pesos são obtidos minimizando $$\displaystyle \sum_{i = 1}^N (\%RC_i - 1/N)^2,$$ sujeito á restrição de que $\boldsymbol{1}' \boldsymbol{\omega} = 1$, em que $\%RC_i = \omega_i [\Sigma \boldsymbol{\omega}]_i / \boldsymbol{\omega}' \Sigma \boldsymbol{\omega}$ é a porcentagem de risco com que o ativo $i$ contribui para o risco total.
+
+
+. . . 
+
+
+::: {.callout-note}
+### No R
+<center>
+`optimalPortfolio(Sigma, control = list(type = 'erc', constraint = 'lo'))`
+</center>
+:::
+
+
+
+## Outros portfolios
+
+**Máxima decorrelation**
+
+Proposto por [Christoffersen et al. (2012)](https://academic.oup.com/rfs/article-abstract/25/12/3711/1594463?login=false), esta estratégia pode ser vista como um caso particular do portfolio de variância mínima mas com $\rho$ (matriz de correlação) em lugar de $\Sigma$ (matriz de covariância). Assim, queremos minimizar $$\boldsymbol{\omega} \rho \boldsymbol{\omega},$$ sujeito á restrição de que $\boldsymbol{1}' \boldsymbol{\omega} = 1$
+
+
+::: {.callout-note}
+### No R
+<center>
+`optimalPortfolio(Sigma, control = list(type = 'maxdec', constraint = 'lo'))`
+</center>
+:::
+
+
+# Hands-On II
+## Hands-On II
+
+Utilizando os dados anteriores, calcularemos os pesos ótimos utiliando as estratégias vistas anteriormente.
+
+. . . 
+
+```{r}
+#| echo: true
+omega_invol <- optimalPortfolio(Sigma, control = list(type = 'invvol', constraint = 'lo'))
+omega_erc <- optimalPortfolio(Sigma, control = list(type = 'erc', constraint = 'lo'))
+omega_maxdiv <- optimalPortfolio(Sigma, control = list(type = 'maxdiv', constraint = 'lo'))
+omega_maxdec <- optimalPortfolio(Sigma, control = list(type = 'maxdec', constraint = 'lo'))
+```
+
+
+## Hands-On II
+
+
+```{r}
+#| echo: true
+pesos <- cbind(omega, omega_invol, omega_erc, omega_maxdiv, omega_maxdec)
+colnames(pesos) <- c("MV","IV", "ERC","MaxDiv", "MaxDec")
+pesos
+```
+
+
+
+# ML Risk-Based Portfolios
+## ML Risk-Based Portfolios
+
+
+- Recentemente, novas estratégias de alocação de carteiras baseadas em _machine learning_ tem surgido na literatura.
+- Algumas destas estratégias utilizam algoritmos de clusterização hierárquica (HRP, HCAA, HERC, DHRP).
+- Estas estratégias surgem para superar algumas das limitações da estratégia de Markowitz, bem como incluir a ideia de que "sistemas complexos, como o mercado financeiro, estão organizados de forma hierárquica"
+
+
+## ML Risk-Based Portfolios
+
+**Hierarchical Risk Parity (HRP)**
+
+- Proposta por [Lopez de Prado (2016)](https://www.pm-research.com/content/iijpormgmt/42/4/59)
+- Surge como uma alternativa para evitar os problemas observados da optimização de Markowitz.
+- A ideia básica do algoritmo é transformar a matriz de covariância em matriz de distâncias, aplicar um método de agrupamento hierárquico, fazer bissecções e calcular os pesos através da estratégia de volatilidade inversa.
+
+
+## ML Risk-Based Portfolios
+
+**Hierarchical Risk Parity (HRP)**
+
+
+- A matriz de distância utilizada no método de agrupamento hierárquico é denotada por $\tilde{D}$ cujos elementos ${\tilde{d}_{ij}}$ são obtidos como $$\tilde{d}_{ij} = \sqrt{\displaystyle \sum_{k = 1}^N (d_{ki} - d_{kj})^2},$$ em que $N$ é o número de ativos e $d_{ij} = \sqrt{0.5 \times (1 - \rho_{ij})}$ com $\rho_{ij}$ sendo a correlaçõ entre os ativos $i$ e $j$.
+
+
+## ML Risk-Based Portfolios
+
+**Hierarchical Risk Parity (HRP)**
+
+```{r}
+library(HierPortfolios)
+covar <- cov(mldp_returns)
+w = HRP_Portfolio(covar, graph = TRUE)
+```
+
+
+## ML Risk-Based Portfolios
+
+**Hierarchical Risk Parity (HRP)**
+
+
+- Inicialize todos os pesos em $\omega_i = 1$
+- Dentro de cada grupo, o vetor de pesos prévios do grupo $k$ ($k = 1, 2$) é obtido através do método de volatilidade inversa, $$\boldsymbol{\omega}_{aux}^{(k)} = \dfrac{1}{Trace(Diag(\Sigma^{(k)})^{-1})} \times Diag(\Sigma^{(k)})^{-1},$$ em que $\Sigma^{(k)}$ é a matriz de covariância dos ativos no grupo $k$. 
+- Com os pesos obtidos, calculamos a variância de cada grupo como $V^{(k)} = \boldsymbol{\omega}_{aux}^{(k)} \Sigma^{(k)}\boldsymbol{\omega}_{aux}^{(k) \prime},$ e, finalmente $\alpha = 1 - \frac{V^{(1)}}{V^{(1)} + V^{(2)}}$ que é um fator de ponderação que atualizará o peso de cada ativo.
+- Os pesos finais são atualizados para $\boldsymbol{\omega}^{(1)} = \alpha \boldsymbol{\omega}^{(1)}$ e $\boldsymbol{\omega}^{(2)} = (1 - \alpha) \boldsymbol{\omega}^{(2)}$. 
+- O processo se repete até que cada grupo tenha apenas um ativo.
+
+
+
+## ML Risk-Based Portfolios
+
+**Hierarchical Risk Parity (HRP)**
+
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+library(HierPortfolios)
+covar <- cov(mldp_returns)
+w = HRP_Portfolio(covar, graph = TRUE)
+```
+:::
+
+::: {.column width="50%"}
+<center>
+![](imagens/hrp_step_by_step.png)
+</center>
+:::
+::::
+
+
+. . . 
+
+
+
+<aside>
+No começo, cada ativo tem peso igual a 1.
+</aside>
+
+
+
+## ML Risk-Based Portfolios
+
+**Hierarchical Risk Parity (HRP)**
+
+::: {.callout-note}
+### No R
+```{r}
+#| echo: true
+library(HierPortfolios)
+omega_hrp <- HRP_Portfolio(Sigma)
+```
+:::
+
+
+## ML Risk-Based Portfolios
+
+**Hierarchical Risk Parity (HRP)**
+
+- Uma das críticas do HRP é que ele não utiliza a clusterização mas apenas a ordem.
+- Algumas modificações do algoritmo surguiram na literatura:
+    *   Hierarchical Clustering-Based Asset Allocation (HCAA) [(Raffinot, 2017)](https://www.pm-research.com/content/iijpormgmt/44/2/89)
+    *   Hierarchical Equal Risk Contribution (HERC) [(Raffinot, 2018)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3237540)
+    *   A Constrained Hierarchical Risk Parity Algorithm with Cluster-based Capital Allocation (DHRP) [(Pfitzingera and Katzke, 2019)](https://www.fmx.nfkatzke.com/Projects/HRP.pdf)
+
+
+## ML Risk-Based Portfolios
+
+**A Constrained Hierarchical Risk Parity Algorithm with Cluster-based Capital Allocation (DHRP)**
+
+- Visando incorporar uma maior parte da informação extraida a partir da clusterização, bem como incluir algumas práticas usuais do mercado financeiro, Pfitzinger et al.(2019) propõe três modificações à proposta de Lopez de Prado (2016).
+- A primeira modificação consiste em utilizar um algoritmo divisivo em vez de algoritmo aglomerativo como sugerido por Lopez de Prado (2016).
+- Permite a inclusão de restrições nos pesos e, 
+- Através de um parâmetro $\tau$, é possível aproveitar toda a estrutura hierarquica obtida na clusterização ($\tau = 1$), parte dela ($\tau \in (0, 1)$) ou apenas a ordenação ($\tau = 0$).
+
+. . . 
+
+::: {.callout-note}
+### No R
+```{r}
+#| echo: true
+omega_dhrp <- DHRP_Portfolio(Sigma, tau = 1)
+```
+:::
+
+
+## ML Risk-Based Portfolios
+
+**Hierarchical Clustering-Based Asset Allocation (HCAA)**
+
+- HRP e DHRP não levam em consideração o número de clusters a serem formados.
+- HCAA leva isto em consideração e, após selecionar o número de grupos a serem formados, os pesos são calculados entre os grupos e dentro dos grupos.
+- A ideia é distribuir o capital total a ser investido de forma igual entre os clusters hierarquicamente (assim ativos correlacionados que formarão um cluster recebem o mesmo peso total do que um ativo não correlacionado, obtendo diversificação).
+- Dentro de cada cluster, os pesos são calculados através da estratégia de pesos iguais.
+
+
+
+## ML Risk-Based Portfolios
+
+### Hierarchical Clustering-Based Asset Allocation (HCAA) 
+
+<center>
+![Exemplo: 3 clusters](imagens/hacc.png)
+</center>
+
+
+## ML Risk-Based Portfolios
+
+**Hierarchical Clustering-Based Asset Allocation (HCAA)**
+
+
+::: {.callout-note}
+### No R
+```{r}
+#| echo: true
+omega_hacc <- HCAA_Portfolio(Sigma)
+```
+:::
+
+
+## ML Risk-Based Portfolios
+
+**Hierarchical Equal Risk Contribution (HERC)**
+
+- HRP faz as bissecções considerando apenas a ordem do dendrograma e não o dendrograma _per se_.
+- Parecido com HACC mas em lugar de calcular os pesos de forma que o total a ser investido seja dividio de forma igual entre cluster, calcula os pesos de forma que a contribuição ao risco seja a mesma dentro de cada cluter.
+- Dentro de cada cluster, utiliza-se o método de volatilidade inversa.
+
+
+
+
+## ML Risk-Based Portfolios
+
+**Hierarchical Equal Risk Contribution (HERC)**
+
+
+::: {.callout-note}
+### No R
+```{r}
+#| echo: true
+omega_herc <- HERC_Portfolio(Sigma)
+```
+:::
+
+
+## ML Risk-Based Portfolios
+
+**Hierarchical Equal Risk Contribution (HERC)**
+
+
+- Fazer um agrupamento hierárquico. Raffinot 2018 sugere utilizar a ligação _ward_ mas qualquer outra ligação  poderia ser utilizada.
+
+. . . 
+
+- Selecionar o número de clusters a serem utilizados segundo algum critério. Raffinot 2018 sugere utilizar o índice Gap.
+
+. . . 
+
+
+- Dentro de cada cluster, calcular os pesos (iniciais) segundo o método _Naive Risk Parity_.
+
+. . . 
+
+- Utilizando os pesos obtidos no paso anterior, calcular o risco de cada cluster (e em cada hierarquia).
+
+. . . 
+
+- Em cada hierarquia, calcular os pesos como $\omega^{(1)} = \dfrac{RC_2}{RC_1 + RC_2}$ e $\omega^{(2)} = \dfrac{RC_1}{RC_1 + RC_2}$, em que RC é o risco no cluster. Por ultimo, os pesos iniciais serão atualizados utilizando os diveros $\omega^{(1)}$ e $\omega^{(2)}$ obtidos.
+
+
+
+
+## ML Risk-Based Portfolios
+
+**Hierarchical Equal Risk Contribution (HERC)**
+```{r}
+#| echo: true
+omega_herc <- HERC_Portfolio(Sigma, graph = TRUE)
+```
+
+
+## ML Risk-Based Portfolios
+
+```{r}
+#| echo: true
+pesos <- round(cbind(omega, omega_invol, omega_maxdec, omega_maxdiv, omega_erc, omega_hrp, omega_dhrp, omega_hacc, omega_herc), 3)
+colnames(pesos) <- c("MV", "IV", "MaxDec", "MaxDiv", "ERC", "HRP", "DHRP", "HACC", "HERC")
+pesos
+```
+
+
+
+
+
+# Avaliando Portfolios
+## Medidas de desempenho
+
+Seja  $p$ o tamanho do período fora da amostra
+
+- Average (AV): $$AV = 12\frac{\sum_{i = 1}^{p}R_{i}}{p},$$ em que $R_{i}$ são os retornos fora da amostra. AV calcula a média anualizado o qual é multiplicado por 12. **Quanto maior, melhor o desempenho da carteira**.
+- Standard Deviation (SD): $$SD = \sqrt{12}\hat{\sigma}_{p},$$ em que $\hat{\sigma}_{p}$ é o desvio-padrão anualizado dos retornos fora da amostra. **Quanto menor, menor o risco e tem um desempenho melhor da carteira**.
+
+
+## Medidas de desempenho
+
+- Sharpe Ratio (SR): $$SR = \frac{\bar{R}_{p} - \bar{R}_{f}}{\bar{\sigma}_{p-f}},$$ em que $R_{f}$ é a taxa livre de risco, $\bar{R}_{p}$ é a média dos retornos fora da amostra e $\bar{\sigma}_{p-f}$ é desvio-padrão estimado do excesso de retorno. **Quanto maior, melhor o desempenho da carteira**.
+- Adjusted Sharpe Ratio (ASR): $$SR = SR(1 + (\frac{\mu_{3}}{6})SR - (\frac{\mu_{4}-3}{24})SR^2),$$ em que $\mu_{3}$ é a assimetria, $\mu_{4}$ é a cúrtose e $SR$ é o Sharpe Ratio acima apresentado. Está métrica ajusta o Sharpe ratio incluindo o terceiro e segundo momento amostral. Quanto maior este valor, melhor o desempenho da carteira.
+
+
+## Medidas de desempenho
+
+- Sortino ratio (SO): $$SO = \frac{\bar{R}_{p}}{\sqrt{\frac{\sum_{i=1}^{K}min(0,R_{p,i} - MAR)^2}{K}}},$$ em que $K$ é o tamanho do periodo fora da amostra e MAR é retorno mínimo aceitado, os quais é igual a taxa livre de risco mensal. Quanto maior, melhor o desempenho de portfólio.
+
+
+# Aplicação
+## Aplicação
+
+```{r}
+#| echo: true
+library(yfR)
+library(dplyr)
+library(tidyr)
+library(RiskPortfolios)
+library(HierPortfolios)
+
+
+acoes <- yf_index_composition("IBOV")
+ibov_tickers <- paste0(acoes$ticker, ".SA")
+
+retornos <- yf_get(tickers = ibov_tickers, 
+                 first_date = "2010-01-01",
+                 last_date  = "2024-04-30", 
+                 freq_data = "monthly") |> 
+  select(ref_date, ticker, ret_adjusted_prices) |> 
+  pivot_wider(id_cols = ref_date, values_from = ret_adjusted_prices, names_from = ticker) |> 
+  drop_na()
+retornos[, -1] <- retornos[, -1]*100
+glimpse(retornos)
+```
+
+
+## Aplicação
+
+```{r}
+#| echo: true
+n_obs <- nrow(retornos)
+ins <- 90  
+oos <- n_obs - ins
+Rp <- matrix(NA, ncol = 10, nrow = oos)
+
+for (i in 1:oos) {
+  r <- retornos[i:(i + ins  - 1), -1]  
+  Sigma <- cov(r)
+  w_mv <- optimalPortfolio(Sigma, control = list(type = 'minvol', constraint = 'lo'))
+  w_iv <- optimalPortfolio(Sigma, control = list(type = 'invvol', constraint = 'lo'))
+  w_erc <- optimalPortfolio(Sigma, control = list(type = 'erc', constraint = 'lo'))
+  w_md <- optimalPortfolio(Sigma, control = list(type = 'maxdiv', constraint = 'lo'))
+  w_mdec <- optimalPortfolio(Sigma, control = list(type = 'maxdec', constraint = 'lo'))
+  w_hrp <- HRP_Portfolio(Sigma)$w
+  w_dhrp <- DHRP_Portfolio(Sigma)$w
+  w_hcaa <- HCAA_Portfolio(Sigma)$w
+  w_herc <- HERC_Portfolio(Sigma)$w
+  Rp[i, ] <- c(mean(as.numeric(retornos[i + ins, -1])),
+               sum(w_mv * retornos[i + ins, -1]),
+               sum(w_iv * retornos[i + ins, -1]),
+               sum(w_erc * retornos[i + ins, -1]),
+               sum(w_md * retornos[i + ins, -1]),
+               sum(w_mdec * retornos[i + ins, -1]),
+               sum(w_hrp * retornos[i + ins, -1]),
+               sum(w_dhrp * retornos[i + ins, -1]),
+               sum(w_hcaa * retornos[i + ins, -1]),
+               sum(w_herc * retornos[i + ins, -1]))
+}
+colnames(Rp) <- c("EW", "Min Var", "Inv Vol", "ERC", "Max Div", "Max Dec", "HRP", "DHRP", "HCAA", "HERC")
+```
+
+
+## Aplicação
+
+```{r}
+#| echo: true
+medidas <- function(x) {
+  # Annualized Average
+  AV <- mean(x)
+  # Annualized SD
+  SD <- sd(x)
+  # Information (or Sharpe) Ratio
+  SR <- mean(x)/sd(x)
+  # Adjusted Sharpe Ratio
+  ASR <- SR*(1 + (moments::skewness(x)/6)*SR - ((moments::kurtosis(x) - 3)/24)*SR^2)
+  # Sortino Ratio
+  SO <- mean(x)/sqrt(mean(ifelse(x < 0, 0, x^2)))
+  output <- c(12*AV, sqrt(12)*SD, sqrt(12)*SR, sqrt(12)*ASR, sqrt(12)*SO)
+  return(output)
+}
+
+```
+
+## Aplicação
+```{r}
+#| echo: true
+oos_table <- t(apply(Rp, 2, medidas))
+colnames(oos_table) <- c("AV","SD", "SR", "ASR", "SO")
+oos_table
+```
+
+
+
+
+
+# Tópicos de pesquisa
+## Tópicos de pesquisa
+
+
+- Custos de transação / Otimização
+- Outros estimadores da matriz de covariância
+- Variância (covariância) condicional 
+- Dados em alta dimensão
+- Dados em alta frequência
+- Metodologias híbridas
+
+. . . 
+
+
+<center>
+[Vocês conhecem o [CAREFS](https://www.ime.unicamp.br/carefs/)?]{style="color:red;"}
+</center>
+
+
