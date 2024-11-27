@@ -36,6 +36,26 @@ toc-depth: 1
 # Introdução
 ## Introdução
 
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](imagens/RBF.png)
+:::
+
+::: {.column width="50%"}
+![](imagens/TM.png)
+:::
+
+::::
+
+
+
+
+
+## Introdução
+
 <center>
 ![](imagens/eggs.png)
 <center>
