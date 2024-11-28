@@ -33,27 +33,49 @@ toc-title: "Agenda"
 toc-depth: 1
 ---
 
-# Introdução
-## Introdução
+# A statistician working on portfolio allocation?
+## A statistician working on portfolio allocation?
+
+
+
+
+<center>
+![](imagens/artigos_1--4.png){width="80%"}
+</center>
+
+
+
+
+## A statistician working on portfolio allocation?
 
 
 
 :::: {.columns}
 
 ::: {.column width="50%"}
-![](imagens/RBF.png)
+<center>
+![](imagens/RBF.png){width="75%"}
+</center>
 :::
 
 ::: {.column width="50%"}
-![](imagens/TM.png)
+<center>
+![](imagens/artigo_5.png){width="75%"}
+</center>
 :::
-
 ::::
 
 
+## A statistician working on portfolio allocation?
+
+<center>
+
+![](imagens/TM.png){width="45%"}
+
+</center>
 
 
-
+# Introduction
 ## Introdução
 
 <center>
