@@ -1,0 +1,268 @@
+---
+title: "Risk-based Portfolios"
+subtitle: "Shrinking the sample covariance matrix "
+author: "Prof. Carlos Trucíos </br> ctrucios@unicamp.br"
+Email: "ctrucios@unicamp.br"
+institute: "Instituto de Matemática, Estatística e Computação Científica (IMECC), </br> Universidade Estadual de Campinas (UNICAMP)."
+knitr:
+    opts_chunk: 
+      fig.align: 'center'
+execute:
+    message: false
+    warning: false
+format:
+    revealjs:
+        slide-number: true
+        show-slide-number: print
+        self-contained: false
+        chalkboard: true
+        width: 1600
+        height: 900
+        theme: [default, styles.scss]
+        incremental: true
+        code-fold: true
+        logo: "imagens/imecc.png" 
+        footer: "Carlos Trucíos (IMECC/UNICAMP)  |   FCM-UNMSM 2025  |   Risk-Based Portfolio Allocation  |   [ctruciosm.github.io](https://ctruciosm.github.io/)"
+        highlight-style: "a11y"
+        title-slide-attributes:
+            data-background-image: "imagens/unicamp.png"
+            data-background-size: 20%
+            data-background-position: 99% 5%
+            data-background-opacity: "1"
+toc: true
+toc-title: "Agenda"
+toc-depth: 1
+bibliography: referencias.bib
+---
+
+
+# Motivation
+
+## Motivation
+
+
+<center>
+<img src="imagens/interrogacao.jpg" width="200"/>
+</center> 
+
+
+<center>
+[**What are the two most commonly used statistics overall?**]{style="color:blue;"}
+</center> 
+
+. . . 
+
+
+<center>
+[**What are the multivariate versions of those statistics?**]{style="color:blue;"}
+</center> 
+
+
+
+## Motivation
+
+
+<center>
+Which is the best estimator of the populational mean in a multivariate setting ($N > 3$)?
+
+
+<img src="imagens/interrogacao.jpg" width="200"/>
+</center> 
+ 
+ 
+. . . 
+ 
+ 
+- @stein1956inadmissibility and @james1961estimation answer this question with an unecpected result: **It is not the sample mean!**
+- In dimensions $N > 3$, a better estimator than the sample mean can be obtained by shrinking the sample mean to a target vector
+- This results was so unexpected and revolucionary that it took a while to be digested and embraced by the academic community.
+
+
+
+## Motivation
+
+
+- Years later, a similar idea was applied (mainly by Olivier Ledoit and Michael Wolf) to the covariance matrix in large dimensions, giving rise to the shrinkage estimators for the covariance matrix.
+- Ledoit and Wolf have devoted almost **20 years** of their careers to the development of shrinkage estimators, which have been successfully applied in several fields:
+    *   Chemistry
+    *   Electromagnetics
+    *   Genetics
+    *   Neuroscience
+    *   Psychology
+    *   Image and Speech recognition
+    *   **Economics** and **Finance**
+    
+
+
+# Shrinkage Estimators
+
+
+## Shrinkage Estimators
+
+
+
+Any Shrinkage estimator for the **large-dimensional** covariance matrix has three ingredients:
+
+- An estimator with no structure ($S$)
+- An estimator with a lot of structure ($F$)
+- A Shrinkage constant ($\delta$) (also known as Shrinkage intensity)
+
+
+. . . 
+
+
+::: {.callout-note icon=false}
+### S, F and $\delta$
+
+- The estimatior with no structure: `r emo::ji("surfing")` the sample covariance matrix.
+- The Shrinkage constant: `r emo::ji("computer")` data-driven.
+- The estimator with a lot of structure: `r emo::ji("doubt")`
+    *   Should involve only a small number of free parameters (i.e, a lot of structure)
+    *   Should reflect important characteristics of the unknown quantity to be estimated. 
+    *   Many alternatives
+:::
+
+
+
+## Shrinkage Estimators
+
+<center>
+Shrinkage estimator for the covariance matrix can be divided into two groups:
+</center>
+
+
+
+<div style="font-size:65%">
+
+:::: {.columns}
+
+::: {.column width="50%"}
+#### Linear Shrinkage Estimators
+
+- Easy to understand
+- Easy to proof
+- Easy to implement
+
+:::
+
+::: {.column width="50%"}
+#### Non-Linear Shrinkage Estimators
+
+- Hard to understand
+- Hard to proof
+- Hard to implement
+- More flexivel
+
+:::
+::::
+
+</div>
+
+
+. . . 
+
+
+::: {.callout-note icon=false}
+### Notation
+
+- $\Sigma$: The true (an unknown) covariance matrix
+- $S$: The sample covariance matrix
+- $\mathbb{I}$: The identify matrix 
+- $F$: A target matrix (with a lot os structure)
+- $\hat{\Sigma}$: The shrinkage estimator of the covariance matrix
+- $T$: Sample size
+- $N$: Number os variables (assets)
+
+:::
+
+
+# Linear Shrinkage Estimators
+
+## Linear Shrinkage Estimators
+
+A linear shrinkage estimator is given by:
+
+$$\hat{\Sigma} = (1 - \delta)S + \delta F$$
+
+. . . 
+
+
+<div style="font-size:60%">
+
+|    $F$           |        Reference          | 
+|:----------------:|:---------------------------------:|
+| $\sigma^2 \times \mathbb{I}$ | A well-conditioned estimator for large-dimensional covariance matrices [@ledoit2004well] |
+| Single factor of @sharpe1963simplified (CAPM)  | Improved estimation of the covariance matrix of stock returns with an application to portfolio selection [@ledoit2003improved] |
+| $f_{ij} = \sqrt{\sigma_{ii}\sigma_{jj}}\rho$                    | Honey, I shrunk the sample covariance matrix [@ledoit2004shrunk]   |
+| $f_{ij} = \eta$ and $f_{ii} = \sigma^2$                 | Essays on risk and return in the stock market [@ledoit1995essays]   |
+
+
+</div>
+
+
+- $\sigma^2$: common variance across assets
+- $\rho$: common correlation across assets
+- $\eta$: common covariance across assets
+
+
+## Linear Shrinkage Estimators
+
+
+
+
+# Non-Linear Shrinkage Estimators
+
+## Non-Linear Shrinkage Estimators
+
+
+- The different formulations of $F$ are essentially improvements of the generic linear shrinkage.
+- Such improvements are obtained by incorporating prior information or structural assumptions about the target covariance matrix. 
+- Is it possible to improve the generic linear shrinkage with no previous knowledge about the target covariance matrix?
+
+
+## Non-Linear Shrinkage Estimators
+
+
+::: {.callout-note icon=false}
+### First Idea
+
+<center>
+**Why not, instead of using a common shrinkage intensity ($\delta$), we use different intensities for different entries in $S$?** `r emo::ji("smile")`
+</center>
+:::
+
+
+- The number of shrinkage intensities increases on the order of $N^2$ `r emo::ji("sad")`
+- Allowing different shrinkage intensities no longer guarantees that the final estimator is positive semi-definite  `r emo::ji("sad")`
+- So... that way doesn't really looks like the right way, does it?
+
+
+
+## Non-Linear Shrinkage Estimators
+
+Let $\lambda_1, \cdots, \lambda_N$ be the eiganvalues of $S$ and let
+
+$$(1 - \delta) S + \delta F = \hat{\Sigma} = U \Lambda^{\ast} U$$ be the spectral decomposition of $\hat{\Sigma}$.
+
+. . . 
+
+
+Can be proved that the elements $\lambda_1^{\ast}, \cdots, \lambda_N^{\ast}$ of the diagonal matrix $\Lambda^{\ast}$ are equal to $$\lambda_i^{\ast} = \delta \sigma^2 + (1 - \delta) \lambda_i$$
+
+- This means that $\hat{\Sigma}$ has the same eigenvectors than $S$, but different eigenvalues.
+- Now, a genralization of the generic linear shrinkage, seems to be more obvious: **Let's use different shrinkage intensities for the different sample eigenvalues!**
+
+
+## Non-Linear Shrinkage Estimators
+
+- Nowadays, there are several alternatives to the sample covariance matrix.
+- A great source for codes is [https://github.com/MikeWolf007/covShrinkage](https://github.com/MikeWolf007/covShrinkage)
+- Some R packages are also available:
+  * nlshrink
+  * cvCovEst
+  * ShrinkCovMat
+- Recent methodological contributions include the works of @ledoit2020analytical, @ledoit2022quadratic, @de2022oops, among others.
+- In a recent paper [@trucios2025hierarchical], I conduct a large-scale empirical comparison using real-world data in the context of portfolio allocation.
+  
+
+## References
