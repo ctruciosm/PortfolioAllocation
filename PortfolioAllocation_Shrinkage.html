@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="PortfolioAllocation_Shrinkage_files/libs/clipboard/clipboard.min.js"></script>
+<script src="PortfolioAllocation_Shrinkage_files/libs/quarto-html/tabby.min.js"></script>
+<script src="PortfolioAllocation_Shrinkage_files/libs/quarto-html/popper.min.js"></script>
+<script src="PortfolioAllocation_Shrinkage_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="PortfolioAllocation_Shrinkage_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="PortfolioAllocation_Shrinkage_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="PortfolioAllocation_Shrinkage_files/libs/quarto-html/quarto-syntax-highlighting-3e476e15ae565c222d94875412ae43a1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.39">
+
+  <meta name="author" content="Prof.&nbsp;Carlos Trucíos  ctrucios@unicamp.br">
+  <title>Risk-based Portfolios</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="PortfolioAllocation_Shrinkage_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="PortfolioAllocation_Shrinkage_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="PortfolioAllocation_Shrinkage_files/libs/revealjs/dist/theme/quarto-00a2567a8d70cf1994fd720f31739ab3.css">
+  <link href="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="imagens/unicamp.png" data-background-opacity="1" data-background-position="99% 5%" data-background-size="20%" class="quarto-title-block center">
+  <h1 class="title">Risk-based Portfolios</h1>
+  <p class="subtitle">Shrinking the sample covariance matrix</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br 
+</div>
+        <p class="quarto-title-affiliation">
+            Instituto de Matemática, Estatística e Computação Científica (IMECC), <br> Universidade Estadual de Campinas (UNICAMP).
+          </p>
+    </div>
+</div>
+
+</section><section id="TOC">
+<nav role="doc-toc"> 
+<h2 id="toc-title">Agenda</h2>
+<ul>
+<li class="fragment"><a href="#/motivation" id="/toc-motivation">Motivation</a></li>
+<li class="fragment"><a href="#/shrinkage-estimators" id="/toc-shrinkage-estimators">Shrinkage Estimators</a></li>
+<li class="fragment"><a href="#/linear-shrinkage-estimators-1" id="/toc-linear-shrinkage-estimators-1">Linear Shrinkage Estimators</a></li>
+<li class="fragment"><a href="#/non-linear-shrinkage-estimators-1" id="/toc-non-linear-shrinkage-estimators-1">Non-Linear Shrinkage Estimators</a></li>
+</ul>
+</nav>
+</section>
+<section>
+<section id="motivation" class="title-slide slide level1 center">
+<h1>Motivation</h1>
+
+</section>
+<section id="motivation-1" class="slide level2">
+<h2>Motivation</h2>
+<center>
+<img src="imagens/interrogacao.jpg" width="200">
+</center>
+<center>
+<span style="color:blue;"><strong>What are the two most commonly used statistics overall?</strong></span>
+</center>
+<div class="fragment">
+<center>
+<span style="color:blue;"><strong>What are the multivariate versions of those statistics?</strong></span>
+</center>
+</div>
+</section>
+<section id="motivation-2" class="slide level2">
+<h2>Motivation</h2>
+<center>
+<p>Which is the best estimator of the populational mean in a multivariate setting (<span class="math inline">\(N &gt; 3\)</span>)?</p>
+<img src="imagens/interrogacao.jpg" width="200">
+</center>
+<div class="fragment">
+<ul>
+<li class="fragment"><span class="citation" data-cites="stein1956inadmissibility">Stein (<a href="#/references" role="doc-biblioref" onclick="">1956</a>)</span> and <span class="citation" data-cites="james1961estimation">James and Stein (<a href="#/references" role="doc-biblioref" onclick="">1961</a>)</span> answer this question with an unecpected result: <strong>It is not the sample mean!</strong></li>
+<li class="fragment">In dimensions <span class="math inline">\(N &gt; 3\)</span>, a better estimator than the sample mean can be obtained by shrinking the sample mean to a target vector</li>
+<li class="fragment">This results was so unexpected and revolucionary that it took a while to be digested and embraced by the academic community.</li>
+</ul>
+</div>
+</section>
+<section id="motivation-3" class="slide level2">
+<h2>Motivation</h2>
+<ul>
+<li class="fragment">Years later, a similar idea was applied (mainly by Olivier Ledoit and Michael Wolf) to the covariance matrix in large dimensions, giving rise to the shrinkage estimators for the covariance matrix.</li>
+<li class="fragment">Ledoit and Wolf have devoted almost <strong>20 years</strong> of their careers to the development of shrinkage estimators, which have been successfully applied in several fields:
+<ul>
+<li class="fragment">Chemistry</li>
+<li class="fragment">Electromagnetics</li>
+<li class="fragment">Genetics</li>
+<li class="fragment">Neuroscience</li>
+<li class="fragment">Psychology</li>
+<li class="fragment">Image and Speech recognition</li>
+<li class="fragment"><strong>Economics</strong> and <strong>Finance</strong></li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="shrinkage-estimators" class="title-slide slide level1 center">
+<h1>Shrinkage Estimators</h1>
+
+</section>
+<section id="shrinkage-estimators-1" class="slide level2">
+<h2>Shrinkage Estimators</h2>
+<p>Any Shrinkage estimator for the <strong>large-dimensional</strong> covariance matrix has three ingredients:</p>
+<ul>
+<li class="fragment">An estimator with no structure (<span class="math inline">\(S\)</span>)</li>
+<li class="fragment">An estimator with a lot of structure (<span class="math inline">\(F\)</span>)</li>
+<li class="fragment">A Shrinkage constant (<span class="math inline">\(\delta\)</span>) (also known as Shrinkage intensity)</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>S, F and <span class="math inline">\(\delta\)</span></strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li class="fragment">The estimatior with no structure: 🏄‍♂️ the sample covariance matrix.</li>
+<li class="fragment">The Shrinkage constant: 💻 data-driven.</li>
+<li class="fragment">The estimator with a lot of structure: 🤷
+<ul>
+<li class="fragment">Should involve only a small number of free parameters (i.e, a lot of structure)</li>
+<li class="fragment">Should reflect important characteristics of the unknown quantity to be estimated.</li>
+<li class="fragment">Many alternatives</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="shrinkage-estimators-2" class="slide level2">
+<h2>Shrinkage Estimators</h2>
+<center>
+Shrinkage estimator for the covariance matrix can be divided into two groups:
+</center>
+<div style="font-size:65%">
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="linear-shrinkage-estimators">Linear Shrinkage Estimators</h4>
+<ul>
+<li class="fragment">Easy to understand</li>
+<li class="fragment">Easy to proof</li>
+<li class="fragment">Easy to implement</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h4 id="non-linear-shrinkage-estimators">Non-Linear Shrinkage Estimators</h4>
+<ul>
+<li class="fragment">Hard to understand</li>
+<li class="fragment">Hard to proof</li>
+<li class="fragment">Hard to implement</li>
+<li class="fragment">More flexivel</li>
+</ul>
+</div></div>
+</div>
+<div class="fragment">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Notation</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li class="fragment"><span class="math inline">\(\Sigma\)</span>: The true (an unknown) covariance matrix</li>
+<li class="fragment"><span class="math inline">\(S\)</span>: The sample covariance matrix</li>
+<li class="fragment"><span class="math inline">\(\mathbb{I}\)</span>: The identify matrix</li>
+<li class="fragment"><span class="math inline">\(F\)</span>: A target matrix (with a lot os structure)</li>
+<li class="fragment"><span class="math inline">\(\hat{\Sigma}\)</span>: The shrinkage estimator of the covariance matrix</li>
+<li class="fragment"><span class="math inline">\(T\)</span>: Sample size</li>
+<li class="fragment"><span class="math inline">\(N\)</span>: Number os variables (assets)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="linear-shrinkage-estimators-1" class="title-slide slide level1 center">
+<h1>Linear Shrinkage Estimators</h1>
+
+</section>
+<section id="linear-shrinkage-estimators-2" class="slide level2">
+<h2>Linear Shrinkage Estimators</h2>
+<p>A linear shrinkage estimator is given by:</p>
+<p><span class="math display">\[\hat{\Sigma} = (1 - \delta)S + \delta F\]</span></p>
+<div class="fragment">
+<div style="font-size:60%">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(F\)</span></th>
+<th style="text-align: center;">Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\sigma^2 \times \mathbb{I}\)</span></td>
+<td style="text-align: center;">A well-conditioned estimator for large-dimensional covariance matrices <span class="citation" data-cites="ledoit2004well">(<a href="#/references" role="doc-biblioref" onclick="">Ledoit and Wolf 2004a</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Single factor of <span class="citation" data-cites="sharpe1963simplified">Sharpe (<a href="#/references" role="doc-biblioref" onclick="">1963</a>)</span> (CAPM)</td>
+<td style="text-align: center;">Improved estimation of the covariance matrix of stock returns with an application to portfolio selection <span class="citation" data-cites="ledoit2003improved">(<a href="#/references" role="doc-biblioref" onclick="">Ledoit and Wolf 2003</a>)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(f_{ij} = \sqrt{\sigma_{ii}\sigma_{jj}}\rho\)</span></td>
+<td style="text-align: center;">Honey, I shrunk the sample covariance matrix <span class="citation" data-cites="ledoit2004shrunk">(<a href="#/references" role="doc-biblioref" onclick="">Ledoit and Wolf 2004b</a>)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(f_{ij} = \eta\)</span> and <span class="math inline">\(f_{ii} = \sigma^2\)</span></td>
+<td style="text-align: center;">Essays on risk and return in the stock market <span class="citation" data-cites="ledoit1995essays">(<a href="#/references" role="doc-biblioref" onclick="">Ledoit 1995</a>)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li class="fragment"><span class="math inline">\(\sigma^2\)</span>: common variance across assets</li>
+<li class="fragment"><span class="math inline">\(\rho\)</span>: common correlation across assets</li>
+<li class="fragment"><span class="math inline">\(\eta\)</span>: common covariance across assets</li>
+</ul>
+</div>
+</section>
+<section id="linear-shrinkage-estimators-3" class="slide level2">
+<h2>Linear Shrinkage Estimators</h2>
+</section></section>
+<section>
+<section id="non-linear-shrinkage-estimators-1" class="title-slide slide level1 center">
+<h1>Non-Linear Shrinkage Estimators</h1>
+
+</section>
+<section id="non-linear-shrinkage-estimators-2" class="slide level2">
+<h2>Non-Linear Shrinkage Estimators</h2>
+<ul>
+<li class="fragment">The different formulations of <span class="math inline">\(F\)</span> are essentially improvements of the generic linear shrinkage.</li>
+<li class="fragment">Such improvements are obtained by incorporating prior information or structural assumptions about the target covariance matrix.</li>
+<li class="fragment">Is it possible to improve the generic linear shrinkage with no previous knowledge about the target covariance matrix?</li>
+</ul>
+</section>
+<section id="non-linear-shrinkage-estimators-3" class="slide level2">
+<h2>Non-Linear Shrinkage Estimators</h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>First Idea</strong></p>
+</div>
+<div class="callout-content">
+<center>
+<strong>Why not, instead of using a common shrinkage intensity (<span class="math inline">\(\delta\)</span>), we use different intensities for different entries in <span class="math inline">\(S\)</span>?</strong> 😄
+</center>
+</div>
+</div>
+</div>
+<ul>
+<li class="fragment">The number of shrinkage intensities increases on the order of <span class="math inline">\(N^2\)</span> 😭</li>
+<li class="fragment">Allowing different shrinkage intensities no longer guarantees that the final estimator is positive semi-definite 😭</li>
+<li class="fragment">So… that way doesn’t really looks like the right way, does it?</li>
+</ul>
+</section>
+<section id="non-linear-shrinkage-estimators-4" class="slide level2">
+<h2>Non-Linear Shrinkage Estimators</h2>
+<p>Let <span class="math inline">\(\lambda_1, \cdots, \lambda_N\)</span> be the eiganvalues of <span class="math inline">\(S\)</span> and let</p>
+<p><span class="math display">\[(1 - \delta) S + \delta F = \hat{\Sigma} = U \Lambda^{\ast} U\]</span> be the spectral decomposition of <span class="math inline">\(\hat{\Sigma}\)</span>.</p>
+<div class="fragment">
+<p>Can be proved that the elements <span class="math inline">\(\lambda_1^{\ast}, \cdots, \lambda_N^{\ast}\)</span> of the diagonal matrix <span class="math inline">\(\Lambda^{\ast}\)</span> are equal to <span class="math display">\[\lambda_i^{\ast} = \delta \sigma^2 + (1 - \delta) \lambda_i\]</span></p>
+<ul>
+<li class="fragment">This means that <span class="math inline">\(\hat{\Sigma}\)</span> has the same eigenvectors than <span class="math inline">\(S\)</span>, but different eigenvalues.</li>
+<li class="fragment">Now, a genralization of the generic linear shrinkage, seems to be more obvious: <strong>Let’s use different shrinkage intensities for the different sample eigenvalues!</strong></li>
+</ul>
+</div>
+</section>
+<section id="non-linear-shrinkage-estimators-5" class="slide level2">
+<h2>Non-Linear Shrinkage Estimators</h2>
+<ul>
+<li class="fragment">Nowadays, there are several alternatives to the sample covariance matrix.</li>
+<li class="fragment">A great source for codes is <a href="https://github.com/MikeWolf007/covShrinkage">https://github.com/MikeWolf007/covShrinkage</a></li>
+<li class="fragment">Some R packages are also available:
+<ul>
+<li class="fragment">nlshrink</li>
+<li class="fragment">cvCovEst</li>
+<li class="fragment">ShrinkCovMat</li>
+</ul></li>
+<li class="fragment">Recent methodological contributions include the works of <span class="citation" data-cites="ledoit2020analytical">Ledoit and Wolf (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span>, <span class="citation" data-cites="ledoit2022quadratic">Ledoit and Wolf (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>, <span class="citation" data-cites="de2022oops">De Nard (<a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span>, among others.</li>
+<li class="fragment">In a recent paper <span class="citation" data-cites="trucios2025hierarchical">(<a href="#/references" role="doc-biblioref" onclick="">Trucı́os 2025</a>)</span>, I conduct a large-scale empirical comparison using real-world data in the context of portfolio allocation.</li>
+</ul>
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-de2022oops" class="csl-entry" role="listitem">
+De Nard, Gianluca. 2022. <span>“Oops! I Shrunk the Sample Covariance Matrix Again: Blockbuster Meets Shrinkage.”</span> <em>Journal of Financial Econometrics</em> 20 (4): 569–611.
+</div>
+<div id="ref-james1961estimation" class="csl-entry" role="listitem">
+James, William, and Charles Stein. 1961. <span>“Estimation with Quadratic Loss.”</span> In <em>Proceedings of the Fourth Berkeley Symposium on Mathematical Statistics and Probability</em>, 1:361–79. 1961. University of California Press.
+</div>
+<div id="ref-ledoit1995essays" class="csl-entry" role="listitem">
+Ledoit, Olivier. 1995. <span>“Essays on Risk and Return in the Stock Market.”</span> PhD thesis, Massachusetts Institute of Technology.
+</div>
+<div id="ref-ledoit2003improved" class="csl-entry" role="listitem">
+Ledoit, Olivier, and Michael Wolf. 2003. <span>“Improved Estimation of the Covariance Matrix of Stock Returns with an Application to Portfolio Selection.”</span> <em>Journal of Empirical Finance</em> 10 (5): 603–21.
+</div>
+<div id="ref-ledoit2004well" class="csl-entry" role="listitem">
+———. 2004a. <span>“A Well-Conditioned Estimator for Large-Dimensional Covariance Matrices.”</span> <em>Journal of Multivariate Analysis</em> 88 (2): 365–411.
+</div>
+<div id="ref-ledoit2004shrunk" class="csl-entry" role="listitem">
+———. 2004b. <span>“Honey, i Shrunk the Sample Covariance Matrix.”</span> <em>The Journal of Portfolio Management</em> 30 (4): 110–19.
+</div>
+<div id="ref-ledoit2020analytical" class="csl-entry" role="listitem">
+———. 2020. <span>“Analytical Nonlinear Shrinkage of Large-Dimensional Covariance Matrices.”</span> <em>The Annals of Statistics</em> 48 (5): 3043–65.
+</div>
+<div id="ref-ledoit2022quadratic" class="csl-entry" role="listitem">
+———. 2022. <span>“Quadratic Shrinkage for Large Covariance Matrices.”</span> <em>Bernoulli</em> 28 (3): 1519–47.
+</div>
+<div id="ref-sharpe1963simplified" class="csl-entry" role="listitem">
+Sharpe, William F. 1963. <span>“A Simplified Model for Portfolio Analysis.”</span> <em>Management Science</em> 9 (2): 277–93.
+</div>
+<div id="ref-stein1956inadmissibility" class="csl-entry" role="listitem">
+Stein, Charles. 1956. <span>“Inadmissibility of the Usual Estimator for the Mean of a Multivariate Normal Distribution.”</span> In <em>Proceedings of the Third Berkeley Symposium on Mathematical Statistics and Probability</em>, 1:197–206. 1.
+</div>
+<div id="ref-trucios2025hierarchical" class="csl-entry" role="listitem">
+Trucı́os, Carlos. 2025. <span>“Hierarchical Risk Clustering Versus Traditional Risk-Based Portfolios: An Empirical Out-of-Sample Comparison.”</span> <em>Available at SSRN 5247627</em>.
+</div>
+</div>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="imagens/imecc.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>Carlos Trucíos (IMECC/UNICAMP) | FCM-UNMSM 2025 | Risk-Based Portfolio Allocation | <a href="https://ctruciosm.github.io/">ctruciosm.github.io</a></p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="PortfolioAllocation_Shrinkage_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="PortfolioAllocation_Shrinkage_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'print',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

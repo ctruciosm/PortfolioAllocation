@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="PortfolioAllocation_UNMSM_files/libs/clipboard/clipboard.min.js"></script>
+<script src="PortfolioAllocation_UNMSM_files/libs/quarto-html/tabby.min.js"></script>
+<script src="PortfolioAllocation_UNMSM_files/libs/quarto-html/popper.min.js"></script>
+<script src="PortfolioAllocation_UNMSM_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="PortfolioAllocation_UNMSM_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="PortfolioAllocation_UNMSM_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="PortfolioAllocation_UNMSM_files/libs/quarto-html/quarto-syntax-highlighting-3e476e15ae565c222d94875412ae43a1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.39">
+
+  <meta name="author" content="Prof.&nbsp;Carlos Trucíos  ctrucios@unicamp.br">
+  <title>Estadística y Machine Learning en economía y finanzas:</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="PortfolioAllocation_UNMSM_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="PortfolioAllocation_UNMSM_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #767676;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #767676;  padding-left: 4px; }
+    div.sourceCode
+      { color: #545454; background-color: #fefefe; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #545454; } /* Normal */
+    code span.al { color: #7928a1; } /* Alert */
+    code span.an { color: #696969; } /* Annotation */
+    code span.at { color: #a55a00; } /* Attribute */
+    code span.bn { color: #7928a1; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #d91e18; } /* ControlFlow */
+    code span.ch { color: #008000; } /* Char */
+    code span.cn { color: #d91e18; } /* Constant */
+    code span.co { color: #696969; } /* Comment */
+    code span.cv { color: #696969; font-style: italic; } /* CommentVar */
+    code span.do { color: #696969; font-style: italic; } /* Documentation */
+    code span.dt { color: #7928a1; } /* DataType */
+    code span.dv { color: #7928a1; } /* DecVal */
+    code span.er { color: #7928a1; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #a55a00; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #696969; } /* Information */
+    code span.kw { color: #d91e18; } /* Keyword */
+    code span.op { color: #00769e; } /* Operator */
+    code span.ot { color: #d91e18; } /* Other */
+    code span.pp { color: #7928a1; } /* Preprocessor */
+    code span.sc { color: #00769e; } /* SpecialChar */
+    code span.ss { color: #008000; } /* SpecialString */
+    code span.st { color: #008000; } /* String */
+    code span.va { color: #a55a00; } /* Variable */
+    code span.vs { color: #008000; } /* VerbatimString */
+    code span.wa { color: #696969; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="PortfolioAllocation_UNMSM_files/libs/revealjs/dist/theme/quarto-00a2567a8d70cf1994fd720f31739ab3.css">
+  <link href="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="imagens/unicamp.png" data-background-opacity="1" data-background-position="99% 5%" data-background-size="20%" class="quarto-title-block center">
+  <h1 class="title">Estadística y Machine Learning en economía y finanzas:</h1>
+  <p class="subtitle">el caso de selección de carteras</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br 
+</div>
+        <p class="quarto-title-affiliation">
+            Instituto de Matemática, Estatística e Computação Científica (IMECC), <br> Universidade Estadual de Campinas (UNICAMP).
+          </p>
+    </div>
+</div>
+
+</section><section id="TOC">
+<nav role="doc-toc"> 
+<h2 id="toc-title">Contenido</h2>
+<ul>
+<li class="fragment"><a href="#/un-estadístico-trabajando-con-alocación-de-carteras" id="/toc-un-estadístico-trabajando-con-alocación-de-carteras">¿Un estadístico trabajando con alocación de carteras?</a></li>
+<li class="fragment"><a href="#/introducción" id="/toc-introducción">Introducción</a></li>
+<li class="fragment"><a href="#/markowitz" id="/toc-markowitz">Markowitz</a></li>
+<li class="fragment"><a href="#/hands-on-i" id="/toc-hands-on-i">Hands-On I</a></li>
+<li class="fragment"><a href="#/otros-portafolios-basados-en-riesgo" id="/toc-otros-portafolios-basados-en-riesgo">Otros portafolios basados en riesgo</a></li>
+<li class="fragment"><a href="#/hands-on-ii" id="/toc-hands-on-ii">Hands-On II</a></li>
+<li class="fragment"><a href="#/portafolios-basados-en-riesgo-con-machine-learning-ml" id="/toc-portafolios-basados-en-riesgo-con-machine-learning-ml">Portafolios basados en riesgo con Machine Learning (ML)</a></li>
+<li class="fragment"><a href="#/evaluando-portafolios" id="/toc-evaluando-portafolios">Evaluando Portafolios</a></li>
+<li class="fragment"><a href="#/aplicación" id="/toc-aplicación">Aplicación</a></li>
+<li class="fragment"><a href="#/temas-de-investigación" id="/toc-temas-de-investigación">Temas de investigación</a></li>
+</ul>
+</nav>
+</section>
+<section>
+<section id="un-estadístico-trabajando-con-alocación-de-carteras" class="title-slide slide level1 center">
+<h1>¿Un estadístico trabajando con alocación de carteras?</h1>
+
+</section>
+<section id="todo-tiene-un-comienzo" class="slide level2">
+<h2>Todo tiene un comienzo</h2>
+<center>
+<img data-src="imagens/artigos_1--4.png" style="width:70.0%">
+</center>
+</section>
+<section id="todo-tiene-un-comienzo-1" class="slide level2">
+<h2>Todo tiene un comienzo</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<center>
+<img data-src="imagens/RBF.png" style="width:65.0%">
+</center>
+</div><div class="column" style="width:50%;">
+<center>
+<img data-src="imagens/artigo_5.png" style="width:65.0%">
+</center>
+</div></div>
+</section>
+<section id="todo-tiene-un-comienzo-2" class="slide level2">
+<h2>Todo tiene un comienzo</h2>
+<center>
+<p><img data-src="imagens/WP_EMPECON.png" style="width:45.0%"></p>
+</center>
+</section></section>
+<section>
+<section id="introducción" class="title-slide slide level1 center">
+<h1>Introducción</h1>
+
+</section>
+<section id="introducción-1" class="slide level2">
+<h2>Introducción</h2>
+<center>
+<img data-src="imagens/eggs.png">
+<center>
+</center></center></section>
+<section id="introducción-2" class="slide level2">
+<h2>Introducción</h2>
+<ul>
+<li class="fragment">Supongamos que tenemos dos activos, <span class="math inline">\(A\)</span> y <span class="math inline">\(B\)</span>, en los que estamos interesados en invertir. ¿Cómo asignaría sus recursos en esta inversión?</li>
+<li class="fragment">Supongamos que tenemos dos activos, <span class="math inline">\(A\)</span> y <span class="math inline">\(B\)</span>, con rendimientos esperados de <span class="math inline">\(3\)</span> y <span class="math inline">\(5\)</span>, y varianzas de <span class="math inline">\(2\)</span> y <span class="math inline">\(4\)</span>, respectivamente. ¿Cómo asignaría sus recursos para maximizar su rendimiento esperado y minimizar su riesgo?</li>
+<li class="fragment">Supongamos que tenemos dos activos, <span class="math inline">\(A\)</span> y <span class="math inline">\(B\)</span>, con rendimientos esperados de <span class="math inline">\(3\)</span> y <span class="math inline">\(5\)</span>, varianzas de <span class="math inline">\(2\)</span> y <span class="math inline">\(4\)</span>, respectivamente, y una correlación igual a <span class="math inline">\(0.5\)</span>. ¿Cómo asignaría sus recursos para maximizar su rendimiento esperado y minimizar su riesgo?</li>
+<li class="fragment">Sea <span class="math inline">\(\boldsymbol{\omega}\)</span> y <span class="math inline">\(\boldsymbol{\mu}\)</span> los vectores columna de pesos y rendimientos esperados, respectivamente, y sea <span class="math inline">\(\boldsymbol{\Sigma}\)</span> la matriz de covarianza asociada (riesgo). Queremos maximizar <span class="math display">\[
+\boldsymbol{\mu}^\top \boldsymbol{\omega} - \delta \, \boldsymbol{\omega}^\top \boldsymbol{\Sigma} \, \boldsymbol{\omega},\]</span> donde <span class="math inline">\(\delta\)</span> es el parámetro de aversión al riesgo (cuanto mayor, más adversos al riesgo).</li>
+</ul>
+</section></section>
+<section>
+<section id="markowitz" class="title-slide slide level1 center">
+<h1>Markowitz</h1>
+
+</section>
+<section id="markowitz-1952" class="slide level2">
+<h2>Markowitz (1952)</h2>
+
+<img data-src="PortfolioAllocation_UNMSM_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section>
+<section id="markowitz-1" class="slide level2">
+<h2>Markowitz</h2>
+<p>Cuando <span class="math inline">\(\delta\)</span> es grande, el problema a resolver se convierte, aproximadamente, en minimizar<br>
+<span class="math display">\[
+\boldsymbol{\omega}^\top \boldsymbol{\Sigma} \, \boldsymbol{\omega},
+\]</span></p>
+<center>
+<span style="color:red;">Portafolio conocido como <strong>portafolio de varianza mínima</strong>.</span>
+</center>
+<div class="fragment">
+<ul>
+<li class="fragment">Vamos a suponer que todo nuestro capital será asignado, es decir, <span class="math inline">\(\displaystyle \sum_{i = 1}^N \omega_i = 1\)</span><br>
+</li>
+<li class="fragment">Entonces, queremos minimizar con restricción</li>
+</ul>
+</div>
+</section>
+<section id="markowitz-2" class="slide level2">
+<h2>Markowitz</h2>
+<p>Sea un portafolio con <span class="math inline">\(N\)</span> activos y matriz de covarianza <span class="math inline">\(\Sigma\)</span>. Queremos minimizar<br>
+<span class="math display">\[
+L(\boldsymbol{\omega}, \lambda) = \boldsymbol{\omega}^\top \Sigma \, \boldsymbol{\omega} + \lambda \, (\boldsymbol{1}^\top \boldsymbol{\omega} - 1), \quad \text{donde} \quad \boldsymbol{1} = [1, 1, \cdots, 1]^\top.
+\]</span></p>
+<div class="fragment">
+<p><a href="https://ctruciosm.github.io/slides/Aula_02.pdf">Derivando</a> <em>w.r.t.</em> <span class="math inline">\(\boldsymbol{\omega}\)</span> y <span class="math inline">\(\lambda\)</span></p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><strong>Recuerde que</strong></p>
+<ul>
+<li class="fragment"><span class="math inline">\(\dfrac{\partial \textbf{x}'A \textbf{x}}{\partial \textbf{x}} = (A + A') \textbf{x}\)</span></li>
+<li class="fragment"><span class="math inline">\(\dfrac{\partial \textbf{x}' \textbf{a}}{\partial \textbf{x}} = \dfrac{\partial \textbf{a}' \textbf{x}}{\partial \textbf{x}} = a\)</span></li>
+<li class="fragment"><span class="math inline">\(\dfrac{\partial^2 \textbf{x}'A \textbf{x}}{\partial \textbf{x} \partial \textbf{x}'} = A' + A\)</span></li>
+</ul>
+</div><div class="column" style="width:60%;">
+<ul>
+<li class="fragment"><span class="math inline">\(\dfrac{\partial L}{\partial \boldsymbol{\omega}} = 2 \Sigma \boldsymbol{\omega} + \lambda \boldsymbol{1}\)</span></li>
+<li class="fragment"><span class="math inline">\(\dfrac{\partial L}{\partial \lambda} = \boldsymbol{1}' \boldsymbol{\omega} - 1\)</span></li>
+</ul>
+</div></div>
+</div>
+<div class="fragment">
+<p>Igualando a cero, <span class="math inline">\(\Sigma \boldsymbol{\omega} = - \dfrac{\lambda \boldsymbol{1}}{2} \rightarrow \boldsymbol{\omega} = \dfrac{-\lambda}{2} \Sigma^{-1} \boldsymbol{1}.\)</span></p>
+</div>
+</section>
+<section id="markowitz-3" class="slide level2">
+<h2>Markowitz</h2>
+<p>Igualando a cero <span class="math inline">\(\dfrac{\partial L}{\partial \lambda} = \boldsymbol{1}' \boldsymbol{\omega} - 1\)</span>, tenemos:</p>
+<div class="fragment">
+<p><span class="math display">\[1 = \boldsymbol{1}' \boldsymbol{\omega} =   \dfrac{-\lambda}{2} \boldsymbol{1}' \Sigma^{-1} \boldsymbol{1} \rightarrow \lambda = \dfrac{-2}{\boldsymbol{1}' \Sigma^{-1} \boldsymbol{1}}.\]</span></p>
+<p>Luego,</p>
+<p><span class="math display">\[\boldsymbol{\omega} = \dfrac{-\lambda}{2} \Sigma^{-1} \boldsymbol{1} = \dfrac{\Sigma^{-1} \boldsymbol{1}}{\boldsymbol{1}' \Sigma^{-1} \boldsymbol{1}},\]</span> son los pesos optimos de la cartera de mínima varianza.</p>
+</div>
+<div class="fragment">
+<center>
+<span style="color:red;">En la práctica, <span class="math inline">\(\Sigma\)</span> no es conocido y debe ser estimado con los datos (<span class="math inline">\(\hat{\Sigma}\)</span>).</span>
+</center>
+</div>
+</section></section>
+<section>
+<section id="hands-on-i" class="title-slide slide level1 center">
+<h1>Hands-On I</h1>
+
+</section>
+<section id="hands-on-i-1" class="slide level2">
+<h2>Hands-On I</h2>
+<p>Usando los retornos mensuales de las acciones en la B3, calcularemos los pesos para el portafolio de varianza mínima. Utilizaremos los paquetes de <strong>R</strong> <code>yfR</code>, <code>RiskPortfolios</code>, <code>HierPortfolios</code>, <code>tidyr</code> y <code>dplyr</code>.</p>
+<div class="cell" data-layout-align="center" data-warnings="false">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(yfR)</span>
+<span id="cb1-2"><a href=""></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href=""></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-4"><a href=""></a><span class="co"># Lista de acciones que forman el índice Ibovespa</span></span>
+<span id="cb1-5"><a href=""></a>acoes <span class="ot">&lt;-</span> <span class="fu">yf_index_composition</span>(<span class="st">"IBOV"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in dplyr::rename(., ticker = Ticker, company = Company, industry = Industry) : 
+  Can't rename columns that don't exist.
+✖ Column `Ticker` doesn't exist.</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>acoes<span class="sc">$</span>ticker</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "ALPA4"  "ABEV3"  "AMER3"  "AZUL4"  "B3SA3"  "BBAS3"  "BBSE3"  "BBDC3" 
+ [9] "BBDC4"  "BIDI11" "BPAN4"  "BRAP4"  "BRML3"  "BRKM5"  "BRFS3"  "BPAC11"
+[17] "CRFB3"  "CCRO3"  "CVCB3"  "CMIG4"  "CIEL3"  "COGN3"  "CPLE6"  "CSAN3" 
+[25] "CPFE3"  "CSNA3"  "CYRE3"  "DXCO3"  "ECOR3"  "ENBR3"  "ELET3"  "ELET6" 
+[33] "EMBR3"  "ENGI11" "ENEV3"  "EGIE3"  "EQTL3"  "EZTC3"  "GGBR4"  "GOLL4" 
+[41] "PCAR3"  "SOMA3"  "FLRY3"  "HAPV3"  "HYPE3"  "IGTI11" "IRBR3"  "ITUB4" 
+[49] "ITSA4"  "JBSS3"  "JHSF3"  "KLBN11" "RENT3"  "LWSA3"  "LREN3"  "MGLU3" 
+[57] "MRFG3"  "CASH3"  "GOAU4"  "BEEF3"  "MRVE3"  "MULT3"  "NTCO3"  "PETR3" 
+[65] "PETR4"  "VBBR3"  "PRIO3"  "PETZ3"  "QUAL3"  "RADL3"  "RDOR3"  "RAIL3" 
+[73] "SBSP3"  "SANB11" "ASAI3"  "SULA11" "SUZB3"  "TAEE11" "VIVT3"  "TIMS3" 
+[81] "TOTS3"  "UGPA3"  "LCAM3"  "USIM5"  "VALE3"  "VIIA3"  "YDUQ3"  "WEGE3" </code></pre>
+</div>
+</div>
+</section>
+<section id="hands-on-i-2" class="slide level2">
+<h2>Hands-On I</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>tickers <span class="ot">&lt;-</span> <span class="fu">paste0</span>(acoes<span class="sc">$</span>ticker, <span class="st">".SA"</span>)</span>
+<span id="cb5-2"><a href=""></a><span class="co"># Bajando datos</span></span>
+<span id="cb5-3"><a href=""></a>precios <span class="ot">&lt;-</span> <span class="fu">yf_get</span>(<span class="at">tickers =</span> tickers, </span>
+<span id="cb5-4"><a href=""></a>                 <span class="at">first_date =</span> <span class="st">"2015-01-01"</span>,</span>
+<span id="cb5-5"><a href=""></a>                 <span class="at">last_date  =</span> <span class="st">"2025-06-30"</span>, </span>
+<span id="cb5-6"><a href=""></a>                 <span class="at">freq_data =</span> <span class="st">"monthly"</span>)</span>
+<span id="cb5-7"><a href=""></a><span class="fu">glimpse</span>(precios)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 8,135
+Columns: 11
+$ ticker                 &lt;chr&gt; "ABEV3.SA", "ABEV3.SA", "ABEV3.SA", "ABEV3.SA",…
+$ ref_date               &lt;date&gt; 2015-01-02, 2015-02-02, 2015-03-02, 2015-04-01…
+$ volume                 &lt;dbl&gt; 262525100, 193123300, 252616400, 218542400, 205…
+$ price_open             &lt;dbl&gt; 17.44, 18.31, 18.40, 18.75, 18.35, 19.00, 19.02…
+$ price_high             &lt;dbl&gt; 17.87, 18.88, 18.97, 19.69, 20.29, 19.24, 19.89…
+$ price_low              &lt;dbl&gt; 15.54, 17.16, 17.35, 18.42, 18.15, 18.09, 18.39…
+$ price_close            &lt;dbl&gt; 17.69, 18.31, 18.48, 18.95, 18.53, 18.99, 19.47…
+$ price_adjusted         &lt;dbl&gt; 11.96004, 12.37922, 12.55587, 12.87520, 12.5898…
+$ ret_adjusted_prices    &lt;dbl&gt; NA, 0.035047889, 0.014270430, 0.025432663, -0.0…
+$ ret_closing_prices     &lt;dbl&gt; NA, 0.035047988, 0.009284548, 0.025432967, -0.0…
+$ cumret_adjusted_prices &lt;dbl&gt; 1.0000000, 1.0350479, 1.0498185, 1.0765181, 1.0…</code></pre>
+</div>
+</div>
+</section>
+<section id="hands-on-i-3" class="slide level2">
+<h2>Hands-On I</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># Estimamos la matriz de covariancia</span></span>
+<span id="cb7-2"><a href=""></a>Sigma <span class="ot">&lt;-</span> precios <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href=""></a>  <span class="fu">select</span>(ref_date, ticker, ret_adjusted_prices) <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a href=""></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> ref_date, <span class="at">values_from =</span> ret_adjusted_prices, <span class="at">names_from =</span> ticker) <span class="sc">|&gt;</span> </span>
+<span id="cb7-5"><a href=""></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb7-6"><a href=""></a>  <span class="fu">select</span>(<span class="sc">-</span>ref_date) <span class="sc">|&gt;</span> </span>
+<span id="cb7-7"><a href=""></a>  <span class="fu">cov</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="hands-on-i-4" class="slide level2">
+<h2>Hands-On I</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>n <span class="ot">&lt;-</span> <span class="fu">ncol</span>(Sigma)</span>
+<span id="cb8-2"><a href=""></a>ones <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">nrow =</span> n)</span>
+<span id="cb8-3"><a href=""></a>w <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="fu">t</span>(ones) <span class="sc">%*%</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> ones)) <span class="sc">*</span> <span class="fu">solve</span>(Sigma) <span class="sc">%*%</span> ones</span>
+<span id="cb8-4"><a href=""></a><span class="fu">round</span>(w, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>             [,1]
+ABEV3.SA   0.0068
+ALPA4.SA   0.0160
+AMER3.SA   0.0234
+AZUL4.SA   0.0197
+B3SA3.SA   0.0081
+BBAS3.SA   0.0633
+BBDC3.SA  -0.4578
+BBDC4.SA   0.5790
+BBSE3.SA   0.0394
+BEEF3.SA  -0.0013
+BPAC11.SA -0.0429
+BPAN4.SA   0.0134
+BRAP4.SA  -0.3239
+BRFS3.SA  -0.0972
+BRKM5.SA  -0.0476
+CMIG4.SA  -0.0833
+COGN3.SA  -0.0222
+CPFE3.SA   0.2003
+CPLE6.SA   0.0180
+CSAN3.SA  -0.0426
+CSNA3.SA  -0.0363
+CVCB3.SA  -0.0857
+CYRE3.SA   0.3347
+DXCO3.SA  -0.0035
+ECOR3.SA  -0.1126
+EGIE3.SA   0.1548
+ELET3.SA  -0.4170
+ELET6.SA   0.4861
+EMBR3.SA   0.0045
+ENEV3.SA   0.0760
+ENGI11.SA  0.0518
+EQTL3.SA  -0.0670
+EZTC3.SA  -0.1610
+FLRY3.SA   0.0854
+GGBR4.SA   0.0713
+HYPE3.SA  -0.0785
+ITSA4.SA  -0.2431
+ITUB4.SA   0.1369
+JHSF3.SA  -0.0974
+KLBN11.SA  0.0201
+LREN3.SA   0.0470
+MGLU3.SA  -0.0551
+MRFG3.SA   0.1199
+MRVE3.SA  -0.0834
+MULT3.SA  -0.2157
+PCAR3.SA  -0.0327
+PETR3.SA  -0.0203
+PETR4.SA   0.0489
+PRIO3.SA  -0.0123
+QUAL3.SA   0.0272
+RADL3.SA   0.1453
+RAIL3.SA   0.2454
+RENT3.SA   0.0143
+SANB11.SA -0.1211
+SBSP3.SA  -0.0451
+SUZB3.SA  -0.0399
+TAEE11.SA  0.2554
+TIMS3.SA  -0.0016
+TOTS3.SA  -0.0690
+UGPA3.SA   0.0770
+USIM5.SA   0.0377
+VALE3.SA   0.4567
+VIVT3.SA   0.1878
+WEGE3.SA   0.0557
+YDUQ3.SA  -0.0103</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\boldsymbol{\omega} = \dfrac{\Sigma^{-1} \boldsymbol{1}}{\boldsymbol{1}' \Sigma^{-1} \boldsymbol{1}},\]</span></p>
+</div>
+</section>
+<section id="hands-on-i-5" class="slide level2">
+<h2>Hands-On I</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># Calculamos los pesos optimos</span></span>
+<span id="cb10-2"><a href=""></a><span class="fu">library</span>(RiskPortfolios)</span>
+<span id="cb10-3"><a href=""></a>omega <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"minvol"</span>))</span>
+<span id="cb10-4"><a href=""></a><span class="fu">cbind</span>(w, omega)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                              omega
+ABEV3.SA   0.006760879  0.006760879
+ALPA4.SA   0.016006470  0.016006470
+AMER3.SA   0.023413634  0.023413634
+AZUL4.SA   0.019726839  0.019726839
+B3SA3.SA   0.008080406  0.008080406
+BBAS3.SA   0.063340382  0.063340382
+BBDC3.SA  -0.457793091 -0.457793091
+BBDC4.SA   0.579026521  0.579026521
+BBSE3.SA   0.039399864  0.039399864
+BEEF3.SA  -0.001255193 -0.001255193
+BPAC11.SA -0.042854614 -0.042854614
+BPAN4.SA   0.013434218  0.013434218
+BRAP4.SA  -0.323884664 -0.323884664
+BRFS3.SA  -0.097181251 -0.097181251
+BRKM5.SA  -0.047632442 -0.047632442
+CMIG4.SA  -0.083288349 -0.083288349
+COGN3.SA  -0.022206103 -0.022206103
+CPFE3.SA   0.200308533  0.200308533
+CPLE6.SA   0.017978591  0.017978591
+CSAN3.SA  -0.042571171 -0.042571171
+CSNA3.SA  -0.036290233 -0.036290233
+CVCB3.SA  -0.085675428 -0.085675428
+CYRE3.SA   0.334674494  0.334674494
+DXCO3.SA  -0.003456292 -0.003456292
+ECOR3.SA  -0.112573289 -0.112573289
+EGIE3.SA   0.154807659  0.154807659
+ELET3.SA  -0.416957220 -0.416957220
+ELET6.SA   0.486077361  0.486077361
+EMBR3.SA   0.004539365  0.004539365
+ENEV3.SA   0.076033083  0.076033083
+ENGI11.SA  0.051794816  0.051794816
+EQTL3.SA  -0.067006671 -0.067006671
+EZTC3.SA  -0.161017473 -0.161017473
+FLRY3.SA   0.085416134  0.085416134
+GGBR4.SA   0.071279116  0.071279116
+HYPE3.SA  -0.078487566 -0.078487566
+ITSA4.SA  -0.243109206 -0.243109206
+ITUB4.SA   0.136902676  0.136902676
+JHSF3.SA  -0.097351802 -0.097351802
+KLBN11.SA  0.020137864  0.020137864
+LREN3.SA   0.046970965  0.046970965
+MGLU3.SA  -0.055065020 -0.055065020
+MRFG3.SA   0.119850337  0.119850337
+MRVE3.SA  -0.083384582 -0.083384582
+MULT3.SA  -0.215728546 -0.215728546
+PCAR3.SA  -0.032695807 -0.032695807
+PETR3.SA  -0.020311500 -0.020311500
+PETR4.SA   0.048863015  0.048863015
+PRIO3.SA  -0.012303629 -0.012303629
+QUAL3.SA   0.027173974  0.027173974
+RADL3.SA   0.145255924  0.145255924
+RAIL3.SA   0.245351740  0.245351740
+RENT3.SA   0.014299539  0.014299539
+SANB11.SA -0.121145373 -0.121145373
+SBSP3.SA  -0.045129950 -0.045129950
+SUZB3.SA  -0.039873448 -0.039873448
+TAEE11.SA  0.255375056  0.255375056
+TIMS3.SA  -0.001585105 -0.001585105
+TOTS3.SA  -0.069031032 -0.069031032
+UGPA3.SA   0.076964370  0.076964370
+USIM5.SA   0.037724003  0.037724003
+VALE3.SA   0.456696820  0.456696820
+VIVT3.SA   0.187833318  0.187833318
+WEGE3.SA   0.055668978  0.055668978
+YDUQ3.SA  -0.010320892 -0.010320892</code></pre>
+</div>
+</div>
+</section>
+<section id="hands-on-i-6" class="slide level2">
+<h2>Hands-On I</h2>
+<ul>
+<li class="fragment">En la práctica, <span class="math inline">\(\Sigma\)</span> no es conocido y debe ser estimado con los datos (<span class="math inline">\(\hat{\Sigma}\)</span>).<br>
+</li>
+<li class="fragment">Utilizar <span class="math inline">\(\hat{\Sigma}\)</span> en lugar de <span class="math inline">\(\Sigma\)</span> implica un error de estimación.<br>
+</li>
+<li class="fragment">Esto provoca que los pesos se asignen a pocos activos, exista poca diversificación y el rendimiento fuera de la muestra sea pobre 🙍<br>
+</li>
+<li class="fragment">Para abordar este problema, se han propuesto diversas metodologías.</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Observación:</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li class="fragment">En la práctica, es muy difícil estimar <span class="math inline">\(\mu\)</span>. Por eso, los portafolios basados en riesgo (<span class="math inline">\(\Sigma\)</span>) son preferidos.<br>
+</li>
+<li class="fragment">Es común imponer la restricción de que <span class="math inline">\(\omega_i \geq 0\)</span> (<em>no-short-selling constraints</em> o restricción de no venta en corto).</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="hands-on-i-7" class="slide level2">
+<h2>Hands-On I</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>omega <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">"minvol"</span>, <span class="at">constraint =</span> <span class="st">"lo"</span>))</span>
+<span id="cb12-2"><a href=""></a><span class="fu">round</span>(omega, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.0000 0.0044 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.1112 0.0000
+[11] 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0302 0.0000 0.0000
+[21] 0.0000 0.0000 0.0000 0.0000 0.0000 0.0317 0.0000 0.0000 0.0116 0.0000
+[31] 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.1484
+[41] 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
+[51] 0.0465 0.0085 0.0000 0.0000 0.0000 0.0211 0.1478 0.0000 0.0000 0.0000
+[61] 0.0000 0.1435 0.2678 0.0272 0.0000</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="otros-portafolios-basados-en-riesgo" class="title-slide slide level1 center">
+<h1>Otros portafolios basados en riesgo</h1>
+
+</section>
+<section id="otros-portafolios-basados-en-riesgo-1" class="slide level2">
+<h2>Otros portafolios basados en riesgo</h2>
+<h3 id="pesos-iguales">Pesos iguales</h3>
+<ul>
+<li class="fragment">También llamada estrategia ingenua o <span class="math inline">\(1/N\)</span>.<br>
+</li>
+<li class="fragment">Es la estrategia más simple y no requiere cálculos difíciles ni resolver problemas de optimización.<br>
+</li>
+<li class="fragment">Para un conjunto de <span class="math inline">\(N\)</span> activos financieros, los pesos se obtienen como<br>
+<span class="math display">\[
+\omega_i = 1/N, \quad \forall i = 1, \cdots, N.
+\]</span><br>
+</li>
+<li class="fragment">A pesar de su simplicidad, diversos autores mencionan que el desempeño fuera de la muestra de esta estrategia difícilmente es superado por métodos más complejos (<a href="https://doi.org/10.1093/acprof:oso/9780199744282.003.0034">DeMiguel et al.&nbsp;2009</a>).</li>
+</ul>
+</section>
+<section id="otros-portafolios-basados-en-riesgo-2" class="slide level2">
+<h2>Otros portafolios basados en riesgo</h2>
+<p><strong>Volatilidad inversa</strong></p>
+<p>Propuesta por <a href="https://www.pm-research.com/content/iijpormgmt/38/3/56">Leote De Carvalho et al.&nbsp;(2012)</a>, esta estrategia no toma en cuenta las covarianzas, sino únicamente las varianzas. Los pesos se obtienen como:</p>
+<p><span class="math display">\[\boldsymbol{\omega} = \Big( \dfrac{1/\sigma_1}{ \displaystyle \sum_{j = 1}^N 1/\sigma_j}, \cdots, \dfrac{1/\sigma_N}{ \displaystyle \sum_{j = 1}^N 1/\sigma_j} \Big)'\]</span></p>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>En R</strong></p>
+</div>
+<div class="callout-content">
+<center>
+<code>optimalPortfolio(Sigma, control = list(type = 'invvol', constraint = 'lo'))</code>
+</center>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="otros-portafolios-basados-en-riesgo-3" class="slide level2">
+<h2>Otros portafolios basados en riesgo</h2>
+<p><strong>Diversificación máxima</strong></p>
+<p>Propuesta por <a href="https://doi.org/10.3905/JPM.2008.35.1.40">Choueifaty y Coignard (2008)</a>, el objetivo es maximizar la razón<br>
+<span class="math display">\[
+DR = \dfrac{\boldsymbol{\omega}^\top \boldsymbol{\sigma}}{\sqrt{\boldsymbol{\omega}^\top \Sigma \, \boldsymbol{\omega}}},
+\]</span><br>
+sujeto a la restricción de que <span class="math inline">\(\boldsymbol{1}^\top \boldsymbol{\omega} = 1\)</span> y <span class="math inline">\(\omega_i \geq 0\)</span>, y donde <span class="math inline">\(\boldsymbol{\sigma} = \sqrt{\text{diag}(\Sigma)}\)</span>.</p>
+<div class="fragment">
+<p>Nótese que, en el caso extremo de que el portafolio esté formado por un solo activo, <span class="math inline">\(DR = 1\)</span>, lo que implica un portafolio pobremente diversificado.</p>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>En R</strong></p>
+</div>
+<div class="callout-content">
+<center>
+<code>optimalPortfolio(Sigma, control = list(type = 'maxdiv', constraint = 'lo'))</code>
+</center>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="otros-portafolios-basados-en-riesgo-4" class="slide level2">
+<h2>Otros portafolios basados en riesgo</h2>
+<p><strong>Igual contribución al riesgo</strong></p>
+<p>Popularizada por <a href="http://www.panagora.com/assets/PanAgora-Risk-Parity-Portfolios-Efficient-Portfolios-Through-True-Diversification.pdf">Qian (2005)</a>, la idea de esta estrategia es que cada uno de los activos tenga la misma contribución marginal al riesgo (volatilidad) del portafolio, es decir, que la proporción de la contribución al riesgo de cada activo sea <span class="math inline">\(1/N\)</span>. Los activos con poco riesgo recibirán pesos mayores y los activos con mucho riesgo recibirán pesos menores.</p>
+<div class="fragment">
+<p>Los pesos se obtienen minimizando<br>
+<span class="math display">\[
+\displaystyle \sum_{i = 1}^N (\%RC_i - 1/N)^2,
+\]</span><br>
+sujeto a la restricción de que <span class="math inline">\(\boldsymbol{1}^\top \boldsymbol{\omega} = 1\)</span>, donde<br>
+<span class="math inline">\(\%RC_i = \omega_i [\Sigma \boldsymbol{\omega}]_i / \boldsymbol{\omega}^\top \Sigma \boldsymbol{\omega}\)</span><br>
+es el porcentaje de riesgo con el que el activo <span class="math inline">\(i\)</span> contribuye al riesgo total.</p>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>En R</strong></p>
+</div>
+<div class="callout-content">
+<center>
+<code>optimalPortfolio(Sigma, control = list(type = 'erc', constraint = 'lo'))</code>
+</center>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="outros-portfolios-basados-en-riesgo" class="slide level2">
+<h2>Outros portfolios basados en riesgo</h2>
+<p><strong>Máxima decorrelación</strong></p>
+<p>Proposto por <a href="https://academic.oup.com/rfs/article-abstract/25/12/3711/1594463?login=false">Christoffersen et al.&nbsp;(2012)</a>, esta estratégia pode ser vista como um caso particular do portfolio de variância mínima mas com <span class="math inline">\(\rho\)</span> (matriz de correlação) em lugar de <span class="math inline">\(\Sigma\)</span> (matriz de covariância). Assim, queremos minimizar <span class="math display">\[\boldsymbol{\omega} \rho \boldsymbol{\omega},\]</span> sujeito á restrição de que <span class="math inline">\(\boldsymbol{1}' \boldsymbol{\omega} = 1\)</span></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>No R</strong></p>
+</div>
+<div class="callout-content">
+<center>
+<code>optimalPortfolio(Sigma, control = list(type = 'maxdec', constraint = 'lo'))</code>
+</center>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="hands-on-ii" class="title-slide slide level1 center">
+<h1>Hands-On II</h1>
+
+</section>
+<section id="hands-on-ii-1" class="slide level2">
+<h2>Hands-On II</h2>
+<p>Utilizando los datos anteriores, calcularemos los pesos óptimos utilizando las estrategias vistas anteriormente.</p>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>omega_invol <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'invvol'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb14-2"><a href=""></a>omega_erc <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'erc'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb14-3"><a href=""></a>omega_maxdiv <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdiv'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb14-4"><a href=""></a>omega_maxdec <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdec'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</section>
+<section id="hands-on-ii-2" class="slide level2">
+<h2>Hands-On II</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a>pesos <span class="ot">&lt;-</span> <span class="fu">cbind</span>(omega, omega_invol, omega_erc, omega_maxdiv, omega_maxdec)</span>
+<span id="cb15-2"><a href=""></a><span class="fu">colnames</span>(pesos) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"MV"</span>,<span class="st">"IV"</span>, <span class="st">"ERC"</span>,<span class="st">"MaxDiv"</span>, <span class="st">"MaxDec"</span>)</span>
+<span id="cb15-3"><a href=""></a>pesos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    MV          IV         ERC       MaxDiv       MaxDec
+ABEV3.SA  0.000000e+00 0.022769963 0.022344181 1.352484e-16 7.099076e-18
+ALPA4.SA  4.445503e-03 0.013120455 0.014115983 2.542815e-02 2.097542e-02
+AMER3.SA  1.475349e-18 0.006738349 0.012032911 5.449133e-02 8.752230e-02
+AZUL4.SA  1.850113e-17 0.007715655 0.007659298 0.000000e+00 0.000000e+00
+B3SA3.SA  8.213835e-17 0.016160073 0.012499347 0.000000e+00 9.282757e-17
+BBAS3.SA  1.951884e-16 0.016071791 0.013882840 2.769844e-15 0.000000e+00
+BBDC3.SA  0.000000e+00 0.016895574 0.011896462 0.000000e+00 0.000000e+00
+BBDC4.SA  0.000000e+00 0.016528216 0.011804452 0.000000e+00 0.000000e+00
+BBSE3.SA  1.111933e-01 0.024603062 0.026839776 5.192129e-02 2.284026e-02
+BEEF3.SA  2.769987e-18 0.012014085 0.014018450 1.822282e-15 2.112108e-18
+BPAC11.SA 7.347572e-17 0.012960718 0.009816228 0.000000e+00 0.000000e+00
+BPAN4.SA  4.925073e-19 0.007695599 0.009770167 3.203140e-02 4.504829e-02
+BRAP4.SA  3.338350e-16 0.017186756 0.020231412 4.833818e-16 1.603095e-16
+BRFS3.SA  1.953990e-18 0.011119392 0.010762209 0.000000e+00 2.557112e-19
+BRKM5.SA  0.000000e+00 0.011449489 0.013009321 0.000000e+00 2.667878e-18
+CMIG4.SA  0.000000e+00 0.016469303 0.015521370 1.447054e-15 0.000000e+00
+COGN3.SA  7.268050e-17 0.010049809 0.007475772 0.000000e+00 0.000000e+00
+CPFE3.SA  3.022052e-02 0.023973793 0.021496245 1.970715e-15 5.319611e-18
+CPLE6.SA  5.895855e-17 0.018930692 0.017429167 1.664487e-15 2.274051e-17
+CSAN3.SA  1.533275e-17 0.016546251 0.012978340 0.000000e+00 0.000000e+00
+CSNA3.SA  0.000000e+00 0.011092936 0.011012036 0.000000e+00 2.138496e-17
+CVCB3.SA  4.106824e-17 0.009397455 0.006964266 0.000000e+00 0.000000e+00
+CYRE3.SA  0.000000e+00 0.012445967 0.009019952 0.000000e+00 0.000000e+00
+DXCO3.SA  1.443013e-17 0.013792280 0.012952849 8.529584e-16 0.000000e+00
+ECOR3.SA  0.000000e+00 0.012699125 0.009849182 0.000000e+00 0.000000e+00
+EGIE3.SA  3.170476e-02 0.026893497 0.022663894 6.673012e-16 0.000000e+00
+ELET3.SA  3.442483e-17 0.011908324 0.010830267 1.109482e-04 1.008356e-04
+ELET6.SA  0.000000e+00 0.012963221 0.011670328 3.455990e-15 2.012005e-16
+EMBR3.SA  1.157529e-02 0.012795693 0.023665371 6.282443e-02 5.313853e-02
+ENEV3.SA  0.000000e+00 0.020098752 0.017996565 1.295895e-15 2.563380e-17
+ENGI11.SA 1.459452e-16 0.021149122 0.015563978 0.000000e+00 0.000000e+00
+EQTL3.SA  9.701516e-17 0.021364678 0.015350912 0.000000e+00 0.000000e+00
+EZTC3.SA  1.277672e-16 0.012537939 0.009904118 1.185616e-15 0.000000e+00
+FLRY3.SA  0.000000e+00 0.021086082 0.019133251 3.204064e-16 4.040364e-18
+GGBR4.SA  1.782787e-16 0.015693051 0.014810444 0.000000e+00 1.076825e-16
+HYPE3.SA  5.994554e-17 0.020251344 0.017287479 5.219941e-16 0.000000e+00
+ITSA4.SA  5.256239e-16 0.020531479 0.014345241 0.000000e+00 0.000000e+00
+ITUB4.SA  5.772894e-17 0.019369052 0.014252925 0.000000e+00 0.000000e+00
+JHSF3.SA  4.277622e-17 0.010709220 0.008499998 0.000000e+00 0.000000e+00
+KLBN11.SA 1.483814e-01 0.022652662 0.028256708 0.000000e+00 2.601815e-16
+LREN3.SA  1.128836e-17 0.014081349 0.010689209 0.000000e+00 6.039562e-17
+MGLU3.SA  3.342276e-18 0.008250023 0.008715577 0.000000e+00 1.154097e-18
+MRFG3.SA  2.758720e-19 0.011045551 0.015459722 4.790320e-02 4.693771e-02
+MRVE3.SA  2.323910e-18 0.012530145 0.010297825 0.000000e+00 0.000000e+00
+MULT3.SA  0.000000e+00 0.019431998 0.014310149 0.000000e+00 1.340695e-16
+PCAR3.SA  0.000000e+00 0.006636988 0.010855822 3.933291e-02 6.414013e-02
+PETR3.SA  0.000000e+00 0.014534472 0.013637580 1.128367e-15 0.000000e+00
+PETR4.SA  0.000000e+00 0.015018852 0.013475469 7.727441e-16 1.926970e-16
+PRIO3.SA  1.327502e-18 0.009746289 0.010082212 0.000000e+00 7.503729e-17
+QUAL3.SA  6.269829e-17 0.010972740 0.011433607 2.301022e-02 2.269605e-02
+RADL3.SA  4.653543e-02 0.020833611 0.024985831 9.699217e-02 5.038681e-02
+RAIL3.SA  8.538291e-03 0.020667339 0.021101922 1.710239e-16 6.029241e-17
+RENT3.SA  0.000000e+00 0.014566381 0.010770519 0.000000e+00 0.000000e+00
+SANB11.SA 1.196025e-16 0.018478264 0.014145954 0.000000e+00 1.333909e-16
+SBSP3.SA  0.000000e+00 0.015715278 0.013549950 1.445985e-16 0.000000e+00
+SUZB3.SA  2.112739e-02 0.015506551 0.039199564 1.256911e-01 8.772716e-02
+TAEE11.SA 1.478009e-01 0.027951581 0.024646023 1.856027e-16 5.039417e-17
+TIMS3.SA  9.944333e-20 0.001407344 0.005804365 2.844725e-02 2.187684e-01
+TOTS3.SA  1.899829e-18 0.015962069 0.014392327 8.614484e-17 0.000000e+00
+UGPA3.SA  2.587944e-17 0.010904852 0.015230262 1.632577e-01 1.620312e-01
+USIM5.SA  0.000000e+00 0.012251851 0.011168348 0.000000e+00 0.000000e+00
+VALE3.SA  1.434755e-01 0.019827043 0.035034013 1.031677e-01 5.631583e-02
+VIVT3.SA  2.678450e-01 0.028047166 0.040487342 1.216167e-01 4.692985e-02
+WEGE3.SA  2.715678e-02 0.017817025 0.023341716 2.377349e-02 1.444117e-02
+YDUQ3.SA  4.668109e-17 0.009384336 0.007570999 0.000000e+00 0.000000e+00</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="portafolios-basados-en-riesgo-con-machine-learning-ml" class="title-slide slide level1 center">
+<h1>Portafolios basados en riesgo con Machine Learning (ML)</h1>
+
+</section>
+<section id="portafolios-basados-en-riesgo-con-ml" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<ul>
+<li class="fragment">Recientemente, han surgido en la literatura nuevas estrategias de asignación de portafolios basadas en <em>machine learning</em>.<br>
+</li>
+<li class="fragment">Algunas de estas estrategias utilizan algoritmos de agrupamiento jerárquico (HRP, HCAA, HERC, DHRP).<br>
+</li>
+<li class="fragment">Estas estrategias surgen para superar algunas de las limitaciones de la estrategia de Markowitz, así como para incorporar la idea de que “los sistemas complejos, como el mercado financiero, están organizados de forma jerárquica”.</li>
+</ul>
+</section>
+<section id="portafolios-basados-en-riesgo-con-ml-1" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<p><strong>Hierarchical Risk Parity (HRP)</strong></p>
+<ul>
+<li class="fragment">Proposta por <a href="https://www.pm-research.com/content/iijpormgmt/42/4/59">Lopez de Prado (2016)</a></li>
+<li class="fragment">Surge como uma alternativa para evitar os problemas observados da optimização de Markowitz.</li>
+<li class="fragment">A ideia básica do algoritmo é transformar a matriz de covariância em matriz de distâncias, aplicar um método de agrupamento hierárquico, fazer bissecções e calcular os pesos através da estratégia de volatilidade inversa.</li>
+</ul>
+</section>
+<section id="portafolios-basados-en-riesgo-con-ml-2" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<p><strong>Hierarchical Risk Parity (HRP)</strong></p>
+<ul>
+<li class="fragment">La matriz de distancias utilizada en el método de agrupamiento jerárquico se denota por <span class="math inline">\(\tilde{D}\)</span>, cuyos elementos <span class="math inline">\({\tilde{d}_{ij}}\)</span> se obtienen como<br>
+<span class="math display">\[\tilde{d}_{ij} = \sqrt{\displaystyle \sum_{k = 1}^N (d_{ki} - d_{kj})^2},\]</span><br>
+donde <span class="math inline">\(N\)</span> es el número de activos y <span class="math inline">\(d_{ij} = \sqrt{0.5 \times (1 - \rho_{ij})}\)</span>, con <span class="math inline">\(\rho_{ij}\)</span> siendo la correlación entre los activos <span class="math inline">\(i\)</span> y <span class="math inline">\(j\)</span>.</li>
+</ul>
+</section>
+<section id="portafolios-basados-en-riesgo-con-ml-3" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<p><strong>Hierarchical Risk Parity (HRP)</strong></p>
+
+<img data-src="PortfolioAllocation_UNMSM_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section id="portafolios-basados-en-riesgo-con-ml-4" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<p><strong>Hierarchical Risk Parity (HRP)</strong></p>
+<ul>
+<li class="fragment">Inicialice todos los pesos en <span class="math inline">\(\omega_i = 1\)</span>.</li>
+<li class="fragment">Dentro de cada grupo, el vector de pesos previos del grupo <span class="math inline">\(k\)</span> (<span class="math inline">\(k = 1, 2\)</span>) se obtiene mediante el método de volatilidad inversa,<br>
+<span class="math display">\[\boldsymbol{\omega}_{aux}^{(k)} = \dfrac{1}{\mathrm{Trace}(\mathrm{Diag}(\Sigma^{(k)})^{-1})} \times \mathrm{Diag}(\Sigma^{(k)})^{-1},\]</span><br>
+donde <span class="math inline">\(\Sigma^{(k)}\)</span> es la matriz de covarianza de los activos en el grupo <span class="math inline">\(k\)</span>.</li>
+<li class="fragment">Con los pesos obtenidos, calculamos la varianza de cada grupo como<br>
+<span class="math inline">\(V^{(k)} = \boldsymbol{\omega}_{aux}^{(k)} \Sigma^{(k)} \boldsymbol{\omega}_{aux}^{(k) \prime},\)</span><br>
+y, finalmente, <span class="math inline">\(\alpha = 1 - \frac{V^{(1)}}{V^{(1)} + V^{(2)}}\)</span>, que es un factor de ponderación que actualizará el peso de cada activo.</li>
+<li class="fragment">Los pesos finales se actualizan a<br>
+<span class="math inline">\(\boldsymbol{\omega}^{(1)} = \alpha \boldsymbol{\omega}^{(1)}\)</span><br>
+y<br>
+<span class="math inline">\(\boldsymbol{\omega}^{(2)} = (1 - \alpha) \boldsymbol{\omega}^{(2)}\)</span>.</li>
+<li class="fragment">El proceso se repite hasta que cada grupo tenga solamente un activo.</li>
+</ul>
+</section>
+<section id="portafolios-basados-en-riesgo-con-ml-5" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<p><strong>Hierarchical Risk Parity (HRP)</strong></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="PortfolioAllocation_UNMSM_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<center>
+<img data-src="imagens/hrp_step_by_step.png">
+</center>
+</div></div>
+<div class="fragment">
+
+</div>
+<aside><div>
+Al comienzo, cada activo tiene peso igual a 1.
+</div></aside></section>
+<section id="portafolios-basados-en-riesgo-con-ml-6" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<p><strong>Hierarchical Risk Parity (HRP)</strong></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>No R</strong></p>
+</div>
+<div class="callout-content">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="fu">library</span>(HierPortfolios)</span>
+<span id="cb17-2"><a href=""></a>omega_hrp <span class="ot">&lt;-</span> <span class="fu">HRP_Portfolio</span>(Sigma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="portafolios-basados-en-riesgo-con-ml-7" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<p><strong>Hierarchical Risk Parity (HRP)</strong></p>
+<ul>
+<li class="fragment">Una de las críticas a HRP es que el método no utiliza la clusterización, sino apenas el orden.</li>
+<li class="fragment">Algunas modificaciones del algoritmo fueron apareciendo en la literatura:
+<ul>
+<li class="fragment">Hierarchical Clustering-Based Asset Allocation (HCAA) <a href="https://www.pm-research.com/content/iijpormgmt/44/2/89">(Raffinot, 2017)</a></li>
+<li class="fragment">Hierarchical Equal Risk Contribution (HERC) <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3237540">(Raffinot, 2018)</a></li>
+<li class="fragment">A Constrained Hierarchical Risk Parity Algorithm with Cluster-based Capital Allocation (DHRP) <a href="https://www.fmx.nfkatzke.com/Projects/HRP.pdf">(Pfitzingera and Katzke, 2019)</a></li>
+<li class="fragment">Etc.</li>
+</ul></li>
+</ul>
+</section>
+<section id="portafolios-basados-en-riesgo-con-ml-8" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<p><strong>A Constrained Hierarchical Risk Parity Algorithm with Cluster-based Capital Allocation (DHRP)</strong></p>
+<ul>
+<li class="fragment">Con el objetivo de incorporar una mayor parte de la información extraída a partir de la agrupación, así como incluir algunas prácticas habituales del mercado financiero, Pfitzinger et al.&nbsp;(2019) proponen tres modificaciones a la propuesta de Lopez de Prado (2016):
+<ul>
+<li class="fragment">La primera modificación consiste en utilizar un algoritmo divisivo en lugar de un algoritmo aglomerativo, como sugiere Lopez de Prado (2016).</li>
+<li class="fragment">Permite la inclusión de restricciones en los pesos, y</li>
+<li class="fragment">Utilizando un parámetro <span class="math inline">\(\tau\)</span>, es posible aprovechar toda la estructura jerárquica obtenida en la agrupación (<span class="math inline">\(\tau = 1\)</span>), parte de ella (<span class="math inline">\(\tau \in (0, 1)\)</span>) o solamente el ordenamiento (<span class="math inline">\(\tau = 0\)</span>).</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>No R</strong></p>
+</div>
+<div class="callout-content">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>omega_dhrp <span class="ot">&lt;-</span> <span class="fu">DHRP_Portfolio</span>(Sigma, <span class="at">tau =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="portafolios-basados-en-riesgo-con-ml-9" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<p><strong>Hierarchical Clustering-Based Asset Allocation (HCAA)</strong></p>
+<ul>
+<li class="fragment">HRP y DHRP no tienen en cuenta el número de clústeres que se van a formar.<br>
+</li>
+<li class="fragment">HCAA considera este aspecto y, tras seleccionar el número de grupos a formar, los pesos se calculan entre los grupos y dentro de los grupos.<br>
+</li>
+<li class="fragment">La idea es distribuir el capital total a invertir de forma igual entre los clústeres jerárquicamente (de esta manera, los activos correlacionados que forman un clúster reciben el mismo peso total que un activo no correlacionado, logrando diversificación).<br>
+</li>
+<li class="fragment">Dentro de cada clúster, los pesos se calculan mediante la estrategia de pesos iguales.</li>
+</ul>
+</section>
+<section id="portafolios-basados-en-riesgo-con-ml-10" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<h3 id="hierarchical-clustering-based-asset-allocation-hcaa">Hierarchical Clustering-Based Asset Allocation (HCAA)</h3>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="imagens/hacc.png"></p>
+<figcaption>Exemplo: 3 clusters</figcaption>
+</figure>
+</div>
+</center>
+</section>
+<section id="portafolios-basados-en-riesgo-con-ml-11" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<p><strong>Hierarchical Clustering-Based Asset Allocation (HCAA)</strong></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>No R</strong></p>
+</div>
+<div class="callout-content">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a>omega_hacc <span class="ot">&lt;-</span> <span class="fu">HCAA_Portfolio</span>(Sigma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of clusters: 4"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="portafolios-basados-en-riesgo-con-ml-12" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<p><strong>Hierarchical Equal Risk Contribution (HERC)</strong></p>
+<ul>
+<li class="fragment">HRP realiza las bisecciones considerando únicamente el orden del dendrograma y no el dendrograma <em>per se</em>.<br>
+</li>
+<li class="fragment">Similar a HACC, pero en lugar de calcular los pesos de forma que el total a invertir se divida equitativamente entre clústeres, calcula los pesos de manera que la contribución al riesgo sea la misma dentro de cada clúster.<br>
+</li>
+<li class="fragment">Dentro de cada clúster, se utiliza el método de volatilidad inversa.</li>
+</ul>
+</section>
+<section id="portafolios-basados-en-riesgo-con-ml-13" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<p><strong>Hierarchical Equal Risk Contribution (HERC)</strong></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>No R</strong></p>
+</div>
+<div class="callout-content">
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>omega_herc <span class="ot">&lt;-</span> <span class="fu">HERC_Portfolio</span>(Sigma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="portafolios-basados-en-riesgo-con-ml-14" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<p><strong>Hierarchical Equal Risk Contribution (HERC)</strong></p>
+<ul>
+<li class="fragment">Realizar un agrupamiento jerárquico, Raffinot (2018) sugiere utilizar el enlace <em>ward</em>, pero podría emplearse cualquier otro tipo de enlace.<br>
+</li>
+<li class="fragment">Seleccionar el número de clústeres a utilizar según algún criterio, Raffinot (2018) sugiere emplear el índice Gap.<br>
+</li>
+<li class="fragment">Dentro de cada clúster, calcular los pesos (iniciales) mediante el método <em>Naive Risk Parity</em>.<br>
+</li>
+<li class="fragment">Utilizando los pesos obtenidos en el paso anterior, calcular el riesgo de cada clúster (y en cada jerarquía).<br>
+</li>
+<li class="fragment">En cada jerarquía, calcular los pesos como <span class="math inline">\(\omega^{(1)} = \dfrac{RC_2}{RC_1 + RC_2}\)</span> y <span class="math inline">\(\omega^{(2)} = \dfrac{RC_1}{RC_1 + RC_2}\)</span>, donde RC es el riesgo en el clúster. Por último, los pesos iniciales se actualizarán utilizando los diversos <span class="math inline">\(\omega^{(1)}\)</span> y <span class="math inline">\(\omega^{(2)}\)</span> obtenidos.</li>
+</ul>
+</section>
+<section id="portafolios-basados-en-riesgo-con-ml-15" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<p><strong>Hierarchical Equal Risk Contribution (HERC)</strong></p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a>omega_herc <span class="ot">&lt;-</span> <span class="fu">HERC_Portfolio</span>(Sigma, <span class="at">graph =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="PortfolioAllocation_UNMSM_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section id="portafolios-basados-en-riesgo-con-ml-16" class="slide level2">
+<h2>Portafolios basados en riesgo con ML</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a>pesos <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">cbind</span>(omega, omega_invol, omega_maxdec, omega_maxdiv, omega_erc, omega_hrp, omega_dhrp, omega_hacc, omega_herc), <span class="dv">3</span>)</span>
+<span id="cb23-2"><a href=""></a><span class="fu">colnames</span>(pesos) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"MV"</span>, <span class="st">"IV"</span>, <span class="st">"MaxDec"</span>, <span class="st">"MaxDiv"</span>, <span class="st">"ERC"</span>, <span class="st">"HRP"</span>, <span class="st">"DHRP"</span>, <span class="st">"HACC"</span>, <span class="st">"HERC"</span>)</span>
+<span id="cb23-3"><a href=""></a>pesos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>             MV    IV MaxDec MaxDiv   ERC   HRP  DHRP  HACC  HERC
+ABEV3.SA  0.000 0.023  0.000  0.000 0.022 0.036 0.035 0.016 0.026
+ALPA4.SA  0.004 0.013  0.021  0.025 0.014 0.009 0.012 0.011 0.019
+AMER3.SA  0.000 0.007  0.088  0.054 0.012 0.005 0.015 0.050 0.025
+AZUL4.SA  0.000 0.008  0.000  0.000 0.008 0.004 0.003 0.011 0.007
+B3SA3.SA  0.000 0.016  0.000  0.000 0.012 0.010 0.001 0.012 0.007
+BBAS3.SA  0.000 0.016  0.000  0.000 0.014 0.011 0.012 0.016 0.013
+BBDC3.SA  0.000 0.017  0.000  0.000 0.012 0.009 0.001 0.012 0.008
+BBDC4.SA  0.000 0.017  0.000  0.000 0.012 0.008 0.001 0.012 0.008
+BBSE3.SA  0.111 0.025  0.023  0.052 0.027 0.042 0.041 0.016 0.031
+BEEF3.SA  0.000 0.012  0.000  0.000 0.014 0.005 0.013 0.011 0.016
+BPAC11.SA 0.000 0.013  0.000  0.000 0.010 0.006 0.000 0.012 0.005
+BPAN4.SA  0.000 0.008  0.045  0.032 0.010 0.006 0.012 0.011 0.007
+BRAP4.SA  0.000 0.017  0.000  0.000 0.020 0.018 0.022 0.011 0.032
+BRFS3.SA  0.000 0.011  0.000  0.000 0.011 0.006 0.012 0.011 0.014
+BRKM5.SA  0.000 0.011  0.000  0.000 0.013 0.013 0.014 0.011 0.014
+CMIG4.SA  0.000 0.016  0.000  0.000 0.016 0.011 0.009 0.016 0.014
+COGN3.SA  0.000 0.010  0.000  0.000 0.007 0.004 0.000 0.012 0.003
+CPFE3.SA  0.030 0.024  0.000  0.000 0.021 0.026 0.012 0.016 0.029
+CPLE6.SA  0.000 0.019  0.000  0.000 0.017 0.016 0.007 0.016 0.018
+CSAN3.SA  0.000 0.017  0.000  0.000 0.013 0.013 0.006 0.016 0.014
+CSNA3.SA  0.000 0.011  0.000  0.000 0.011 0.007 0.011 0.011 0.014
+CVCB3.SA  0.000 0.009  0.000  0.000 0.007 0.003 0.001 0.012 0.002
+CYRE3.SA  0.000 0.012  0.000  0.000 0.009 0.005 0.000 0.012 0.004
+DXCO3.SA  0.000 0.014  0.000  0.000 0.013 0.010 0.010 0.011 0.021
+ECOR3.SA  0.000 0.013  0.000  0.000 0.010 0.006 0.001 0.012 0.005
+EGIE3.SA  0.032 0.027  0.000  0.000 0.023 0.035 0.015 0.016 0.037
+ELET3.SA  0.000 0.012  0.000  0.000 0.011 0.010 0.003 0.016 0.007
+ELET6.SA  0.000 0.013  0.000  0.000 0.012 0.009 0.004 0.016 0.009
+EMBR3.SA  0.012 0.013  0.053  0.063 0.024 0.026 0.060 0.050 0.091
+ENEV3.SA  0.000 0.020  0.000  0.000 0.018 0.019 0.017 0.016 0.020
+ENGI11.SA 0.000 0.021  0.000  0.000 0.016 0.014 0.002 0.012 0.013
+EQTL3.SA  0.000 0.021  0.000  0.000 0.015 0.014 0.002 0.012 0.013
+EZTC3.SA  0.000 0.013  0.000  0.000 0.010 0.005 0.000 0.012 0.004
+FLRY3.SA  0.000 0.021  0.000  0.000 0.019 0.021 0.009 0.011 0.049
+GGBR4.SA  0.000 0.016  0.000  0.000 0.015 0.013 0.022 0.011 0.027
+HYPE3.SA  0.000 0.020  0.000  0.000 0.017 0.019 0.007 0.012 0.012
+ITSA4.SA  0.000 0.021  0.000  0.000 0.014 0.013 0.001 0.012 0.012
+ITUB4.SA  0.000 0.019  0.000  0.000 0.014 0.011 0.001 0.012 0.011
+JHSF3.SA  0.000 0.011  0.000  0.000 0.008 0.004 0.000 0.012 0.003
+KLBN11.SA 0.148 0.023  0.000  0.000 0.028 0.049 0.104 0.050 0.286
+LREN3.SA  0.000 0.014  0.000  0.000 0.011 0.007 0.003 0.012 0.006
+MGLU3.SA  0.000 0.008  0.000  0.000 0.009 0.005 0.006 0.011 0.007
+MRFG3.SA  0.000 0.011  0.047  0.048 0.015 0.004 0.011 0.011 0.013
+MRVE3.SA  0.000 0.013  0.000  0.000 0.010 0.006 0.000 0.012 0.004
+MULT3.SA  0.000 0.019  0.000  0.000 0.014 0.014 0.003 0.012 0.011
+PCAR3.SA  0.000 0.007  0.064  0.039 0.011 0.007 0.006 0.011 0.005
+PETR3.SA  0.000 0.015  0.000  0.000 0.014 0.007 0.005 0.016 0.011
+PETR4.SA  0.000 0.015  0.000  0.000 0.013 0.008 0.005 0.016 0.011
+PRIO3.SA  0.000 0.010  0.000  0.000 0.010 0.006 0.022 0.011 0.010
+QUAL3.SA  0.000 0.011  0.023  0.023 0.011 0.007 0.004 0.011 0.013
+RADL3.SA  0.047 0.021  0.050  0.097 0.025 0.044 0.040 0.011 0.048
+RAIL3.SA  0.009 0.021  0.000  0.000 0.021 0.031 0.050 0.016 0.022
+RENT3.SA  0.000 0.015  0.000  0.000 0.011 0.008 0.000 0.012 0.006
+SANB11.SA 0.000 0.018  0.000  0.000 0.014 0.012 0.004 0.012 0.010
+SBSP3.SA  0.000 0.016  0.000  0.000 0.014 0.011 0.008 0.016 0.013
+SUZB3.SA  0.021 0.016  0.088  0.126 0.039 0.025 0.049 0.050 0.134
+TAEE11.SA 0.148 0.028  0.000  0.000 0.025 0.038 0.039 0.016 0.040
+TIMS3.SA  0.000 0.001  0.219  0.028 0.006 0.000 0.001 0.050 0.001
+TOTS3.SA  0.000 0.016  0.000  0.000 0.014 0.012 0.005 0.011 0.028
+UGPA3.SA  0.000 0.011  0.162  0.163 0.015 0.014 0.013 0.011 0.013
+USIM5.SA  0.000 0.012  0.000  0.000 0.011 0.009 0.011 0.011 0.017
+VALE3.SA  0.143 0.020  0.056  0.103 0.035 0.022 0.029 0.011 0.043
+VIVT3.SA  0.268 0.028  0.047  0.122 0.040 0.118 0.158 0.011 0.086
+WEGE3.SA  0.027 0.018  0.014  0.024 0.023 0.030 0.029 0.011 0.035
+YDUQ3.SA  0.000 0.009  0.000  0.000 0.008 0.003 0.000 0.012 0.002</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="evaluando-portafolios" class="title-slide slide level1 center">
+<h1>Evaluando Portafolios</h1>
+
+</section>
+<section id="medidas-de-desempeño" class="slide level2">
+<h2>Medidas de desempeño</h2>
+<p>Sea <span class="math inline">\(k\)</span> el tamaño del período fuera de muestra (consideraresmos datos mensuales)</p>
+<ul>
+<li class="fragment">Average (AV): <span class="math display">\[AV = 12\frac{\displaystyle\sum_{i = 1}^{k}R_{i}}{p},\]</span> donde <span class="math inline">\(R_{i}\)</span> son los retornos fuera de muestra. AV calcula el promedio anualizado, el cual se multiplica por 12. <strong>Cuanto mayor AV, mejor el desempeño de la cartera</strong>.</li>
+<li class="fragment">Standard Deviation (SD): <span class="math display">\[SD = \sqrt{12}\hat{\sigma}_{p},\]</span> donde <span class="math inline">\(\hat{\sigma}_{p}\)</span> es la desviación estándar anualizada de los retornos fuera de muestra. <strong>Cuanto menor SD, menor es el riesgo y mejor es el desempeño de la cartera</strong>.</li>
+</ul>
+</section>
+<section id="medidas-de-desempeño-1" class="slide level2">
+<h2>Medidas de desempeño</h2>
+<ul>
+<li class="fragment">Sharpe Ratio (SR): <span class="math display">\[SR = \frac{\bar{R}_{p} - \bar{R}_{f}}{\bar{\sigma}_{p-f}},\]</span> donde <span class="math inline">\(R_{f}\)</span> es la tasa libre de riesgo, <span class="math inline">\(\bar{R}_{p}\)</span> es el promedio de los retornos fuera de muestra y <span class="math inline">\(\bar{\sigma}_{p-f}\)</span> es la desviación estándar estimada del exceso de retorno. <strong>Cuanto mayor SR, mejor el desempeño de la cartera</strong>.</li>
+<li class="fragment">Adjusted Sharpe Ratio (ASR): <span class="math display">\[SR = SR\left(1 + \left(\frac{\mu_{3}}{6}\right)SR - \left(\frac{\mu_{4}-3}{24}\right)SR^2\right),\]</span> donde <span class="math inline">\(\mu_{3}\)</span> es la asimetría, <span class="math inline">\(\mu_{4}\)</span> es la curtosis y <span class="math inline">\(SR\)</span> es el Sharpe Ratio definido anteriormente. Esta métrica ajusta el Sharpe Ratio incluyendo el tercer y cuarto momento muestral. <strong>Cuanto mayor ASR, mejor el desempeño de la cartera</strong>.</li>
+</ul>
+</section>
+<section id="medidas-de-desempeño-2" class="slide level2">
+<h2>Medidas de desempeño</h2>
+<ul>
+<li class="fragment">Sortino Ratio (SO): <span class="math display">\[SO = \frac{\bar{R}_{p}}{\sqrt{\frac{\sum_{i=1}^{K}min(0,R_{p,i} - MAR)^2}{K}}},\]</span> donde MAR es el retorno mínimo aceptado, el cual es igual a la tasa libre de riesgo mensual. <strong>Cuanto mayor SO, mejor el desempeño del portafolio</strong>.</li>
+</ul>
+</section></section>
+<section>
+<section id="aplicación" class="title-slide slide level1 center">
+<h1>Aplicación</h1>
+
+</section>
+<section id="aplicación-1" class="slide level2">
+<h2>Aplicación</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">library</span>(yfR)</span>
+<span id="cb25-2"><a href=""></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb25-3"><a href=""></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb25-4"><a href=""></a><span class="fu">library</span>(RiskPortfolios)</span>
+<span id="cb25-5"><a href=""></a><span class="fu">library</span>(HierPortfolios)</span>
+<span id="cb25-6"><a href=""></a></span>
+<span id="cb25-7"><a href=""></a></span>
+<span id="cb25-8"><a href=""></a>acoes <span class="ot">&lt;-</span> <span class="fu">yf_index_composition</span>(<span class="st">"IBOV"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in dplyr::rename(., ticker = Ticker, company = Company, industry = Industry) : 
+  Can't rename columns that don't exist.
+✖ Column `Ticker` doesn't exist.</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>ibov_tickers <span class="ot">&lt;-</span> <span class="fu">paste0</span>(acoes<span class="sc">$</span>ticker, <span class="st">".SA"</span>)</span>
+<span id="cb27-2"><a href=""></a></span>
+<span id="cb27-3"><a href=""></a>retornos <span class="ot">&lt;-</span> <span class="fu">yf_get</span>(<span class="at">tickers =</span> ibov_tickers, </span>
+<span id="cb27-4"><a href=""></a>                 <span class="at">first_date =</span> <span class="st">"2010-01-01"</span>,</span>
+<span id="cb27-5"><a href=""></a>                 <span class="at">last_date  =</span> <span class="st">"2025-06-30"</span>, </span>
+<span id="cb27-6"><a href=""></a>                 <span class="at">freq_data =</span> <span class="st">"monthly"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb27-7"><a href=""></a>  <span class="fu">select</span>(ref_date, ticker, ret_adjusted_prices) <span class="sc">|&gt;</span> </span>
+<span id="cb27-8"><a href=""></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> ref_date, <span class="at">values_from =</span> ret_adjusted_prices, <span class="at">names_from =</span> ticker) <span class="sc">|&gt;</span> </span>
+<span id="cb27-9"><a href=""></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb27-10"><a href=""></a>retornos[, <span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> retornos[, <span class="sc">-</span><span class="dv">1</span>]<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb27-11"><a href=""></a><span class="fu">glimpse</span>(retornos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 146
+Columns: 62
+$ ref_date  &lt;date&gt; 2013-05-02, 2013-06-03, 2013-07-01, 2013-08-01, 2013-09-02,…
+$ ABEV3.SA  &lt;dbl&gt; 0.3056168, 1.0115736, 3.7524136, -2.8956906, 2.1994234, -1.4…
+$ ALPA4.SA  &lt;dbl&gt; 13.7846801, -4.1860458, -2.8432371, -10.9171146, 14.8029227,…
+$ AMER3.SA  &lt;dbl&gt; -13.1533087, -33.4001995, 59.6385516, 28.4905626, 4.0381733,…
+$ B3SA3.SA  &lt;dbl&gt; 1.3353951, -12.0628146, -0.1622583, -3.3900006, 5.5413459, 1…
+$ BBAS3.SA  &lt;dbl&gt; 0.9717961, -12.0879138, 2.7651635, 5.4268182, 13.6212622, 15…
+$ BBDC3.SA  &lt;dbl&gt; 3.0777593, -13.7108681, 1.0421151, 2.3265905, 9.2100969, 4.1…
+$ BBDC4.SA  &lt;dbl&gt; 4.253785, -15.585169, -3.582840, 0.289580, 9.519015, 6.09504…
+$ BBSE3.SA  &lt;dbl&gt; 8.328420, -4.710329, 4.772727, 6.763616, 13.357592, 12.19625…
+$ BEEF3.SA  &lt;dbl&gt; -7.4561264, -1.6113874, -12.3314046, 16.7032983, -4.8964333,…
+$ BPAN4.SA  &lt;dbl&gt; -6.916422, -17.182659, 13.271025, -13.201328, -1.140670, 1.5…
+$ BRAP4.SA  &lt;dbl&gt; -13.3883125, -8.8395309, 11.3873830, 10.1339283, -0.2837217,…
+$ BRFS3.SA  &lt;dbl&gt; 1.56663092, -2.90465211, 1.12834948, 13.45678699, -2.0674725…
+$ BRKM5.SA  &lt;dbl&gt; -4.3503317, -1.3165647, 6.6100661, 0.3412937, 0.6235933, 11.…
+$ CMIG4.SA  &lt;dbl&gt; 2.2411527, -8.4986429, 5.2999715, -9.9231547, 2.3950012, 3.7…
+$ COGN3.SA  &lt;dbl&gt; 11.6607691, -0.8373428, 5.5537329, -0.8642014, -1.9296559, 4…
+$ CPFE3.SA  &lt;dbl&gt; 4.07975347, -7.75055272, 1.93143491, -5.68101498, -0.7168624…
+$ CPLE6.SA  &lt;dbl&gt; -7.8903001, -14.6453666, 0.5755222, 2.2532402, 10.0034636, -…
+$ CSAN3.SA  &lt;dbl&gt; -0.63026735, -8.45664886, -1.82446857, -0.18059887, 2.692314…
+$ CSNA3.SA  &lt;dbl&gt; -16.434891, -9.833581, 10.234907, 32.312441, 11.294090, 29.4…
+$ CYRE3.SA  &lt;dbl&gt; -4.4920007, -9.4117404, 5.7792244, -2.4554962, 5.4122033, 0.…
+$ DXCO3.SA  &lt;dbl&gt; -3.642383, -11.821334, 2.999816, -6.738118, 8.292290, 5.9135…
+$ ECOR3.SA  &lt;dbl&gt; -0.5578940, -7.6106032, 2.4904061, -4.6728980, -0.9150331, 0…
+$ EGIE3.SA  &lt;dbl&gt; 3.6465865, -6.1705145, 4.9898619, -2.9983617, 7.2934990, 4.0…
+$ ELET3.SA  &lt;dbl&gt; 12.780505, -18.197869, -1.079912, 8.733639, 25.501965, 13.60…
+$ ELET6.SA  &lt;dbl&gt; 14.570997, -13.465344, -4.805484, 9.615374, 14.802651, 12.51…
+$ EMBR3.SA  &lt;dbl&gt; 11.4131822, 4.7134135, -4.9951073, 1.4432852, -9.2505574, -8…
+$ ENEV3.SA  &lt;dbl&gt; 10.081107, -20.526314, -5.752292, -29.064750, 6.490872, -14.…
+$ ENGI11.SA &lt;dbl&gt; 6.1543192, -7.4672549, 1.9966570, 0.9500764, -8.1632449, 8.4…
+$ EQTL3.SA  &lt;dbl&gt; -0.7626084, -11.7787555, 0.7567878, 7.5643813, 4.7381355, 10…
+$ EZTC3.SA  &lt;dbl&gt; 8.3272793, -8.6941794, 1.0661503, -3.0556615, 14.1088306, 8.…
+$ FLRY3.SA  &lt;dbl&gt; 4.8167693, -9.0909027, 6.5933923, -3.4449147, -0.5420055, -5…
+$ GGBR4.SA  &lt;dbl&gt; -16.3298575, -3.7547732, 16.1624423, 18.0784800, -3.2069808,…
+$ GOAU4.SA  &lt;dbl&gt; -18.39929612, -2.73720619, 14.00876931, 16.78334136, -0.0472…
+$ HYPE3.SA  &lt;dbl&gt; 7.6836941, -15.4025648, 13.8621044, -1.3931055, 9.8280148, 9…
+$ ITSA4.SA  &lt;dbl&gt; 4.5962132, -12.5205388, 1.9488618, 0.8599676, 7.7191175, 7.2…
+$ ITUB4.SA  &lt;dbl&gt; 5.8642657, -11.1695218, 1.3398785, 0.6446509, 8.4324742, 10.…
+$ JHSF3.SA  &lt;dbl&gt; -5.4925463, -8.5546031, -8.8709507, 15.9292370, -2.2900814, …
+$ LREN3.SA  &lt;dbl&gt; -2.7415026, -14.0792491, -5.4772886, -4.9834518, 10.8849349,…
+$ MGLU3.SA  &lt;dbl&gt; 13.8268514, -33.9877239, -5.0185929, 12.3287785, 31.5330857,…
+$ MRFG3.SA  &lt;dbl&gt; 10.6881625, -2.1164171, -2.5675584, -15.3952845, -0.8196796,…
+$ MRVE3.SA  &lt;dbl&gt; -20.1779658, -1.3636448, -0.3071923, 28.6594493, 9.1018157, …
+$ MULT3.SA  &lt;dbl&gt; -1.7546483, -7.3276623, -2.4975420, -4.8054312, 10.5548756, …
+$ PCAR3.SA  &lt;dbl&gt; 1.076900, 0.000000, 0.000000, 1.076874, 0.000000, 1.076896, …
+$ PETR3.SA  &lt;dbl&gt; -1.1464296, -21.9821065, 3.9189227, 4.3563141, 5.6697842, 15…
+$ PETR4.SA  &lt;dbl&gt; -0.1493007, -19.3918325, 0.7420910, 4.2971660, 8.0635654, 10…
+$ PRIO3.SA  &lt;dbl&gt; -46.651269, 12.121214, -34.749033, -11.834318, -22.147654, -…
+$ QUAL3.SA  &lt;dbl&gt; -2.9306122, -10.6991389, -0.9490091, 10.7784350, 9.4594715, …
+$ RADL3.SA  &lt;dbl&gt; 5.8498750, -6.2498347, -10.2325311, -12.5389014, 8.6919015, …
+$ RENT3.SA  &lt;dbl&gt; -3.44587845, -3.56604731, 2.95971261, -3.10767135, 4.5729341…
+$ SANB11.SA &lt;dbl&gt; 4.6939009, -11.4283284, 1.1895991, 0.2204392, 10.4820754, 3.…
+$ SBSP3.SA  &lt;dbl&gt; -4.6808484, -15.7366129, 3.3112663, -16.2820549, 10.4645110,…
+$ SUZB3.SA  &lt;dbl&gt; 0.4344108, 0.0000000, 0.0000000, 0.0000000, 0.0000000, 0.000…
+$ TAEE11.SA &lt;dbl&gt; 5.5645274, -7.8879208, 6.8319861, -3.6355415, -3.1818400, 2.…
+$ TIMS3.SA  &lt;dbl&gt; -4.12250928, -0.85995964, 5.08055699, 10.84905300, 9.3616933…
+$ TOTS3.SA  &lt;dbl&gt; -0.1322666, -7.3112651, 2.8865378, 4.0717553, 0.4286171, 1.3…
+$ UGPA3.SA  &lt;dbl&gt; 0.6743211, -1.3953476, 2.1697964, -2.4180052, 4.7327020, 9.2…
+$ USIM5.SA  &lt;dbl&gt; -9.6446782, -15.9550487, 16.4438293, 19.2881902, 1.2512091, …
+$ VALE3.SA  &lt;dbl&gt; -11.1986096, -5.0574510, 7.2985075, 10.7027711, 0.3494311, 6…
+$ VIVT3.SA  &lt;dbl&gt; -1.498979, -2.173853, -2.533342, -6.520765, 5.129618, 3.3087…
+$ WEGE3.SA  &lt;dbl&gt; 8.0121763, -0.3461561, 0.1347254, 0.0000000, -3.3027354, 7.7…
+$ YDUQ3.SA  &lt;dbl&gt; 5.30808759, -3.84385567, 10.05622696, -0.11351016, -2.159073…</code></pre>
+</div>
+</div>
+</section>
+<section id="aplicación-2" class="slide level2">
+<h2>Aplicación</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a>n_obs <span class="ot">&lt;-</span> <span class="fu">nrow</span>(retornos)</span>
+<span id="cb29-2"><a href=""></a>ins <span class="ot">&lt;-</span> <span class="dv">120</span>  </span>
+<span id="cb29-3"><a href=""></a>oos <span class="ot">&lt;-</span> n_obs <span class="sc">-</span> ins</span>
+<span id="cb29-4"><a href=""></a>Rp <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, <span class="at">ncol =</span> <span class="dv">10</span>, <span class="at">nrow =</span> oos)</span>
+<span id="cb29-5"><a href=""></a></span>
+<span id="cb29-6"><a href=""></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>oos) {</span>
+<span id="cb29-7"><a href=""></a>  r <span class="ot">&lt;-</span> retornos[i<span class="sc">:</span>(i <span class="sc">+</span> ins  <span class="sc">-</span> <span class="dv">1</span>), <span class="sc">-</span><span class="dv">1</span>]  </span>
+<span id="cb29-8"><a href=""></a>  Sigma <span class="ot">&lt;-</span> <span class="fu">cov</span>(r)</span>
+<span id="cb29-9"><a href=""></a>  w_mv <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'minvol'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb29-10"><a href=""></a>  w_iv <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'invvol'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb29-11"><a href=""></a>  w_erc <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'erc'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb29-12"><a href=""></a>  w_md <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdiv'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb29-13"><a href=""></a>  w_mdec <span class="ot">&lt;-</span> <span class="fu">optimalPortfolio</span>(Sigma, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">'maxdec'</span>, <span class="at">constraint =</span> <span class="st">'lo'</span>))</span>
+<span id="cb29-14"><a href=""></a>  w_hrp <span class="ot">&lt;-</span> <span class="fu">HRP_Portfolio</span>(Sigma)<span class="sc">$</span>w</span>
+<span id="cb29-15"><a href=""></a>  w_dhrp <span class="ot">&lt;-</span> <span class="fu">DHRP_Portfolio</span>(Sigma)<span class="sc">$</span>w</span>
+<span id="cb29-16"><a href=""></a>  w_hcaa <span class="ot">&lt;-</span> <span class="fu">HCAA_Portfolio</span>(Sigma)<span class="sc">$</span>w</span>
+<span id="cb29-17"><a href=""></a>  w_herc <span class="ot">&lt;-</span> <span class="fu">HERC_Portfolio</span>(Sigma)<span class="sc">$</span>w</span>
+<span id="cb29-18"><a href=""></a>  Rp[i, ] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">mean</span>(<span class="fu">as.numeric</span>(retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>])),</span>
+<span id="cb29-19"><a href=""></a>               <span class="fu">sum</span>(w_mv <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb29-20"><a href=""></a>               <span class="fu">sum</span>(w_iv <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb29-21"><a href=""></a>               <span class="fu">sum</span>(w_erc <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb29-22"><a href=""></a>               <span class="fu">sum</span>(w_md <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb29-23"><a href=""></a>               <span class="fu">sum</span>(w_mdec <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb29-24"><a href=""></a>               <span class="fu">sum</span>(w_hrp <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb29-25"><a href=""></a>               <span class="fu">sum</span>(w_dhrp <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb29-26"><a href=""></a>               <span class="fu">sum</span>(w_hcaa <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]),</span>
+<span id="cb29-27"><a href=""></a>               <span class="fu">sum</span>(w_herc <span class="sc">*</span> retornos[i <span class="sc">+</span> ins, <span class="sc">-</span><span class="dv">1</span>]))</span>
+<span id="cb29-28"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 7"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 5"
+[1] "Number of clusters: 7"
+[1] "Number of clusters: 7"
+[1] "Number of clusters: 8"
+[1] "Number of clusters: 6"
+[1] "Number of clusters: 6"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="fu">colnames</span>(Rp) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"EW"</span>, <span class="st">"Min Var"</span>, <span class="st">"Inv Vol"</span>, <span class="st">"ERC"</span>, <span class="st">"Max Div"</span>, <span class="st">"Max Dec"</span>, <span class="st">"HRP"</span>, <span class="st">"DHRP"</span>, <span class="st">"HCAA"</span>, <span class="st">"HERC"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="aplicación-3" class="slide level2">
+<h2>Aplicación</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a>medidas <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb32-2"><a href=""></a>  <span class="co"># Annualized Average</span></span>
+<span id="cb32-3"><a href=""></a>  AV <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb32-4"><a href=""></a>  <span class="co"># Annualized SD</span></span>
+<span id="cb32-5"><a href=""></a>  SD <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)</span>
+<span id="cb32-6"><a href=""></a>  <span class="co"># Information (or Sharpe) Ratio</span></span>
+<span id="cb32-7"><a href=""></a>  SR <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)<span class="sc">/</span><span class="fu">sd</span>(x)</span>
+<span id="cb32-8"><a href=""></a>  <span class="co"># Adjusted Sharpe Ratio</span></span>
+<span id="cb32-9"><a href=""></a>  ASR <span class="ot">&lt;-</span> SR<span class="sc">*</span>(<span class="dv">1</span> <span class="sc">+</span> (moments<span class="sc">::</span><span class="fu">skewness</span>(x)<span class="sc">/</span><span class="dv">6</span>)<span class="sc">*</span>SR <span class="sc">-</span> ((moments<span class="sc">::</span><span class="fu">kurtosis</span>(x) <span class="sc">-</span> <span class="dv">3</span>)<span class="sc">/</span><span class="dv">24</span>)<span class="sc">*</span>SR<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb32-10"><a href=""></a>  <span class="co"># Sortino Ratio</span></span>
+<span id="cb32-11"><a href=""></a>  SO <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">mean</span>(<span class="fu">ifelse</span>(x <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="dv">0</span>, x<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb32-12"><a href=""></a>  output <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span><span class="sc">*</span>AV, <span class="fu">sqrt</span>(<span class="dv">12</span>)<span class="sc">*</span>SD, <span class="fu">sqrt</span>(<span class="dv">12</span>)<span class="sc">*</span>SR, <span class="fu">sqrt</span>(<span class="dv">12</span>)<span class="sc">*</span>ASR, <span class="fu">sqrt</span>(<span class="dv">12</span>)<span class="sc">*</span>SO)</span>
+<span id="cb32-13"><a href=""></a>  <span class="fu">return</span>(output)</span>
+<span id="cb32-14"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="aplicación-4" class="slide level2">
+<h2>Aplicación</h2>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a>oos_table <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">apply</span>(Rp, <span class="dv">2</span>, medidas))</span>
+<span id="cb33-2"><a href=""></a><span class="fu">colnames</span>(oos_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"AV"</span>,<span class="st">"SD"</span>, <span class="st">"SR"</span>, <span class="st">"ASR"</span>, <span class="st">"SO"</span>)</span>
+<span id="cb33-3"><a href=""></a>oos_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>              AV       SD        SR       ASR        SO
+EW      14.45465 21.23668 0.6806455 0.6888845 0.8044590
+Min Var 16.08747 14.58714 1.1028533 1.1245302 1.2067818
+Inv Vol 13.84745 20.10744 0.6886730 0.6986633 0.8069384
+ERC     14.61644 19.21489 0.7606830 0.7713146 0.8882399
+Max Div 20.93918 17.84473 1.1734097 1.1999324 1.2845236
+Max Dec 34.74333 28.19992 1.2320366 1.3356879 1.2475420
+HRP     13.61572 17.58033 0.7744857 0.7860333 0.9005227
+DHRP    14.25424 16.47468 0.8652210 0.8763874 1.0011150
+HCAA    12.63425 18.50603 0.6827098 0.6954696 0.7964021
+HERC    23.19181 30.46670 0.7612184 0.7768012 0.8745532</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="temas-de-investigación" class="title-slide slide level1 center">
+<h1>Temas de investigación</h1>
+
+</section>
+<section id="temas-de-investigación-1" class="slide level2">
+<h2>Temas de investigación</h2>
+<ul>
+<li class="fragment">Costos de transacción / Optimización</li>
+<li class="fragment">Otros estimadores de la matriz de covarianza</li>
+<li class="fragment">Varianza (covarianza) condicional</li>
+<li class="fragment">Datos de alta dimensión</li>
+<li class="fragment">Datos de alta frecuencia</li>
+<li class="fragment">Metodologías híbridas</li>
+</ul>
+<div class="fragment">
+<center>
+<a href="https://www.ime.unicamp.br/carefs/">¿Ya conocen el CAREFS?</a>?]{style=“color:red;”}
+</center>
+
+</div>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="imagens/imecc.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>Carlos Trucíos (IMECC/UNICAMP) | FCM - UNMSM 2025 | <a href="https://ctruciosm.github.io/">ctruciosm.github.io</a></p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="PortfolioAllocation_UNMSM_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="PortfolioAllocation_UNMSM_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'print',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
