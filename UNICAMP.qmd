@@ -1,0 +1,160 @@
+---
+title: "UNICAMP: "
+subtitle: "caminos y oportunidades"
+author: "Prof. Carlos Trucíos </br> ctrucios@unicamp.br"
+Email: "ctrucios@unicamp.br"
+institute: "Instituto de Matemática, Estatística e Computação Científica (IMECC), </br> Universidade Estadual de Campinas (UNICAMP)."
+knitr:
+    opts_chunk: 
+      fig.align: 'center'
+execute:
+    message: false
+    warning: false
+format:
+    revealjs:
+        slide-number: true
+        show-slide-number: print
+        self-contained: false
+        chalkboard: true
+        width: 1600
+        height: 900
+        theme: [default, styles.scss]
+        incremental: true
+        code-fold: true
+        logo: "imagens/imecc.png" 
+        footer: "Carlos Trucíos (IMECC/UNICAMP)  |      FCM - UNMSM 2025      |   [ctruciosm.github.io](https://ctruciosm.github.io/)"
+        highlight-style: "a11y"
+        title-slide-attributes:
+            data-background-image: "imagens/unicamp.png"
+            data-background-size: 20%
+            data-background-position: 99% 5%
+            data-background-opacity: "1"
+toc: false
+toc-title: "Contenido"
+toc-depth: 1
+---
+
+# UNICAMP
+## La universidad
+
+::: {#fig-unicamp layout-ncol=2}
+
+![Dia](imagens/unicamp_dia.png){#fig-unicamp}
+
+![Noche](imagens/unicamp_noite.png){#fig-unicamp}
+
+UNICAMP
+:::
+
+
+## Reconocimiento internacional
+
+
+::: {#fig-unicamp layout-ncol=3}
+
+![Shanhai](imagens/shanghai.png){#fig-unicamp}
+
+![CWUR](imagens/cwur.png){#fig-unicamp}
+
+
+![QS](imagens/ranking_2025.png){#fig-unicamp}
+
+Rankings
+:::
+
+
+
+## Pósgrado en Estadística
+
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+![IMECC](imagens/foto_imecc.png){#fig-unicamp}
+
+:::
+
+::: {.column width="60%"}
+#### Lineas de investigación
+
+1.  Bioestatística e Biologia Computacional
+2.  Estatística Computacional e Ciência de Dados
+3.  Probabilidade e Processos Estocásticos
+4.  Séries Temporais, Econometria e Finanças
+5.  Inferência e Modelos Estatísticos.
+
+
+
+
+:::
+
+
+::::
+
+
+. . . 
+
+
+::: {.callout-note}
+### Más
+Seminários, proyectos temáticos, intercambios, grupos de estudio, congresos, publicaciones, prêmios, FAPESP.
+:::
+
+
+
+## El laboratório de séries de tiempo
+
+<center>
+![CAREFS: Laboratório de Séries Temnporais, Econometria e Finanças](imagens/CAREFS.png){width=60%}
+</center>
+
+<center>
+![/www.ime.unicamp.br/carefs/](www.ime.unicamp.br/carefs/)?]{style="color:red;"}
+</center>
+
+
+## Becas
+
+
+| Nivel       | CAPES     | CNPq        | FAPESP |
+|-------------|:----------|------------:|:------:|
+| Maestria    | 2100      | 2100 + RT   |  3270 / 3450 + RT  |
+| Doctorado   | 3100      | 3100 + RT   |  5790 / 7140 + RT  |
+
+. . . 
+
+::: {.callout-note}
+### Importante
+Es exigido dedicación exclusiva a los estudos/investigación
+:::
+
+
+## FAPESP
+
+
+- Flujo continuo
+- Puedes aplicar antes de ser aceptado en el programa (pero para firmar el contrato, necesitas ya ser aceptado)
+- Si eres extranjeto, te pagan pasaje de ida y vuelta + 1 auxilio instalación (valor de un mes de beca)
+- Excelencia: destinados a alumnos com **excelente** historial academico.
+- Esta beca solo funciona en universidade dentro del estado de São Paulo
+
+
+## Soy PhD y ahora?
+
+
+- Posdoctorado FAPESP: 12.570 + RT
+- Profesor Universidad Federal: 13.288,85 (inicio de carrera)
+- Professor USP/UNICAMP/UNESP: 16.353,01 (inicio de carrera)
+- Trabajar fuera del mundo academico: ???
+
+
+
+## Aeropuerto
+
+<center>
+![Del aeropueto hasta la UNICAMP](imagens/blog_unicamp.png){width=30%}
+</center>
+
+
+Publiqué un blog contando cómo ir desde el aeropuerto de Guarulhos a la UNICAMP: [https://ctruciosm.github.io/posts/2024-01-28-como-chegar-do-aeroporto-de-guarulhos-at-a-unicamp/](https://ctruciosm.github.io/posts/2024-01-28-como-chegar-do-aeroporto-de-guarulhos-at-a-unicamp/)
