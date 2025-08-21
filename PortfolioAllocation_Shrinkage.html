@@ -244,7 +244,7 @@ Prof.&nbsp;Carlos Trucíos <br> ctrucios@unicamp.br
 </div>
 <div class="callout-content">
 <ul>
-<li class="fragment">The estimatior with no structure: 🏄‍♂️ the sample covariance matrix.</li>
+<li class="fragment">The estimatior with no structure: 🏄 the sample covariance matrix.</li>
 <li class="fragment">The Shrinkage constant: 💻 data-driven.</li>
 <li class="fragment">The estimator with a lot of structure: 🤷
 <ul>
@@ -354,6 +354,135 @@ Shrinkage estimator for the covariance matrix can be divided into two groups:
 </section>
 <section id="linear-shrinkage-estimators-3" class="slide level2">
 <h2>Linear Shrinkage Estimators</h2>
+<p><strong>Proof</strong></p>
+<div class="fragment">
+<p>Queremos minimizar <span class="math display">\[\mathbb{E} || \hat{\Sigma} - \Sigma ||^2,\]</span> em que <span class="math inline">\(\hat{\Sigma} = \delta \nu I + (1 - \delta)S\)</span>.</p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\mathbb{E} || \hat{\Sigma} - \Sigma ||^2\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[= \mathbb{E} || \delta \nu I + (1 - \delta)S - \Sigma ||^2\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[= \mathbb{E} || \delta \times (\nu I - \Sigma) + (1 - \delta) \times(S - \Sigma) ||^2\]</span></p>
+</div>
+</section>
+<section id="linear-shrinkage-estimators-4" class="slide level2">
+<h2>Linear Shrinkage Estimators</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Recuerde</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math inline">\(|| \alpha A + \beta B ||^2 = \alpha^2 ||A||^2 + \beta^2 ||B||^2 + 2\alpha \beta &lt;A, B&gt;\)</span></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><span class="math display">\[= \mathbb{E} || \delta \times (\nu I - \Sigma) + (1 - \delta) \times(S - \Sigma) ||^2\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[= \mathbb{E} \Big[ \delta^2 ||\nu I - \Sigma||^2 + (1 - \delta)^2  || S - \Sigma ||^2 + 2 \delta (1 - \delta) &lt;\nu I - \Sigma, S - \Sigma &gt;) \Big]\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[=  \delta^2 ||\nu I - \Sigma||^2 + (1 - \delta)^2  \mathbb{E} || S - \Sigma ||^2 + \underbrace{2 \delta (1 - \delta) &lt;\nu I - \Sigma, \underbrace{\mathbb{E} (S - \Sigma)}_{0} &gt;)}_{0} \Big]\]</span></p>
+</div>
+</section>
+<section id="linear-shrinkage-estimators-5" class="slide level2">
+<h2>Linear Shrinkage Estimators</h2>
+<p><span class="math display">\[=  \delta^2 ||\nu I - \Sigma||^2 + (1 - \delta)^2  \mathbb{E} || S - \Sigma ||^2\]</span></p>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Observação</strong></p>
+</div>
+<div class="callout-content">
+<p>Encontrar o <span class="math inline">\(\nu\)</span> óptimo, não depende de <span class="math inline">\(\delta\)</span>. Assim, minimizando <span class="math inline">\(||\nu I - \Sigma||^2 =\nu^2 ||I||^2 + ||\Sigma||^2 - 2\nu &lt;I, \Sigma&gt;.\)</span>:</p>
+<p>Derivando w.r.t <span class="math inline">\(\nu\)</span> e igualando a zero:</p>
+<p><span class="math display">\[2 \nu \underbrace{||I||^2}_{1} = 2 &lt;I, \Sigma&gt;\]</span></p>
+<p><span class="math display">\[\nu = &lt;I, \Sigma&gt; = \mu\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Subtituyendo <span class="math inline">\(\nu\)</span> por su valor optimo:</p>
+</div>
+</section>
+<section id="linear-shrinkage-estimators-6" class="slide level2">
+<h2>Linear Shrinkage Estimators</h2>
+<p><span class="math display">\[=  \delta^2 ||\mu I - \Sigma||^2 + (1 - \delta)^2  \mathbb{E} || S - \Sigma ||^2\]</span></p>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Lema</strong></p>
+</div>
+<div class="callout-content">
+<p>Sejan <span class="math inline">\(\mu = &lt;I, \Sigma&gt;\)</span>, <span class="math inline">\(\alpha^2 = ||\Sigma - \nu I||^2\)</span>, <span class="math inline">\(\beta^2 = \mathbb{E} ||S - \Sigma||^2\)</span> e <span class="math inline">\(\rho^2 = \mathbb{E} || S - \mu I ||^2\)</span>. Então:</p>
+<p><span class="math display">\[\alpha^2 + \beta^2 = \rho^2.\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><span class="math display">\[=  \delta^2 \alpha^2 + (1 - \delta)^2  \beta^2\]</span></p>
+</div>
+</section>
+<section id="linear-shrinkage-estimators-7" class="slide level2">
+<h2>Linear Shrinkage Estimators</h2>
+<p><span class="math display">\[=  \delta^2 \alpha^2 + (1 - \delta)^2  \beta^2\]</span></p>
+<p>Derivando w.r.t <span class="math inline">\(\delta\)</span></p>
+<p><span class="math display">\[2 \delta \alpha^2 - 2 (1 - \delta) \beta^2.\]</span></p>
+<div class="fragment">
+<p>Igualando a zero:</p>
+<p><span class="math inline">\(\delta \alpha^2 = \beta^2 - \delta \beta^2 \quad \rightarrow \quad \delta = \dfrac{\beta^2}{\alpha^2 + \beta^2} = \dfrac{\beta^2}{\rho^2}\)</span></p>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[\delta = \dfrac{\beta^2}{\alpha^2 + \beta^2} = \dfrac{\mathbb{E} ||S - \Sigma||^2}{\mathbb{E} || S - \mu I ||^2} \quad e \quad 1-\delta = \dfrac{\alpha^2}{\alpha^2 + \beta^2} = \dfrac{||\Sigma - \nu I||^2}{\mathbb{E} || S - \mu I ||^2}\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="linear-shrinkage-estimators-8" class="slide level2">
+<h2>Linear Shrinkage Estimators</h2>
+<ul>
+<li class="fragment">Optimal <span class="math inline">\(\delta\)</span> is an oracle!</li>
+<li class="fragment">We need consisten estimators</li>
+</ul>
+<div class="fragment">
+<p>Can be proved that</p>
+<ul>
+<li class="fragment"><span class="math inline">\(m^2 - \mu^2 \rightarrow_{L2} 0\)</span></li>
+<li class="fragment"><span class="math inline">\(d^2 - \rho^2 \rightarrow_{L2} 0\)</span></li>
+<li class="fragment"><span class="math inline">\(b^2 - \beta^2 \rightarrow_{L2} 0\)</span></li>
+<li class="fragment"><span class="math inline">\(a^2 - \alpha^2 \rightarrow_{L2} 0\)</span></li>
+<li class="fragment"><span class="math inline">\(\hat{S} = \dfrac{b^2}{d^2} m I + \dfrac{a^2}{d^2}S\)</span></li>
+</ul>
+<p>Em que <span class="math inline">\(m = &lt;S, I&gt;\)</span>, <span class="math inline">\(d^2 = ||S - mI||^2\)</span>, <span class="math inline">\(\bar{b}^2 = \dfrac{1}{n^2} \sum_{k = 1}^n ||x_k x_k' - S||^2\)</span>, <span class="math inline">\(b^2 = min(\bar{b}^2, d^2)\)</span> and <span class="math inline">\(a^2 = d^2 - b^2\)</span>.</p>
+</div>
 </section></section>
 <section>
 <section id="non-linear-shrinkage-estimators-1" class="title-slide slide level1 center">
@@ -384,7 +513,7 @@ Shrinkage estimator for the covariance matrix can be divided into two groups:
 </div>
 <ul>
 <li class="fragment">The number of shrinkage intensities increases on the order of <span class="math inline">\(N^2\)</span> 😭</li>
-<li class="fragment">Allowing different shrinkage intensities no longer guarantees that the final estimator is positive semi-definite 😭</li>
+<li class="fragment">Allowing different shrinkage intensities no longer guarantees that the final estimator is positive semi-definite 🙍</li>
 <li class="fragment">So… that way doesn’t really looks like the right way, does it?</li>
 </ul>
 </section>

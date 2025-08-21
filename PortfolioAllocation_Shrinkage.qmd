@@ -208,6 +208,142 @@ $$\hat{\Sigma} = (1 - \delta)S + \delta F$$
 ## Linear Shrinkage Estimators
 
 
+**Proof**
+
+
+. . .
+
+Queremos minimizar $$\mathbb{E} || \hat{\Sigma} - \Sigma ||^2,$$ em que $\hat{\Sigma} = \delta \nu I + (1 - \delta)S$.
+
+. . . 
+
+$$\mathbb{E} || \hat{\Sigma} - \Sigma ||^2$$
+
+. . . 
+
+$$= \mathbb{E} || \delta \nu I + (1 - \delta)S - \Sigma ||^2$$
+
+. . . 
+
+
+$$= \mathbb{E} || \delta \times (\nu I - \Sigma) + (1 - \delta) \times(S - \Sigma) ||^2$$
+
+## Linear Shrinkage Estimators
+
+
+::: {.callout-note}
+### Recuerde
+$|| \alpha A + \beta B ||^2 = \alpha^2 ||A||^2 + \beta^2 ||B||^2 + 2\alpha \beta <A, B>$
+:::
+
+
+. . . 
+
+$$= \mathbb{E} || \delta \times (\nu I - \Sigma) + (1 - \delta) \times(S - \Sigma) ||^2$$
+
+. . . 
+
+$$= \mathbb{E} \Big[ \delta^2 ||\nu I - \Sigma||^2 + (1 - \delta)^2  || S - \Sigma ||^2 + 2 \delta (1 - \delta) <\nu I - \Sigma, S - \Sigma >) \Big]$$
+
+. . .
+
+
+$$=  \delta^2 ||\nu I - \Sigma||^2 + (1 - \delta)^2  \mathbb{E} || S - \Sigma ||^2 + \underbrace{2 \delta (1 - \delta) <\nu I - \Sigma, \underbrace{\mathbb{E} (S - \Sigma)}_{0} >)}_{0} \Big]$$
+
+## Linear Shrinkage Estimators
+
+$$=  \delta^2 ||\nu I - \Sigma||^2 + (1 - \delta)^2  \mathbb{E} || S - \Sigma ||^2$$
+
+
+. . . 
+
+
+::: {.callout-note}
+### Observação
+
+Encontrar o $\nu$ óptimo, não depende de $\delta$. Assim, minimizando $||\nu I - \Sigma||^2 =\nu^2 ||I||^2 + ||\Sigma||^2 - 2\nu <I, \Sigma>.$:
+
+
+Derivando w.r.t $\nu$ e igualando a zero: 
+
+$$2 \nu \underbrace{||I||^2}_{1} = 2 <I, \Sigma>$$
+
+$$\nu = <I, \Sigma> = \mu$$
+:::
+
+. . . 
+
+Subtituyendo $\nu$ por su valor optimo:
+
+
+## Linear Shrinkage Estimators
+
+$$=  \delta^2 ||\mu I - \Sigma||^2 + (1 - \delta)^2  \mathbb{E} || S - \Sigma ||^2$$
+
+. . . 
+
+
+::: {.callout-note}
+### Lema
+
+Sejan $\mu = <I, \Sigma>$, $\alpha^2 = ||\Sigma - \nu I||^2$, $\beta^2 = \mathbb{E} ||S - \Sigma||^2$ e $\rho^2 = \mathbb{E} || S - \mu I ||^2$. Então: 
+
+$$\alpha^2 + \beta^2 = \rho^2.$$
+:::
+
+
+. . . 
+
+$$=  \delta^2 \alpha^2 + (1 - \delta)^2  \beta^2$$
+
+
+
+## Linear Shrinkage Estimators
+
+$$=  \delta^2 \alpha^2 + (1 - \delta)^2  \beta^2$$
+
+
+Derivando w.r.t $\delta$
+
+$$2 \delta \alpha^2 - 2 (1 - \delta) \beta^2.$$
+
+. . . 
+
+Igualando a zero:
+
+
+$\delta \alpha^2 = \beta^2 - \delta \beta^2 \quad \rightarrow \quad \delta = \dfrac{\beta^2}{\alpha^2 + \beta^2} = \dfrac{\beta^2}{\rho^2}$ 
+
+
+. . . 
+
+
+::: {.callout-note}
+
+$$\delta = \dfrac{\beta^2}{\alpha^2 + \beta^2} = \dfrac{\mathbb{E} ||S - \Sigma||^2}{\mathbb{E} || S - \mu I ||^2} \quad e \quad 1-\delta = \dfrac{\alpha^2}{\alpha^2 + \beta^2} = \dfrac{||\Sigma - \nu I||^2}{\mathbb{E} || S - \mu I ||^2}$$
+:::
+
+
+
+## Linear Shrinkage Estimators
+
+- Optimal $\delta$ is an oracle!
+- We need consisten estimators
+
+. . . 
+
+Can be proved that
+
+- $m^2 - \mu^2 \rightarrow_{L2} 0$
+- $d^2 - \rho^2 \rightarrow_{L2} 0$
+- $b^2 - \beta^2 \rightarrow_{L2} 0$
+- $a^2 - \alpha^2 \rightarrow_{L2} 0$
+- $\hat{S} = \dfrac{b^2}{d^2} m I + \dfrac{a^2}{d^2}S$
+
+Em que $m = <S, I>$, $d^2 = ||S - mI||^2$, $\bar{b}^2 = \dfrac{1}{n^2} \sum_{k = 1}^n ||x_k x_k' - S||^2$, $b^2 = min(\bar{b}^2, d^2)$ and $a^2 = d^2 - b^2$.
+
+
+
 
 
 # Non-Linear Shrinkage Estimators
